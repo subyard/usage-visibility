@@ -7,7 +7,7 @@
   <meta name="description" content="Usage Visibility — understand resource use and bottlenecks in agent workflows. Real examples from Subyard sessions on October 5–6, 2026.">
   <title>Usage Visibility — where the work goes</title>
   <link rel="stylesheet" href="style.css">
-  <script src="evidence.js" defer></script>
+  <script src="data.js" defer></script>
   <script src="presentation.js" defer></script>
 </head>
 <body>
@@ -38,7 +38,7 @@
           <p class="visual-caption">Illustrative workflow. Bar lengths do not represent measured shares or durations.</p>
         </div>
       </div>
-      <div class="slide-bottom"><span>Subyard — our first reference environment</span><span>Real sessions · Oct 5–6, 2026 · UTC</span></div>
+      <div class="slide-bottom"><span>Resource visibility for ordinary agent workflows</span><span>Real sessions · Oct 5–6, 2026 · UTC</span></div>
     </section>
 
     <section class="slide" id="slide-2" aria-labelledby="title-2">
@@ -50,39 +50,39 @@
         <div class="problem-item"><span class="large-index">02</span><h3>Checks on repeat</h3><p>Tests run again. We need to see whether a change, failure or new requirement justified the next run.</p></div>
         <div class="problem-item"><span class="large-index">03</span><h3>Spend without an outcome</h3><p>High resource use alone says little about success. The task may still be unfinished.</p></div>
       </div>
-      <div class="takeaway"><span>Our question</span><strong>What useful outcome did we pay for?</strong></div>
+      <div class="takeaway"><span>Oct 5–6 snapshot</span><strong><span data-stat="cohort-tokens">—</span> tokens across <span data-stat="cohort-sessions">—</span> sessions · <span data-stat="cohort-wait-tokens">—</span> in wait-invoking responses</strong></div>
     </section>
 
     <section class="slide evidence-slide" id="slide-3" aria-labelledby="title-3">
-      <div class="eyebrow">02 / session evidence · Subyard-2</div>
+      <div class="eyebrow">02 / session evidence · largest agent family</div>
       <div class="evidence-grid">
         <div>
-          <h2 id="title-3">The lead agent<br><em>returns to wait.</em></h2>
-          <p class="lead">In one session, nearly half of the lead agent's recorded tokens belong to model responses that invoke waiting.</p>
-          <p class="body-note">The same session delegates tests to <code>full_tests_luna</code>. The lead also waits for other agents, so these tokens cannot all be attributed to tests.</p>
+          <h2 id="title-3">One workflow.<br><em>Over a billion tokens.</em></h2>
+          <p class="lead"><span data-stat="family-wait-share">—</span>% of this family's recorded tokens belong to responses invoking wait tools. That is <span data-stat="family-wait-tokens">—</span> tokens around waiting.</p>
+          <p class="body-note">This covers the lead and its connected subagents in the selected workspace. It includes agent waits, sleep calls and continuations of running tools; it does not attribute every wait to one test agent.</p>
         </div>
         <div class="stat-panel">
-          <div class="big-stat"><span data-stat="wait-share">—</span><span class="stat-unit">%</span></div>
-          <p class="stat-label">of lead-agent tokens are in responses invoking <code>wait_agent</code> / <code>sleep</code></p>
+          <div class="big-stat"><span data-stat="family-billions">—</span><span class="stat-unit">B</span></div>
+          <p class="stat-label">tokens in one lead-agent family</p>
           <div class="share-bar" role="img" id="wait-bar" aria-label="Share of tokens associated with waiting"><span id="wait-fill"></span></div>
           <div class="bar-legend"><span><i class="legend-dot lime"></i> Waiting</span><span><i class="legend-dot muted"></i> Other steps</span></div>
-          <dl class="stat-pair"><div><dt>wait_agent calls</dt><dd data-stat="wait-calls">—</dd></div><div><dt>Wait-associated tokens</dt><dd data-stat="wait-tokens">—</dd></div></dl>
+          <dl class="stat-pair"><div><dt>Wait-associated tokens</dt><dd data-stat="family-wait-tokens">—</dd></div><div><dt>Connected sessions</dt><dd data-stat="family-sessions">—</dd></div></dl>
         </div>
       </div>
-      <div class="evidence-footnote"><span class="verified-label">From Codex logs</span><p>Input + output. 98.7% of input in these responses is cached. Token share is not cost share. The wait itself does not generate model tokens.</p><button class="source-link" data-open-sources>Methodology ↗</button></div>
+      <div class="evidence-footnote"><span class="verified-label">From Codex logs</span><p>Input + output, including cached input. Most input is cached. Token share is not cost share. The wait itself does not generate model tokens.</p><button class="source-link" data-open-sources>Methodology ↗</button></div>
     </section>
 
     <section class="slide" id="slide-4" aria-labelledby="title-4">
-      <div class="eyebrow">03 / session evidence · test observer</div>
-      <h2 id="title-4">One test observer.<br><em>Hundreds of polls.</em></h2>
-      <p class="lead">Even a smaller agent can accumulate substantial usage by frequently checking a process and reporting back to the lead.</p>
+      <div class="eyebrow">03 / session evidence · remote-check agent</div>
+      <h2 id="title-4">One check agent.<br><em>300 million tokens.</em></h2>
+      <p class="lead"><span data-stat="observer-observation-share">—</span>% of this agent's <span data-stat="observer-total-tokens">—</span> tokens belong to responses that only invoke waits, process polls or coordination messages.</p>
       <div class="observer-grid">
-        <div class="observer-metric"><span class="metric-number" data-stat="observer-polls">—</span><h3>process polls</h3><p><code>write_stdin</code> calls in the test session. Polling a running process is a separate action from launching tests.</p></div>
-        <div class="observer-metric"><span class="metric-number" data-stat="observer-messages">—</span><h3>messages to the lead</h3><p><code>send_message</code> calls. Separate model steps add context and consume tokens.</p></div>
-        <div class="observer-metric"><span class="metric-number" data-stat="test-runs">—</span><h3>package test runs</h3><p><code data-stat="test-label">—</code> in one session. Test filters differed; the need for each run requires review.</p></div>
+        <div class="observer-metric"><span class="metric-number" data-stat="observer-observation-tokens">—</span><h3>tokens around observation</h3><p>Waits, direct polls and coordination messages. These responses may include useful analysis; the total is a signal to investigate.</p></div>
+        <div class="observer-metric"><span class="metric-number" data-stat="observer-tool-waits">—</span><h3>tool-wait continuations</h3><p><code>wait</code> resumes a yielded execution. Another <span data-stat="observer-polls">—</span> responses each invoke one direct process poll.</p></div>
+        <div class="observer-metric"><span class="metric-number" data-stat="observer-messages">—</span><h3>coordination messages</h3><p><code>send_message</code> replies account for <span data-stat="observer-status-tokens">—</span> tokens. Compare their frequency with new information and outcomes.</p></div>
       </div>
       <div class="takeaway"><span>Patterns to detect</span><strong>Frequent polling · redundant updates · reruns without a new reason</strong></div>
-      <div class="small-source">Oct 5–6 · <code>full_tests_luna</code> · <button class="source-link" data-open-sources>Data and limitations ↗</button></div>
+      <div class="small-source">Oct 6 · remote-check agent · <button class="source-link" data-open-sources>Data and limitations ↗</button></div>
     </section>
 
     <section class="slide paper-slide" id="slide-5" aria-labelledby="title-5">
@@ -111,14 +111,14 @@
     </section>
 
     <section class="slide" id="slide-7" aria-labelledby="title-7">
-      <div class="eyebrow">06 / project direction</div>
-      <h2 id="title-7">Start with Subyard.<br><em>Reach other workflows.</em></h2>
+      <div class="eyebrow">06 / designed for ordinary agent workflows</div>
+      <h2 id="title-7">Everyday agent tools.<br><em>A shared view of resources.</em></h2>
       <div class="roadmap-grid">
-        <article class="roadmap-item"><span class="phase-tag">Available in Subyard</span><h3>Logs and usage</h3><p>AI Observer collects Codex and Claude Code sessions. <code>yard usage</code> forwards requests to ccusage.</p><div class="phase-footer">A foundation for investigation</div></article>
-        <article class="roadmap-item"><span class="phase-tag planned">Project goal</span><h3>Explain resource use</h3><p>Connect steps to tokens, processes, time and outcomes. Show where the bottleneck formed.</p><div class="phase-footer">Validate with real sessions</div></article>
-        <article class="roadmap-item"><span class="phase-tag planned">Project goal</span><h3>Portable collection</h3><p>Standard devcontainers and other environments: Codex, Claude, OpenCode. Common metrics through adapters.</p><div class="phase-footer">Without requiring Subyard</div></article>
+        <article class="roadmap-item"><span class="phase-tag planned">Project goal</span><h3>Common agent tools</h3><p>Codex, Claude Code and OpenCode. Evaluate adapters to their logs, usage records and tool events.</p><div class="phase-footer">Follow the tools people already use</div></article>
+        <article class="roadmap-item"><span class="phase-tag planned">Project goal</span><h3>Ordinary environments</h3><p>Local repositories, terminal sessions and standard devcontainers. Collect resource use where the work happens.</p><div class="phase-footer">Work without Subyard</div></article>
+        <article class="roadmap-item"><span class="phase-tag planned">Project goal</span><h3>Comparable metrics</h3><p>Connect steps to tokens, compute, time and outcomes. Make bottlenecks understandable across workflows.</p><div class="phase-footer">Simple, clear and reliable</div></article>
       </div>
-      <p class="body-note">Subyard's current AI Observer file integration does not collect OpenCode or pi. Universal collection is a project requirement, not a shipped feature.</p>
+      <p class="body-note">This is a general solution for most ordinary agent workflows. Subyard is one reference environment and a source of examples; the intended solution works independently of it.</p>
     </section>
 
     <section class="slide closing-slide" id="slide-8" aria-labelledby="title-8">
@@ -138,21 +138,21 @@
 
   <dialog id="sources-dialog" aria-labelledby="sources-title">
     <div class="dialog-heading"><h2 id="sources-title">Sources and calculations</h2><button id="close-sources" aria-label="Close sources">×</button></div>
-    <p>Session snapshot for October 5–6, 2026, UTC. These are two related Codex logs from Yard: a case study, not statistics for all tasks.</p>
-    <h3>01. Lead-agent waiting</h3>
-    <p>Session <code data-stat="parent-id"></code>, model <code data-stat="parent-model"></code>. The test observer is child session <code data-stat="observer-id"></code>, model <code data-stat="observer-model"></code>.</p>
-    <p>Sum <code>token_usage_record.payload.usage</code> by unique <code>response_id</code>. Numerator: responses whose tool calls are exclusively <code>wait_agent</code> or <code>sleep</code>. Denominator: all lead-agent responses in the period. Count input + output; do not add cached input or reasoning output a second time.</p>
-    <dl class="source-totals"><div><dt>Wait-associated tokens</dt><dd data-stat="wait-tokens-exact"></dd></div><div><dt>All lead-agent tokens</dt><dd data-stat="parent-tokens-exact"></dd></div><div><dt>Cached input in wait responses</dt><dd data-stat="wait-cache-share"></dd></div></dl>
-    <p>Wait-invoking responses may include reasoning. Waits relate to several agents. The share associates model responses with tool calls; it does not establish that all these tokens could be saved.</p>
-    <p>During the test observer's lifetime (Oct 5, 20:02–Oct 6, 11:37 UTC), the lead spent about 5 hours 17 minutes in 466 <code>wait_agent</code> calls, or 33.9% of that interval. The <code>sleep</code> call is excluded from this duration. This is a time share, not a token share. The tool does not identify which agent was being awaited.</p>
-    <h3>02. Test observation and reruns</h3>
-    <p>In <code>full_tests_luna</code>, count <code>send_message</code> calls and <code>tools.write_stdin</code> calls inside execution. Count test launches only from literal <code>cmd</code> arguments to <code>tools.exec_command</code>, excluding quoted mentions and file reads.</p>
-    <p id="test-method"></p>
-    <p>Run counts do not establish waste. Code versions, environment and results must be compared before calling a run redundant. CPU use, dollar cost and potential savings were not measured in this snapshot.</p>
+    <p>Locally available Subyard Codex logs for October 5–6, 2026, frozen at October 6, 23:27:43 UTC. Includes active records from older sessions. Other providers and unrelated workspaces are outside this snapshot.</p>
+    <h3>01. Scale and the largest connected family</h3>
+    <dl class="source-totals"><div><dt>Tokens across 179 sessions</dt><dd data-stat="cohort-tokens-exact"></dd></div><div><dt>Wait-associated tokens</dt><dd data-stat="cohort-wait-tokens-exact"></dd></div><div><dt>Largest family, 20 sessions</dt><dd data-stat="family-tokens-exact"></dd></div></dl>
+    <p>The lead and 19 selected descendants used <span data-stat="family-tokens-exact"></span> tokens; <span data-stat="family-wait-tokens-exact"></span> (<span data-stat="family-wait-share"></span>%) belong to wait-invoking responses. Only aggregate metrics are published; session identifiers and source locations remain in the local audit.</p>
+    <p>Sum <code>token_usage_record.payload.usage</code> by unique thread and <code>response_id</code>. Wait numerator: responses whose tool calls are exclusively <code>wait_agent</code>, <code>sleep</code> or <code>wait</code>. Denominator: all responses in the same scope and time slice. Count input + output; cached input and reasoning output are included subsets.</p>
+    <p><code>wait</code> continues a yielded tool execution. It is distinct from waiting for a child via <code>wait_agent</code> or sleeping. The model response invokes the wait; the blocked time itself does not generate model tokens. These totals do not establish avoidable cost.</p>
+    <h3>02. One remote-check agent</h3>
+    <p>A remote-check agent in this family recorded <span data-stat="observer-total-tokens-exact"></span> tokens. Observation-associated usage: <span data-stat="observer-observation-tokens-exact"></span> (<span data-stat="observer-observation-share"></span>%).</p>
+    <dl class="source-totals"><div><dt>Tool-wait responses</dt><dd data-stat="observer-wait-tokens-exact"></dd></div><div><dt>Direct-poll responses</dt><dd data-stat="observer-poll-tokens-exact"></dd></div><div><dt>Coordination messages</dt><dd data-stat="observer-status-tokens-exact"></dd></div></dl>
+    <p>These are disjoint response categories: 1,051 <code>wait</code> continuations; 162 responses invoking one direct <code>write_stdin</code> poll with empty input and a literal process ID, without loops or callbacks; and 345 <code>send_message</code> replies (343 to the lead, two to a peer). Mixed execution bodies are excluded from the direct-poll category.</p>
+    <p>Responses can include useful analysis, and messages can carry findings. The share is an attribution signal, not proof that all observation is waste. CPU use, dollar cost, task success and potential savings were not measured. Repeated tests still require comparison of code, environment and results.</p>
     <h3>03. Project brief and existing capabilities</h3>
-    <ul><li><code>input/goal.md</code> — the Usage Visibility goal.</li><li><code>Subyard-4/src/docs/ai-observer.md</code> — Codex/Claude collection and its limitations.</li><li><code>Subyard-4/src/tests/yard-usage.sh</code> — ccusage argument forwarding.</li></ul>
-    <p class="download-links"><a href="usage-visibility.pdf" download>Presentation PDF ↓</a><a href="evidence.json" download>Aggregates JSON ↓</a><a href="evidence.md" download>Methodology (.md) ↓</a></p>
+    <ul><li><code>input/goal.md</code> — the Usage Visibility goal.</li><li>Subyard's AI Observer documentation — Codex/Claude collection and its limitations.</li><li>Subyard's usage command tests — ccusage argument forwarding.</li></ul>
+    <p class="download-links"><a href="usage-visibility.pdf" download>Presentation PDF ↓</a><a href="data.json" download>Aggregates JSON ↓</a><a href="evidence.md" download>Methodology (.md) ↓</a></p>
   </dialog>
-  <noscript><p class="noscript-note">All slides are available below. Enable JavaScript for navigation and statistics; calculations are available in evidence.json.</p></noscript>
+  <noscript><p class="noscript-note">All slides are available below. Enable JavaScript for navigation and statistics; calculations are available in data.json.</p></noscript>
 </body>
 </html>
