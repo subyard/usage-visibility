@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build a small, sanitized snapshot from two explicitly selected Codex logs."""
+"""Collect a local session audit and export aggregate-only presentation data."""
 
 import argparse
 import ast
@@ -8,14 +8,12 @@ from datetime import datetime, timezone
 import json
 from pathlib import Path
 import re
-import shlex
+import warnings
 
 
-PARENT_FILE = "2026/10/05/rollout-2026-10-05T14-05-23-01a10c62-2cf9-73f1-bb64-168f19cb794d.jsonl"
-OBSERVER_FILE = "2026/10/05/rollout-2026-10-05T20-02-10-01a10da8-d27f-7cd1-af60-92091d6bc1b8.jsonl"
 START = "2026-10-05T00:00:00.000Z"
 END = "2026-10-07T00:00:00.000Z"
-TEST_PACKAGE = "./internal/adapters/reconcileruntime"
+AS_OF = "2026-10-06T23:27:43.000Z"
 TOKEN_KEYS = ("input_tokens", "cached_input_tokens", "output_tokens", "reasoning_output_tokens", "total_tokens")
 JS_TOKENS = re.compile(
     r'\s+|//[^\n]*|/\*[\s\S]*?\*/|"(?:\\[\s\S]|[^"\\])*"'
@@ -28,7 +26,9 @@ def literal(value):
     if value.startswith('`'):
         return value[1:-1] if '${' not in value else None
     try:
-        return ast.literal_eval(value)
+        with warnings.catch_warnings():
+            warnings.simplefilter('ignore', SyntaxWarning)
+            return ast.literal_eval(value)
     except (ValueError, SyntaxError):
         return None
 
@@ -46,7 +46,8 @@ def tool_calls(code):
         while j < len(tokens) and depth:
             token = tokens[j]
             if depth == 1 and j + 2 < len(tokens) and tokens[j + 1] == ':':
-                fields[token] = literal(tokens[j + 2])
+                key = literal(token) if token.startswith(('"', "'")) else token
+                fields[key] = literal(tokens[j + 2])
             if token in ('{', '[', '('):
                 depth += 1
             elif token in ('}', ']', ')'):
@@ -55,41 +56,25 @@ def tool_calls(code):
         yield tokens[i + 2], fields
 
 
-def package_test(command):
-    """Recognize a direct go test invocation, including after cd or env."""
-    if not isinstance(command, str):
-        return False
-    try:
-        lexer = shlex.shlex(command, posix=True, punctuation_chars=';&|')
-        lexer.whitespace_split = True
-        tokens = list(lexer)
-    except ValueError:
-        return False
-    for i, token in enumerate(tokens):
-        if token != 'go' or tokens[i + 1:i + 2] != ['test']:
-            continue
-        # A quoted mention in rg/sed/echo is not an invocation.
-        before = max((j for j in range(i) if tokens[j] in (';', '&&', '||', '|')), default=-1)
-        prefix = tokens[before + 1:i]
-        if prefix and prefix[0] != 'env' and not all(re.fullmatch(r'\w+=.*', p) for p in prefix):
-            continue
-        after = next((j for j in range(i + 2, len(tokens)) if tokens[j] in (';', '&&', '||', '|')), len(tokens))
-        if TEST_PACKAGE in tokens[i + 2:after]:
-            return True
-    return False
+def is_subyard_workspace(cwd):
+    parts = Path(cwd).parts
+    return (len(parts) == 5 and parts[:3] == ('/', 'srv', 'workspaces')
+            and parts[3].lower().startswith('subyard') and parts[4] == 'src')
 
 
-def summarize(events, filename):
+def summarize(events, filename, seen=None):
     meta = events[0][1]['payload']
-    if meta.get('cwd') != '/srv/workspaces/Subyard-2/src':
-        raise ValueError('Selected log is not a Subyard-2 session')
+    if not is_subyard_workspace(meta.get('cwd', '')):
+        raise ValueError('Selected log is not a Subyard workspace session')
     usage = Counter()
     wait_usage = Counter()
+    observation_usage = Counter()
+    usage_by_action = {}
+    response_counts = Counter()
     calls = Counter()
     models = set()
-    seen = set()
+    seen = set() if seen is None else seen
     pending = []
-    tests = []
     wait_records = []
     usage_records = []
     tool_times = {}
@@ -99,27 +84,34 @@ def summarize(events, filename):
         timestamp = event.get('timestamp', '')
         payload = event.get('payload', {})
         kind = payload.get('type')
-        in_window = START <= timestamp < END
+        in_window = START <= timestamp < END and timestamp <= AS_OF
         if event.get('type') == 'turn_context' and in_window:
             models.add(payload['model'])
         if event.get('type') == 'response_item' and kind in ('function_call', 'custom_tool_call'):
             name = payload.get('name', '')
-            pending.append(name)
+            action = name
             if in_window:
                 calls[name] += 1
                 if name == 'wait_agent':
                     tool_times[payload['call_id']] = (timestamp, line)
                 if name == 'exec' and kind == 'custom_tool_call':
-                    for tool, fields in tool_calls(payload.get('input', '')):
+                    code = payload.get('input', '')
+                    nested = list(tool_calls(code))
+                    direct_poll = (len(nested) == 1 and nested[0][0] == 'write_stdin'
+                                   and nested[0][1].get('chars', '') == ''
+                                   and isinstance(nested[0][1].get('session_id'), int)
+                                   and not re.search(r'\b(for|while|function)\b|=>', code))
+                    if direct_poll:
+                        action = 'process_poll'
+                    for tool, fields in nested:
                         if tool == 'write_stdin':
                             if fields.get('chars', '') == '':
                                 calls['process_poll'] += 1
                             else:
                                 ignored_poll_inputs += 1
-                        if tool == 'exec_command' and package_test(fields.get('cmd')):
-                            tests.append({'timestamp': timestamp, 'line': line})
+            pending.append(action)
         if event.get('type') == 'token_usage_record':
-            response_id = payload['response_id']
+            response_id = (payload.get('thread_id'), payload['response_id'])
             if payload.get('thread_id') != meta['id']:
                 raise ValueError('Unexpected cross-thread usage record')
             if response_id not in seen:
@@ -130,9 +122,15 @@ def summarize(events, filename):
                 if in_window:
                     usage.update(values)
                     usage_records.append({'timestamp': timestamp, 'line': line, 'usage': values})
-                    if pending and set(pending) <= {'wait_agent', 'sleep'}:
+                    actions = set(pending)
+                    action = next(iter(actions)) if len(actions) == 1 else ('mixed' if actions else 'message')
+                    usage_by_action.setdefault(action, Counter()).update(values)
+                    response_counts[action] += 1
+                    if actions and actions <= {'wait_agent', 'sleep', 'wait'}:
                         wait_usage.update(values)
                         wait_records.append({'timestamp': timestamp, 'line': line, 'usage': values})
+                    if actions and actions <= {'wait_agent', 'sleep', 'wait', 'process_poll', 'send_message'}:
+                        observation_usage.update(values)
             pending = []
         if kind == 'function_call_output' and payload.get('call_id') in tool_times:
             begin, call_line = tool_times.pop(payload['call_id'])
@@ -144,15 +142,15 @@ def summarize(events, filename):
     parent_id = source.get('subagent', {}).get('thread_spawn', {}).get('parent_thread_id') if isinstance(source, dict) else None
     return {
         'id': meta['id'], 'source_file': filename, 'models': sorted(models), 'parent_id': parent_id,
+        'workspace': Path(meta['cwd']).parent.name,
         'agent_path': meta.get('agent_path'), 'usage': dict(usage), 'wait_usage': dict(wait_usage),
+        'observation_usage': dict(observation_usage),
+        'usage_by_action': {name: dict(values) for name, values in sorted(usage_by_action.items())},
+        'response_counts': dict(response_counts),
         'wait_calls': calls['wait_agent'], 'sleep_calls': calls['sleep'],
+        'tool_wait_calls': calls['wait'],
         'poll_calls': calls['process_poll'], 'non_poll_stdin_calls': ignored_poll_inputs,
         'message_calls': calls['send_message'], 'responses': len(usage_records),
-        'test_runs': len(tests), 'test_label': f'go test {TEST_PACKAGE}',
-        'test_method': 'Four go test commands for the internal/adapters/reconcileruntime package '
-                       'on October 6 at 07:28, 10:05, 10:06 and 10:55 UTC. The -run selectors differed; '
-                       'these are checks of one package, not four reruns of the same test.',
-        'test_events': tests,
         '_waits': waits, '_usage_records': usage_records, '_wait_records': wait_records,
         '_first': events[0][1]['timestamp'], '_last': events[-1][1]['timestamp'],
     }
@@ -171,69 +169,134 @@ def read_events(path):
     return events
 
 
+def totals(sessions, field):
+    result = Counter()
+    for session in sessions:
+        result.update(session[field])
+    return dict(result)
+
+
 def collect(root):
-    parent = summarize(read_events(root / PARENT_FILE), PARENT_FILE)
-    observer = summarize(read_events(root / OBSERVER_FILE), OBSERVER_FILE)
-    if observer['parent_id'] != parent['id'] or observer['agent_path'] != '/root/full_tests_luna':
-        raise ValueError('Expected a child test observer session')
-    begin, end = observer['_first'], observer['_last']
-    overlap_usage = Counter()
-    overlap_wait = Counter()
-    for row in parent['_usage_records']:
-        if begin <= row['timestamp'] <= end:
-            overlap_usage.update(row['usage'])
-    for row in parent['_wait_records']:
-        if begin <= row['timestamp'] <= end:
-            overlap_wait.update(row['usage'])
-    overlap_waits = [row for row in parent['_waits'] if begin <= row['timestamp'] <= end]
-    elapsed = (datetime.fromisoformat(end.replace('Z', '+00:00'))
-               - datetime.fromisoformat(begin.replace('Z', '+00:00'))).total_seconds()
-    snapshot = {
-        'period': {'start_inclusive': START, 'end_exclusive': END, 'timezone': 'UTC'},
-        'captured_at': datetime.now(timezone.utc).isoformat(),
-        'method': 'Deduplicate token_usage_record by response_id; count input + output. '
-                  'Associate tool calls preceding each usage record. Wait-only tool responses '
-                  'have exclusively wait_agent/sleep calls. Embedded execution parsed as JS '
-                  'tokens; only literal cmd fields of tools.exec_command considered for tests.',
-        'parent': parent, 'observer': observer,
-        'observer_interval': {'start': begin, 'end': end, 'elapsed_seconds': elapsed,
-                              'parent_usage': dict(overlap_usage), 'parent_wait_usage': dict(overlap_wait),
-                              'wait_calls': len(overlap_waits),
-                              'wait_seconds': round(sum(row['seconds'] for row in overlap_waits), 3)},
-        'limitations': [
-            'One pair of sessions, not a sample of all Yard work.',
-            'wait_agent does not identify a child; waits can be for other agents.',
-            'Wait-associated inference can contain reasoning; waiting itself does not generate model tokens.',
-            'Wait duration includes wait_agent calls only; wait-associated token totals also include sleep.',
-            'Cached input is a subset of input; reasoning output is a subset of output.',
-            'Embedded write_stdin count means literal empty-input call sites recorded in exec bodies; '
-            'dynamic executions/loops are not reconstructed.',
-            'Repeated package checks have different -run selectors; necessity is not established.',
-            'CPU time, dollar cost, task success and avoidable spend are not measured.',
-        ],
-    }
-    for session in (parent, observer):
+    sessions = []
+    parents = {}
+    seen = set()
+    for path in sorted(root.rglob('*.jsonl')):
+        with path.open(encoding='utf-8') as source:
+            meta = json.loads(next(source))['payload']
+        if not is_subyard_workspace(meta.get('cwd', '')):
+            continue
+        source = meta.get('source', {})
+        parents[meta['id']] = (source.get('subagent', {}).get('thread_spawn', {}).get('parent_thread_id')
+                               if isinstance(source, dict) else None)
+        session = summarize(read_events(path), str(path.relative_to(root)), seen)
+        if not session['usage'].get('total_tokens'):
+            continue
         session['source_window'] = {'first': session.pop('_first'), 'last': session.pop('_last')}
         for key in list(session):
             if key.startswith('_'):
                 session.pop(key)
+        sessions.append(session)
+    families = {}
+    for session in sessions:
+        ancestor = session['id']
+        visited = set()
+        while parents.get(ancestor):
+            if ancestor in visited:
+                raise ValueError('Cycle in session ancestry')
+            visited.add(ancestor)
+            ancestor = parents[ancestor]
+        families.setdefault(ancestor, []).append(session)
+    if not families:
+        raise ValueError('No usage records in the selected interval')
+    family_root, family_sessions = max(
+        families.items(), key=lambda item: sum(s['usage']['total_tokens'] for s in item[1]))
+    parent = next((s for s in family_sessions if s['id'] == family_root), None)
+    observer = max(family_sessions, key=lambda s: s['wait_usage'].get('total_tokens', 0))
+    snapshot = {
+        'period': {'start_inclusive': START, 'end_exclusive': END, 'as_of_inclusive': AS_OF, 'timezone': 'UTC'},
+        'captured_at': datetime.now(timezone.utc).isoformat(),
+        'method': 'Deduplicate token_usage_record by response_id; count input + output. '
+                  'Associate tool calls preceding each usage record. Wait responses exclusively '
+                  'invoke wait_agent, sleep or wait. Observation also includes direct empty-input '
+                  'process polls and send_message. Inspect only matching Subyard workspace logs.',
+        'cohort': {'session_count': len(sessions),
+                   'response_count': sum(s['responses'] for s in sessions),
+                   'usage': totals(sessions, 'usage'), 'wait_usage': totals(sessions, 'wait_usage')},
+        'family': {'root_id': family_root, 'session_count': len(family_sessions),
+                   'response_count': sum(s['responses'] for s in family_sessions),
+                   'usage': totals(family_sessions, 'usage'),
+                   'wait_usage': totals(family_sessions, 'wait_usage'),
+                   'session_ids': [s['id'] for s in family_sessions]},
+        'parent': parent, 'observer': observer,
+        'sessions': [{key: session[key] for key in
+                      ('id', 'parent_id', 'source_file', 'workspace', 'models',
+                       'responses', 'usage', 'wait_usage')} for session in sessions],
+        'limitations': [
+            'The cohort includes locally available matching Codex logs, not all providers or all Yard work.',
+            'The snapshot cutoff is frozen so active sessions do not change the reported figures.',
+            'A family includes the lead and selected descendants; other-workspace descendants are outside this scan.',
+            'wait_agent does not identify a child; waits can be for other agents.',
+            'Wait-associated inference can contain reasoning; waiting itself does not generate model tokens.',
+            'wait continues a yielded tool execution; it is distinct from wait_agent and sleep.',
+            'Observation-associated responses may contain useful analysis; totals are not proven waste or savings.',
+            'Cached input is a subset of input; reasoning output is a subset of output.',
+            'Process-poll usage requires a single direct write_stdin call with empty input and a literal session ID, '
+            'without loops or callbacks; dynamic tool execution is not reconstructed.',
+            'CPU time, dollar cost, task success and avoidable spend are not measured.',
+        ],
+    }
     return snapshot
+
+
+def public_snapshot(snapshot):
+    """Copy only approved period fields and numeric aggregate metrics."""
+    def usage(values):
+        return {key: values.get(key, 0) for key in TOKEN_KEYS}
+
+    public = {'period': {key: snapshot['period'][key] for key in
+                         ('start_inclusive', 'end_exclusive', 'as_of_inclusive', 'timezone')}}
+    for scope in ('cohort', 'family'):
+        public[scope] = {key: snapshot[scope][key] for key in ('session_count', 'response_count')}
+        for field in ('usage', 'wait_usage'):
+            public[scope][field] = usage(snapshot[scope][field])
+    observer = snapshot['observer']
+    actions = ('wait', 'process_poll', 'send_message')
+    public['observer'] = {
+        'usage': usage(observer['usage']),
+        'observation_usage': usage(observer['observation_usage']),
+        'usage_by_action': {action: usage(observer['usage_by_action'].get(action, {}))
+                            for action in actions},
+        'response_counts': {action: observer['response_counts'].get(action, 0) for action in actions},
+    }
+    return public
+
+
+def write_snapshot(snapshot, audit_output, output):
+    """Keep detailed evidence outside the directory served as the presentation."""
+    audit_output = audit_output.resolve()
+    output = output.resolve()
+    if audit_output == output or output in audit_output.parents:
+        raise ValueError('Local audit output must be outside the presentation directory')
+    audit_output.mkdir(parents=True, exist_ok=True)
+    (audit_output / 'evidence.json').write_text(json.dumps(snapshot, indent=2) + '\n', encoding='utf-8')
+    serialized = json.dumps(public_snapshot(snapshot), indent=2) + '\n'
+    output.mkdir(parents=True, exist_ok=True)
+    (output / 'data.json').write_text(serialized, encoding='utf-8')
+    (output / 'data.js').write_text('window.USAGE_EVIDENCE = ' + serialized.rstrip() + ';\n', encoding='utf-8')
 
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--sessions-root', type=Path, required=True)
     parser.add_argument('--output', type=Path, default=Path('presentation1-intro'))
+    parser.add_argument('--audit-output', type=Path, default=Path('.local/usage-evidence'))
     args = parser.parse_args()
     snapshot = collect(args.sessions_root)
-    serialized = json.dumps(snapshot, ensure_ascii=False, indent=2) + '\n'
-    args.output.mkdir(parents=True, exist_ok=True)
-    (args.output / 'evidence.json').write_text(serialized, encoding='utf-8')
-    (args.output / 'evidence.js').write_text('window.USAGE_EVIDENCE = ' + serialized.rstrip() + ';\n', encoding='utf-8')
-    print(json.dumps({'parent_tokens': snapshot['parent']['usage']['total_tokens'],
-                      'wait_tokens': snapshot['parent']['wait_usage']['total_tokens'],
-                      'polls': snapshot['observer']['poll_calls'],
-                      'test_runs': snapshot['observer']['test_runs']}, ensure_ascii=False))
+    write_snapshot(snapshot, args.audit_output, args.output)
+    print(json.dumps({'cohort_tokens': snapshot['cohort']['usage']['total_tokens'],
+                      'cohort_wait_tokens': snapshot['cohort']['wait_usage']['total_tokens'],
+                      'family_tokens': snapshot['family']['usage']['total_tokens'],
+                      'observer_observation_tokens': snapshot['observer']['observation_usage']['total_tokens']}))
 
 
 if __name__ == '__main__':

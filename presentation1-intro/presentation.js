@@ -95,27 +95,38 @@
   if (evidence) {
     const format = new Intl.NumberFormat('en-US');
     const decimal = new Intl.NumberFormat('en-US', {maximumFractionDigits: 1});
-    const share = evidence.parent.wait_usage.total_tokens / evidence.parent.usage.total_tokens * 100;
+    const billions = new Intl.NumberFormat('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+    const millions = value => `${decimal.format(value / 1e6)}M`;
+    const share = evidence.family.wait_usage.total_tokens / evidence.family.usage.total_tokens * 100;
+    const observer = evidence.observer;
     const values = {
-      'wait-share': decimal.format(share),
-      'wait-calls': format.format(evidence.parent.wait_calls),
-      'wait-tokens': `${decimal.format(evidence.parent.wait_usage.total_tokens / 1e6)}M`,
-      'wait-tokens-exact': format.format(evidence.parent.wait_usage.total_tokens),
-      'parent-tokens-exact': format.format(evidence.parent.usage.total_tokens),
-      'wait-cache-share': `${decimal.format(evidence.parent.wait_usage.cached_input_tokens / evidence.parent.wait_usage.input_tokens * 100)}% of input`,
-      'parent-id': evidence.parent.id,
-      'parent-model': evidence.parent.models.join(', '),
-      'observer-id': evidence.observer.id,
-      'observer-model': evidence.observer.models.join(', '),
-      'observer-polls': format.format(evidence.observer.poll_calls),
-      'observer-messages': format.format(evidence.observer.message_calls),
-      'test-runs': format.format(evidence.observer.test_runs),
-      'test-label': evidence.observer.test_label
+      'cohort-tokens': `${billions.format(evidence.cohort.usage.total_tokens / 1e9)}B`,
+      'cohort-tokens-exact': format.format(evidence.cohort.usage.total_tokens),
+      'cohort-wait-tokens': millions(evidence.cohort.wait_usage.total_tokens),
+      'cohort-wait-tokens-exact': format.format(evidence.cohort.wait_usage.total_tokens),
+      'cohort-sessions': format.format(evidence.cohort.session_count),
+      'family-billions': billions.format(evidence.family.usage.total_tokens / 1e9),
+      'family-tokens-exact': format.format(evidence.family.usage.total_tokens),
+      'family-wait-share': decimal.format(share),
+      'family-wait-tokens': millions(evidence.family.wait_usage.total_tokens),
+      'family-wait-tokens-exact': format.format(evidence.family.wait_usage.total_tokens),
+      'family-sessions': format.format(evidence.family.session_count),
+      'observer-polls': format.format(observer.response_counts.process_poll),
+      'observer-tool-waits': format.format(observer.response_counts.wait),
+      'observer-messages': format.format(observer.response_counts.send_message),
+      'observer-total-tokens': millions(observer.usage.total_tokens),
+      'observer-total-tokens-exact': format.format(observer.usage.total_tokens),
+      'observer-observation-share': decimal.format(observer.observation_usage.total_tokens / observer.usage.total_tokens * 100),
+      'observer-observation-tokens': millions(observer.observation_usage.total_tokens),
+      'observer-observation-tokens-exact': format.format(observer.observation_usage.total_tokens),
+      'observer-wait-tokens-exact': format.format(observer.usage_by_action.wait.total_tokens),
+      'observer-poll-tokens-exact': format.format(observer.usage_by_action.process_poll.total_tokens),
+      'observer-status-tokens': millions(observer.usage_by_action.send_message.total_tokens),
+      'observer-status-tokens-exact': format.format(observer.usage_by_action.send_message.total_tokens)
     };
     document.querySelectorAll('[data-stat]').forEach(node => { node.textContent = values[node.dataset.stat] ?? '—'; });
     document.getElementById('wait-fill').style.width = `${share}%`;
     document.getElementById('wait-bar').setAttribute('aria-label', `${decimal.format(share)}% of tokens associated with waiting, ${decimal.format(100 - share)}% with other steps`);
-    document.getElementById('test-method').textContent = evidence.observer.test_method;
   }
 
   document.documentElement.classList.add('js');

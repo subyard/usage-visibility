@@ -1,10 +1,11 @@
 import json
 from pathlib import Path
 import sys
+from tempfile import TemporaryDirectory
 import unittest
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'scripts'))
-from collect_evidence import package_test, summarize, tool_calls
+from collect_evidence import is_subyard_workspace, public_snapshot, summarize, tool_calls, write_snapshot
 
 
 class EvidenceTests(unittest.TestCase):
@@ -45,21 +46,42 @@ class EvidenceTests(unittest.TestCase):
         code = '''
           // tools.write_stdin({session_id: 1});
           const note = "tools.write_stdin({session_id: 2})";
-          await tools.exec_command({cmd: "go test ./internal/adapters/reconcileruntime", yield_time_ms: 1000});
+          await tools.exec_command({cmd: "go test ./example", yield_time_ms: 1000});
           await tools.write_stdin({session_id: 3, chars: ""});
         '''
         calls = list(tool_calls(code))
         self.assertEqual([name for name, _ in calls], ['exec_command', 'write_stdin'])
         self.assertEqual(calls[1][1]['session_id'], 3)
         self.assertEqual(calls[1][1]['chars'], '')
+        quoted = list(tool_calls('await tools.write_stdin({"session_id": 3, "chars": ""});'))
+        self.assertEqual(quoted[0][1], {'session_id': 3, 'chars': ''})
 
-    def test_package_test_excludes_quotes_and_other_packages(self):
-        self.assertTrue(package_test('go test -count=1 ./internal/adapters/reconcileruntime -run "^TestFoo$"'))
-        self.assertTrue(package_test('cd /repo && go test ./internal/adapters/reconcileruntime'))
-        self.assertFalse(package_test('rg "go test ./internal/adapters/reconcileruntime" README.md'))
-        self.assertFalse(package_test('echo go test ./internal/adapters/reconcileruntime'))
-        self.assertFalse(package_test('go test ./internal/adapters/releaseruntime'))
-        self.assertFalse(package_test('cat ./internal/adapters/reconcileruntime/file.go'))
+    def test_workspace_filter_excludes_private_and_unrelated_sessions(self):
+        self.assertTrue(is_subyard_workspace('/srv/workspaces/Subyard-4/src'))
+        self.assertTrue(is_subyard_workspace('/srv/workspaces/subyard-3/src'))
+        self.assertFalse(is_subyard_workspace('/srv/workspaces/Subyard-4/src/private'))
+        self.assertFalse(is_subyard_workspace('/srv/workspaces/usage-visibility/src'))
+
+    def test_tool_continuation_uses_the_same_deduplication_and_cutoff(self):
+        timestamp = '2026-10-06T23:27:42.000Z'
+        events = [
+            {'type': 'session_meta', 'timestamp': timestamp,
+             'payload': {'id': 'parent', 'cwd': '/srv/workspaces/Subyard-2/src'}},
+            {'type': 'response_item', 'timestamp': timestamp,
+             'payload': {'type': 'function_call', 'name': 'wait', 'call_id': 'wait-1'}},
+            {'type': 'token_usage_record', 'timestamp': timestamp,
+             'payload': {'thread_id': 'parent', 'response_id': 'response-1',
+                         'usage': {'input_tokens': 100, 'output_tokens': 10, 'total_tokens': 110}}},
+            {'type': 'token_usage_record', 'timestamp': '2026-10-06T23:27:44.000Z',
+             'payload': {'thread_id': 'parent', 'response_id': 'response-2',
+                         'usage': {'input_tokens': 100, 'output_tokens': 10, 'total_tokens': 110}}},
+        ]
+        seen = set()
+        first = summarize(list(enumerate(events, 1)), 'fixture-a', seen)
+        second = summarize(list(enumerate(events, 1)), 'fixture-b', seen)
+        self.assertEqual(first['usage']['total_tokens'], 110)
+        self.assertEqual(first['wait_usage']['total_tokens'], 110)
+        self.assertEqual(second['usage'].get('total_tokens', 0), 0)
 
     def test_wrong_thread_is_rejected(self):
         events = [(1, {'type': 'session_meta', 'payload': {'id': 'parent', 'cwd': '/srv/workspaces/Subyard-2/src'}}),
@@ -69,13 +91,50 @@ class EvidenceTests(unittest.TestCase):
 
     def test_snapshot_and_offline_data_agree(self):
         root = Path(__file__).resolve().parents[1] / 'presentation1-intro'
-        data = json.loads((root / 'evidence.json').read_text())
-        javascript = (root / 'evidence.js').read_text()
+        data = json.loads((root / 'data.json').read_text())
+        javascript = (root / 'data.js').read_text()
         self.assertEqual(data, json.loads(javascript.removeprefix('window.USAGE_EVIDENCE = ').rstrip().removesuffix(';')))
-        self.assertEqual(data['parent']['usage']['total_tokens'], 127397656)
-        self.assertEqual(data['parent']['wait_usage']['total_tokens'], 59202748)
-        self.assertEqual(data['observer']['poll_calls'], 505)
-        self.assertEqual(data['observer']['test_runs'], 4)
+        self.assertEqual(data['cohort']['usage']['total_tokens'], 2874272332)
+        self.assertEqual(data['cohort']['wait_usage']['total_tokens'], 665592290)
+        self.assertEqual(data['cohort']['session_count'], 179)
+        self.assertEqual(data['family']['session_count'], 20)
+        self.assertEqual(data['family']['usage']['total_tokens'], 1096196283)
+        observer = data['observer']
+        observation = sum(observer['usage_by_action'][key]['total_tokens']
+                          for key in ('wait', 'process_poll', 'send_message'))
+        self.assertEqual(observation, observer['observation_usage']['total_tokens'])
+        self.assertEqual(observation, 226877594)
+        self.assertEqual(observer['response_counts']['process_poll'], 162)
+
+    def test_public_export_excludes_private_metadata_and_unknown_fields(self):
+        root = Path(__file__).resolve().parents[1] / 'presentation1-intro'
+        data = json.loads((root / 'data.json').read_text())
+        snapshot = json.loads(json.dumps(data))
+        snapshot['period']['local_path'] = 'PRIVATE_CANARY'
+        snapshot['family']['root_id'] = 'PRIVATE_CANARY'
+        snapshot['family']['session_ids'] = ['PRIVATE_CANARY']
+        snapshot['sessions'] = [{'source_file': 'PRIVATE_CANARY'}]
+        snapshot['observer']['agent_path'] = 'PRIVATE_CANARY'
+        snapshot['observer']['usage_by_action']['send_message']['secret'] = 'PRIVATE_CANARY'
+        snapshot['observer']['response_counts']['internal_tool'] = 1
+        public = public_snapshot(snapshot)
+        self.assertEqual(public, data)
+        self.assertNotIn('PRIVATE_CANARY', json.dumps(public))
+        with TemporaryDirectory() as directory:
+            audit = Path(directory) / 'local'
+            presentation = Path(directory) / 'presentation'
+            write_snapshot(snapshot, audit, presentation)
+            self.assertIn('PRIVATE_CANARY', (audit / 'evidence.json').read_text())
+            self.assertNotIn('PRIVATE_CANARY', (presentation / 'data.json').read_text())
+            self.assertEqual({p.name for p in presentation.iterdir()}, {'data.json', 'data.js'})
+
+    def test_local_audit_cannot_be_written_into_the_presentation(self):
+        with TemporaryDirectory() as directory:
+            presentation = Path(directory) / 'presentation'
+            for audit in (presentation, presentation / 'local'):
+                with self.assertRaises(ValueError):
+                    write_snapshot({}, audit, presentation)
+            self.assertFalse(presentation.exists())
 
 
 if __name__ == '__main__':
