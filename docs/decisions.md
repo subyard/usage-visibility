@@ -41,8 +41,8 @@ but expensive in another still stands out.
 
 ### Should have
 
-- **Cost:** estimated inference cost from model pricing on the request date,
-  kept separate from actual billing.
+- **Cost:** a basic estimate from token counts and published model prices,
+  kept separate from actual billing. No billing or provider API integration.
 - **Outcome:** whether the task succeeded and what evidence supports it.
 
 ### Constraints
@@ -66,7 +66,9 @@ tools is acceptable if each covers part of the requirements.
 2026-10-08 · Accepted
 
 Subyard provides a reference implementation and real sessions for evaluation.
-The chosen solution must work without it. Subyard is public and can be cited.
+The chosen solution must work without it. Subyard is public
+([github.com/subyard/subyard](https://github.com/subyard/subyard)) and can be
+cited.
 
 ### D3. Audience and document roles
 
@@ -94,14 +96,16 @@ IDs, log file names, model names, an agent path and a test command. A review
 on 2026-10-08 found no keys, tokens or other secrets in the history, so it is
 kept unchanged.
 
-### D5. The intro audit is a one-off sample
+### D5. The intro data is a fixed example
 
 2026-10-08 · Accepted
 
-`scripts/collect_evidence.py` reproduces the October 5–6 audit from Codex logs
-of a separate Subyard instance with many agents. Those logs are not part of
-this repository or this environment, so the figures cannot be regenerated
-here. The script is not the basis for the general solution.
+The October 5–6 figures are an example provided by one of the users, from
+Codex logs of a separate Subyard instance with many agents. They describe the
+kind of problem the solution must make easy to see. They are not re-verified
+or regenerated, and hardcoded figures in the presentation are intended.
+`scripts/collect_evidence.py` documents how they were produced; it is not the
+basis for the general solution.
 
 ### D6. Judge candidates by how fast they reveal inefficiency
 
@@ -112,3 +116,20 @@ rerun in a loop. Candidates are evaluated against reference scenarios in
 [`solutions/`](../solutions/README.md#reference-scenarios): can a person see
 each problem quickly, and in which resource it appears? Compute and time are
 must-have requirements alongside tokens.
+
+### D7. People evaluate candidates; finalists are checked on real runs
+
+2026-10-08 · Accepted
+
+People compare candidates in `solutions/`. We then implement the main
+candidate, or two finalists, and integrate it into ordinary work. The check is
+whether weak spots in real, everyday runs are quick and convenient to see. We
+do not create synthetic tasks to provoke the reference scenarios.
+
+### D8. Lead with total tokens
+
+2026-10-08 · Accepted
+
+Total tokens (input plus output) is the figure the industry uses, so it stays
+the headline number. Uncached input and output are shown next to it in smaller
+type, because cached input usually makes up most of the total.

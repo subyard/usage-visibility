@@ -13,7 +13,9 @@ tables below are the summary; the candidate file holds the evidence.
 The main question is how quickly a person can see where a pipeline wastes
 resources. Waste can appear in tokens, compute or time, and a step can be
 cheap in one and expensive in another. Each candidate, alone or combined with
-others, is checked against these scenarios.
+others, is rated against these scenarios. Finalists are then integrated and
+checked on real, everyday runs, not on synthetic tasks
+([D7](../docs/decisions.md#d7-people-evaluate-candidates-finalists-are-checked-on-real-runs)).
 
 | ID | Scenario | Where the waste shows |
 | --- | --- | --- |
@@ -54,8 +56,8 @@ Criteria follow the [requirements](../docs/decisions.md#requirements).
 | Data | Data location | Where does data go? Can it stay local or self-hosted? |
 
 Ratings: ✅ covered · ⚠️ partial · ❌ not covered · ? not checked yet.
-In candidate files, mark each rating as *tried* (we ran it) or *docs* (based on
-documentation only).
+In candidate files, mark each rating as *tried* (seen on real runs) or *docs*
+(based on documentation only).
 
 ## Coverage
 
