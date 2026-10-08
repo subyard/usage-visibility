@@ -11,13 +11,15 @@ tables below are the summary; the candidate file holds the evidence.
 ## Candidates
 
 Confirmed for comparison
-([D9](../docs/decisions.md#d9-shortlist-ai-observer-openlit-and-langfuse)):
+([D9](../docs/decisions.md#d9-shortlist-ai-observer-openlit-and-langfuse),
+[D10](../docs/decisions.md#d10-add-agentsight-to-the-shortlist)):
 
 | Candidate | What it is | File |
 | --- | --- | --- |
 | [AI Observer](https://github.com/tobilg/ai-observer) | Self-hosted telemetry backend for AI coding agents; Subyard integrates it | [ai-observer.md](ai-observer.md) |
 | [OpenLIT](https://github.com/openlit/openlit) | Open-source, OpenTelemetry-based observability for LLM applications | [openlit.md](openlit.md) |
 | [Langfuse](https://github.com/langfuse/langfuse) | Open-source LLM engineering platform with tracing and cost tracking | [langfuse.md](langfuse.md) |
+| [AgentSight](https://github.com/eunomia-bpf/agentsight) | eBPF-based system-level observability for AI agents: LLM traffic, processes, files, CPU and memory | [agentsight.md](agentsight.md) |
 
 Possible additions, if the confirmed candidates leave gaps:
 
@@ -55,6 +57,7 @@ cannot be seen because the data is missing (❌).
 | [AI Observer](ai-observer.md) | ? | ? | ? | ? | ? |
 | [OpenLIT](openlit.md) | ? | ? | ? | ? | ? |
 | [Langfuse](langfuse.md) | ? | ? | ? | ? | ? |
+| [AgentSight](agentsight.md) | ? | ? | ? | ? | ? |
 
 ## Criteria
 
@@ -87,6 +90,7 @@ tools, for example one for model usage and one for compute.
 | [AI Observer](ai-observer.md) | ? | ? | ? | ? | ? | ? | ? | ? | ? | ? | Not started |
 | [OpenLIT](openlit.md) | ? | ? | ? | ? | ? | ? | ? | ? | ? | ? | Not started |
 | [Langfuse](langfuse.md) | ? | ? | ? | ? | ? | ? | ? | ? | ? | ? | Not started |
+| [AgentSight](agentsight.md) | ? | ? | ? | ? | ? | ? | ? | ? | ? | ? | Not started |
 
 ## Conclusion
 

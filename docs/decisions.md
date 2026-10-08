@@ -140,3 +140,11 @@ type, because cached input usually makes up most of the total.
 
 The comparison starts with AI Observer, OpenLIT and Langfuse. Other tools can
 be added if these leave gaps, for example in compute visibility.
+
+### D10. Add AgentSight to the shortlist
+
+2026-10-08 · Accepted
+
+AgentSight is added to the comparison alongside the D9 candidates. It observes
+agents from the system side with eBPF, so it may cover compute and process
+activity, which the other candidates are least likely to show.
