@@ -22,7 +22,23 @@ the solution should be usable independently of Subyard.
 
 These measurements should help explain patterns such as a lead agent repeatedly
 invoking its model while waiting for a test observer, frequent process polling,
-or tests being rerun without a new reason. The aim is to make those patterns
-reviewable and compare improvements across workflows.
+or tests being rerun without a new reason. Waste does not always show in
+tokens: a test loop can cost little inference but a lot of compute and time.
+The aim is to make those patterns easy to spot in any resource and to compare
+improvements across workflows.
 
-[Intro presentation](presentation1-intro/usage-visibility.pdf)
+## Status
+
+We are comparing existing tools before building anything. Results and the
+current shortlist are in [`solutions/`](solutions/README.md).
+
+## Where to look
+
+- [Intro presentation](presentation1-intro/usage-visibility.pdf) — the problem,
+  with figures from a sample of real agent sessions.
+- [Solution comparison](solutions/README.md) — candidate tools against shared
+  criteria.
+- [Requirements and decisions](docs/decisions.md) — what the solution must do
+  and why the work is shaped this way.
+
+Run the tests with `python3 -m unittest discover -s tests`.
