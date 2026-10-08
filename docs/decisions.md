@@ -133,3 +133,10 @@ do not create synthetic tasks to provoke the reference scenarios.
 Total tokens (input plus output) is the figure the industry uses, so it stays
 the headline number. Uncached input and output are shown next to it in smaller
 type, because cached input usually makes up most of the total.
+
+### D9. Shortlist: AI Observer, OpenLIT and Langfuse
+
+2026-10-08 · Accepted
+
+The comparison starts with AI Observer, OpenLIT and Langfuse. Other tools can
+be added if these leave gaps, for example in compute visibility.
