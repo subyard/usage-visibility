@@ -1,6 +1,11 @@
 # Session audit: a Subyard sample for a general agent workflow problem
 
-This audit uses locally available Codex logs from October 5–6, 2026. The
+This data is an example provided by one of the users. It describes the kind of
+problem the project should make easy to see and recognize. It is not a
+benchmark, it is not re-verified, and it will not be regenerated; the figures
+below are fixed.
+
+The audit uses Codex logs from October 5–6, 2026. The
 reported interval is `[2026-10-05 00:00:00, 2026-10-07 00:00:00)` UTC, with an
 inclusive snapshot cutoff of `2026-10-06 23:27:43 UTC`. It is a bounded sample
 from matching Subyard workspaces, not a measure of all Subyard activity or all
@@ -96,7 +101,8 @@ measure CPU time, elapsed test time, task success, or dollar cost.
 ## Accounting and reproduction
 
 Public aggregate metrics are in [`data.json`](data.json); the presentation
-loads the same metrics from `data.js`. Rebuild from locally available logs:
+loads the same metrics from `data.js`. The source logs belong to another
+environment and are not needed. For reference, the command used was:
 
 ```sh
 python3 scripts/collect_evidence.py --sessions-root /path/to/local/session-logs
@@ -124,8 +130,10 @@ token counts, session/response counts, and the featured agent's three action
 categories. It contains no session IDs, parent links, source paths, workspace
 names, internal role labels, per-session rows, raw session text, command output,
 credentials, or configuration.
-This script reproduces the selected audit; it is not a general-purpose usage
-collector.
+The script documents how the example was produced; it is not a
+general-purpose usage collector. Some figures in this document, such as the
+631 matching log files and the message recipients, were checked separately and
+are not produced by the script.
 
 The detailed audit is generated at `.local/usage-evidence/evidence.json`, which
 is ignored by Git and kept outside the served presentation directory. It

@@ -54,8 +54,8 @@ What is collected, where it is stored and what leaves the machine.
 
 ## Trial notes
 
-What we ran, in which environment and with which agents. Include commands and
-results that a reader can repeat.
+For finalists: which real runs we looked at, in which environment and with
+which agents, and which weak spots were or were not easy to see.
 
 ## Verdict
 

@@ -50,7 +50,7 @@
         <div class="problem-item"><span class="large-index">02</span><h3>Checks on repeat</h3><p>Tests run again. We need to see whether a change, failure or new requirement justified the next run.</p></div>
         <div class="problem-item"><span class="large-index">03</span><h3>Spend without an outcome</h3><p>High resource use alone says little about success. The task may still be unfinished.</p></div>
       </div>
-      <div class="takeaway"><span>Oct 5–6 snapshot</span><strong><span data-stat="cohort-tokens">—</span> tokens across <span data-stat="cohort-sessions">—</span> sessions · <span data-stat="cohort-wait-tokens">—</span> in wait-invoking responses</strong></div>
+      <div class="takeaway"><span>Oct 5–6 snapshot</span><strong><span data-stat="cohort-tokens">—</span> tokens across <span data-stat="cohort-sessions">—</span> sessions · <span data-stat="cohort-wait-tokens">—</span> in wait-invoking responses<span class="token-split">Of these, <span data-stat="cohort-uncached">—</span> uncached input and <span data-stat="cohort-output">—</span> output; the rest is cached input.</span></strong></div>
     </section>
 
     <section class="slide evidence-slide" id="slide-3" aria-labelledby="title-3">
@@ -64,6 +64,7 @@
         <div class="stat-panel">
           <div class="big-stat"><span data-stat="family-billions">—</span><span class="stat-unit">B</span></div>
           <p class="stat-label">tokens in one lead-agent family</p>
+          <p class="token-split">Of these, <span data-stat="family-uncached">—</span> uncached input and <span data-stat="family-output">—</span> output; the rest is cached input.</p>
           <div class="share-bar" role="img" id="wait-bar" aria-label="Share of tokens associated with waiting"><span id="wait-fill"></span></div>
           <div class="bar-legend"><span><i class="legend-dot lime"></i> Waiting</span><span><i class="legend-dot muted"></i> Other steps</span></div>
           <dl class="stat-pair"><div><dt>Wait-associated tokens</dt><dd data-stat="family-wait-tokens">—</dd></div><div><dt>Connected sessions</dt><dd data-stat="family-sessions">—</dd></div></dl>
@@ -82,7 +83,7 @@
         <div class="observer-metric"><span class="metric-number" data-stat="observer-messages">—</span><h3>coordination messages</h3><p><code>send_message</code> replies account for <span data-stat="observer-status-tokens">—</span> tokens. Compare their frequency with new information and outcomes.</p></div>
       </div>
       <div class="takeaway"><span>Patterns to detect</span><strong>Frequent polling · redundant updates · reruns without a new reason</strong></div>
-      <div class="small-source">Oct 6 · remote-check agent · <button class="source-link" data-open-sources>Data and limitations ↗</button></div>
+      <div class="small-source">Oct 6 · remote-check agent · of its total, <span data-stat="observer-uncached">—</span> uncached input and <span data-stat="observer-output">—</span> output; the rest is cached input · <button class="source-link" data-open-sources>Data and limitations ↗</button></div>
     </section>
 
     <section class="slide paper-slide" id="slide-5" aria-labelledby="title-5">
@@ -138,7 +139,7 @@
 
   <dialog id="sources-dialog" aria-labelledby="sources-title">
     <div class="dialog-heading"><h2 id="sources-title">Sources and calculations</h2><button id="close-sources" aria-label="Close sources">×</button></div>
-    <p>Locally available Subyard Codex logs for October 5–6, 2026, frozen at October 6, 23:27:43 UTC. Includes active records from older sessions. Other providers and unrelated workspaces are outside this snapshot.</p>
+    <p>An example provided by one of the users: Subyard Codex logs for October 5–6, 2026, frozen at October 6, 23:27:43 UTC. It illustrates the kind of problem the project should make easy to see; it is not a benchmark and is not regenerated. Other providers and unrelated workspaces are outside this snapshot.</p>
     <h3>01. Scale and the largest connected family</h3>
     <dl class="source-totals"><div><dt>Tokens across 179 sessions</dt><dd data-stat="cohort-tokens-exact"></dd></div><div><dt>Wait-associated tokens</dt><dd data-stat="cohort-wait-tokens-exact"></dd></div><div><dt>Largest family, 20 sessions</dt><dd data-stat="family-tokens-exact"></dd></div></dl>
     <p>The lead and 19 selected descendants used <span data-stat="family-tokens-exact"></span> tokens; <span data-stat="family-wait-tokens-exact"></span> (<span data-stat="family-wait-share"></span>%) belong to wait-invoking responses. Only aggregate metrics are published; session identifiers and source locations remain in the local audit.</p>

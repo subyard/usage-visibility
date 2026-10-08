@@ -7,7 +7,8 @@ evaluate the cost of a useful outcome.
 
 The intended solution works across agent tools and development environments,
 including standard devcontainers running Codex, Claude Code or OpenCode.
-Subyard provides a reference implementation and real examples for evaluation;
+[Subyard](https://github.com/subyard/subyard) provides a reference
+implementation and real examples for evaluation;
 the solution should be usable independently of Subyard.
 
 ## What we want to measure

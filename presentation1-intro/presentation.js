@@ -97,6 +97,9 @@
     const decimal = new Intl.NumberFormat('en-US', {maximumFractionDigits: 1});
     const billions = new Intl.NumberFormat('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
     const millions = value => `${decimal.format(value / 1e6)}M`;
+    const compact = new Intl.NumberFormat('en-US', {notation: 'compact', maximumFractionDigits: 1});
+    const uncached = usage => compact.format(usage.input_tokens - usage.cached_input_tokens);
+    const output = usage => compact.format(usage.output_tokens);
     const share = evidence.family.wait_usage.total_tokens / evidence.family.usage.total_tokens * 100;
     const observer = evidence.observer;
     const values = {
@@ -105,6 +108,12 @@
       'cohort-wait-tokens': millions(evidence.cohort.wait_usage.total_tokens),
       'cohort-wait-tokens-exact': format.format(evidence.cohort.wait_usage.total_tokens),
       'cohort-sessions': format.format(evidence.cohort.session_count),
+      'cohort-uncached': uncached(evidence.cohort.usage),
+      'cohort-output': output(evidence.cohort.usage),
+      'family-uncached': uncached(evidence.family.usage),
+      'family-output': output(evidence.family.usage),
+      'observer-uncached': uncached(observer.usage),
+      'observer-output': output(observer.usage),
       'family-billions': billions.format(evidence.family.usage.total_tokens / 1e9),
       'family-tokens-exact': format.format(evidence.family.usage.total_tokens),
       'family-wait-share': decimal.format(share),
