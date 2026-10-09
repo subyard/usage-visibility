@@ -1,0 +1,401 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <meta name="description" content="Usage Visibility — AI Observer, OpenLIT, Langfuse and AgentSight: what their interfaces show, how our goals map onto each, and other options.">
+  <title>Usage Visibility — candidate tools and their interfaces</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="presentation.js" defer></script>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#slide-1" aria-label="Usage Visibility, first slide"><span class="brand-mark" aria-hidden="true"><i class="bg-aio"></i><i class="bg-olit"></i><i class="bg-lf"></i><i class="bg-as"></i></span>usage visibility<span class="brand-note">/ candidate tools</span></a>
+    <nav aria-label="Presentation actions">
+      <button id="sources-button" class="text-button">Sources</button>
+      <button id="overview-button" class="text-button" aria-pressed="false">All slides</button>
+      <button id="print-button" class="text-button" title="Print all slides or save them as PDF">PDF ↗</button>
+    </nav>
+  </header>
+
+  <main id="deck" aria-label="Candidate tools presentation">
+
+    <!-- 1. Cover -->
+    <section class="slide" id="slide-1" aria-labelledby="title-1">
+      <div class="eyebrow">Solution comparison · interfaces and fit</div>
+      <div class="cover-grid">
+        <div>
+          <h1 id="title-1">Four tools.<br>What each one<br><em>actually shows.</em></h1>
+          <p class="lead">The shortlist, described from real interfaces: the projects' own screenshots, their documentation and a running AI Observer. For each tool: what you see, how our goals map onto it, and what is missing.</p>
+        </div>
+        <div>
+          <div class="strip-head" aria-hidden="true"><span>Tokens</span><span>Cost</span><span>Attribution</span><span>Timeline</span><span>Compute</span><span>Outcome</span></div>
+          <div class="tool-cards">
+            <div class="tool-card c-aio"><span class="bar"></span><div><h3>AI Observer</h3><p>Telemetry dashboard for coding agents</p></div><div class="strip" role="img" aria-label="Tokens partial, cost yes, attribution partial, timeline partial, compute no, outcome partial"><i class="part">~</i><i class="ok">✓</i><i class="part">~</i><i class="part">~</i><i class="no">✗</i><i class="part">~</i></div></div>
+            <div class="tool-card c-olit"><span class="bar"></span><div><h3>OpenLIT</h3><p>OpenTelemetry platform with a coding-agent section</p></div><div class="strip" role="img" aria-label="Tokens yes, cost yes, attribution yes, timeline partial, compute partial, outcome partial"><i class="ok">✓</i><i class="ok">✓</i><i class="ok">✓</i><i class="part">~</i><i class="part">~</i><i class="part">~</i></div></div>
+            <div class="tool-card c-lf"><span class="bar"></span><div><h3>Langfuse</h3><p>LLM tracing with timelines and agent graphs</p></div><div class="strip" role="img" aria-label="Tokens yes, cost yes, attribution yes, timeline partial, compute no, outcome partial"><i class="ok">✓</i><i class="ok">✓</i><i class="ok">✓</i><i class="part">~</i><i class="no">✗</i><i class="part">~</i></div></div>
+            <div class="tool-card c-as"><span class="bar"></span><div><h3>AgentSight</h3><p>System-side view of agents through eBPF</p></div><div class="strip" role="img" aria-label="Tokens partial, cost no, attribution partial, timeline partial, compute yes, outcome no"><i class="part">~</i><i class="no">✗</i><i class="part">~</i><i class="part">~</i><i class="ok">✓</i><i class="no">✗</i></div></div>
+          </div>
+          <div class="legend" style="margin-top:14px;justify-content:flex-end"><span><i class="r ok">✓</i> standard view</span><span><i class="r part">~</i> custom query or manual</span><span><i class="r no">✗</i> data missing</span></div>
+        </div>
+      </div>
+      <div class="slide-bottom"><span>Follows the intro presentation and <code>solutions/</code></span><span>Checked on 2026-10-09 · ratings from documentation unless marked</span></div>
+    </section>
+
+    <!-- 2. What we look for -->
+    <section class="slide" id="slide-2" aria-labelledby="title-2">
+      <div class="eyebrow">00 · what we look for</div>
+      <h2 id="title-2">Can a person see the waste<br><em>without reading raw logs?</em></h2>
+      <div class="scen-grid">
+        <article class="scen"><span class="sid">S1</span><h3>Rerun without a change</h3><p>Tests or other commands rerun with no code or environment change.</p><div class="res"><span class="cpu">compute</span><span class="time">time</span></div></article>
+        <article class="scen"><span class="sid">S2</span><h3>Expensive waiting</h3><p>A lead agent keeps calling its model while another agent works.</p><div class="res"><span class="tok">tokens</span></div></article>
+        <article class="scen"><span class="sid">S3</span><h3>Polling</h3><p>Frequent process polls or status messages without new information.</p><div class="res"><span class="tok">tokens</span><span class="time">time</span></div></article>
+        <article class="scen"><span class="sid">S4</span><h3>Long wait</h3><p>A wait or blocker on the path to delivery.</p><div class="res"><span class="time">time</span></div></article>
+        <article class="scen"><span class="sid">S5</span><h3>Spend, no result</h3><p>High resource use without a successful outcome.</p><div class="res"><span class="tok">tokens</span><span class="cpu">compute</span><span class="time">time</span><span class="out">outcome</span></div></article>
+      </div>
+      <div class="must">
+        <div><b>Ordinary environments</b>Codex, Claude Code and OpenCode in a plain devcontainer or terminal, without Subyard.</div>
+        <div><b>Tokens, counted once</b>Input, cached input, output and reasoning per model; cached is part of input.</div>
+        <div><b>Compute and time</b>CPU, memory and processes, including test runs; a timeline of work, waits and blockers.</div>
+        <div><b>Attribution</b>From task to agent or subagent to the step or tool call. Cost estimate and outcome are should-haves.</div>
+      </div>
+      <p class="note">Every rating in this deck uses one scale: <i class="r ok">✓</i> visible in the tool's standard views · <i class="r part">~</i> needs a custom query or manual correlation · <i class="r no">✗</i> the data is missing.</p>
+    </section>
+
+    <!-- 3. Native telemetry -->
+    <section class="slide" id="slide-3" aria-labelledby="title-3">
+      <div class="eyebrow">00 · the common source</div>
+      <h2 id="title-3">The agents already emit<br><em>most of the model side.</em></h2>
+      <div class="native">
+        <div>
+          <div class="wf" role="img" aria-label="Illustrative Claude Code trace: an interaction span containing model requests, a Bash tool span split into permission wait and execution, a test runner joining through TRACEPARENT, and an Agent tool span with nested subagent requests">
+            <div class="wf-row"><span class="lbl">claude_code.interaction</span><div class="wf-track"><span class="wf-bar int" style="left:0;width:100%"></span></div></div>
+            <div class="wf-row"><span class="lbl">├ llm_request</span><div class="wf-track"><span class="wf-bar llm" style="left:0;width:12%"></span></div></div>
+            <div class="wf-row"><span class="lbl">├ tool · Bash</span><div class="wf-track"><span class="wf-bar tool" style="left:12%;width:40%"></span></div></div>
+            <div class="wf-row"><span class="lbl">│ ├ tool.blocked_on_user</span><div class="wf-track"><span class="wf-bar block" style="left:12%;width:8%"></span></div></div>
+            <div class="wf-row"><span class="lbl">│ └ tool.execution</span><div class="wf-track"><span class="wf-bar exec" style="left:20%;width:32%"></span></div></div>
+            <div class="wf-row"><span class="lbl">│   └ test runner span</span><div class="wf-track"><span class="wf-bar ext" style="left:21%;width:30%"></span></div></div>
+            <div class="wf-row"><span class="lbl">├ llm_request</span><div class="wf-track"><span class="wf-bar llm" style="left:52%;width:9%"></span></div></div>
+            <div class="wf-row"><span class="lbl">└ tool · Agent</span><div class="wf-track"><span class="wf-bar tool" style="left:61%;width:39%"></span></div></div>
+            <div class="wf-row"><span class="lbl">  └ subagent llm_request</span><div class="wf-track"><span class="wf-bar sub" style="left:62%;width:14%"></span><span class="wf-bar sub" style="left:80%;width:12%"></span></div></div>
+            <div class="wf-cap"><div class="legend"><span><i class="dot" style="background:var(--aio)"></i>model</span><span><i class="dot" style="background:var(--olit)"></i>tool</span><span><i class="dot" style="background:var(--warn)"></i>permission wait</span><span><i class="dot" style="background:var(--lf)"></i>subagent</span><span><i class="dot" style="background:var(--as)"></i>joined via <code>TRACEPARENT</code></span></div></div>
+          </div>
+          <p class="note" style="margin-top:8px">Span names from the Claude Code monitoring docs. Bar lengths are illustrative, not measured.</p>
+        </div>
+        <div class="facts">
+          <div class="fact"><h3>Claude Code</h3><ul><li>Traces (beta) with <code>CLAUDE_CODE_ENHANCED_TELEMETRY_BETA=1</code>; subagent spans carry <code>agent_id</code> and <code>parent_agent_id</code>.</li><li>Bash subprocesses get <code>TRACEPARENT</code>, so a test runner can join the trace.</li><li>Metric <code>token.usage</code> by type: input, cacheRead, cacheCreation, output.</li></ul></div>
+          <div class="fact"><h3>Codex CLI</h3><ul><li>Opt-in <code>[otel]</code>: events for API requests, prompts, tool approvals and results.</li><li>Metric <code>turn.token_usage</code>: input, cached_input, output, reasoning_output.</li></ul></div>
+          <div class="fact"><h3>OpenCode</h3><ul><li>Telemetry through plugins: third-party OTLP plugin, or Langfuse's.</li></ul></div>
+        </div>
+      </div>
+      <div class="verdict"><span>Implication</span><strong>Configuration covers tokens, cost and tool calls. None of the agents reports CPU, memory or the processes it starts.</strong></div>
+    </section>
+
+    <!-- 4. Data sources -->
+    <section class="slide" id="slide-4" aria-labelledby="title-4">
+      <div class="eyebrow">00 · where the data comes from</div>
+      <h2 id="title-4">The data source decides<br><em>what a tool can see.</em></h2>
+      <table class="src" aria-label="Data sources per tool">
+        <thead><tr><th scope="col"></th><th scope="col">Agent OTLP<small>metrics, logs, traces</small></th><th scope="col">Session files<small>~/.claude, ~/.codex</small></th><th scope="col">Agent hooks<small>plugins, Stop hook</small></th><th scope="col" class="sys">Kernel eBPF<small>TLS, exec, files</small></th><th scope="col" class="sys">Host and processes<small>/proc, collector</small></th><th scope="col">What it can see</th></tr></thead>
+        <tbody>
+          <tr><th scope="row"><i class="dot bg-aio"></i>AI Observer</th><td><i class="yes" title="yes"></i><span class="via">serve mode</span></td><td><i class="yes" title="yes"></i><span class="via">watch mode</span></td><td>—</td><td class="sys">—</td><td class="sys">—</td><td class="sees">Model calls, tokens, cost, tool calls. The two modes exclude each other.</td></tr>
+          <tr><th scope="row"><i class="dot bg-olit"></i>OpenLIT</th><td><i class="yes" title="yes"></i></td><td><i class="yes" title="yes"></i><span class="via">token deltas</span></td><td><i class="yes" title="yes"></i><span class="via">openlit coding install</span></td><td class="sys">—</td><td class="sys"><i class="yes" title="yes"></i><span class="via">separate collector</span></td><td class="sees">Turns, tools, subagents, Git outcome; host and process metrics beside them.</td></tr>
+          <tr><th scope="row"><i class="dot bg-lf"></i>Langfuse</th><td><i class="yes" title="yes"></i><span class="via">traces only</span></td><td><i class="yes" title="yes"></i><span class="via">read by plugins</span></td><td><i class="yes" title="yes"></i><span class="via">Claude Code, Codex, OpenCode</span></td><td class="sys">—</td><td class="sys">—</td><td class="sees">The agent's own steps in detail; nothing outside the agent.</td></tr>
+          <tr><th scope="row"><i class="dot bg-as"></i>AgentSight</th><td>—<span class="via">exports only</span></td><td><i class="yes" title="yes"></i><span class="via">without root</span></td><td>—</td><td class="sys"><i class="yes" title="yes"></i><span class="via">root or CAP_BPF</span></td><td class="sys"><i class="yes" title="yes"></i></td><td class="sees">Processes, files, LLM traffic and CPU of any command; not the agent's intent.</td></tr>
+        </tbody>
+      </table>
+      <div class="verdict"><span>Pattern</span><strong>Three tools look from inside the agent. Only the system side sees test runs, CPU and memory.</strong></div>
+    </section>
+
+    <!-- 5. AI Observer interface -->
+    <section class="slide c-aio" id="slide-5" aria-labelledby="title-5">
+      <div class="eyebrow"><span class="tag bg-aio">01 · AI Observer 0.6.0</span> interface</div>
+      <h2 id="title-5">A telemetry dashboard <em>for coding agents.</em></h2>
+      <div class="shot-layout">
+        <div class="shot-col">
+          <figure class="shot"><div class="frame"><img src="img/ai-observer-dashboard.png" alt="AI Observer dashboard with stat tiles, Claude Code cost and active time tiles, and token usage charts for Claude Code, Gemini CLI and Codex CLI"><span class="pin" style="left:1.8%;top:34.4%">1</span><span class="pin" style="left:19.8%;top:28%">2</span><span class="pin" style="left:38.6%;top:40%">3</span><span class="pin" style="left:19.8%;top:54%">4</span><span class="pin" style="left:97.6%;top:20.4%">5</span></div><figcaption>Dashboard. Official screenshot from the AI Observer repository.</figcaption></figure>
+        </div>
+        <div>
+          <ol class="callouts">
+            <li><span class="n">1</span><div><b>Navigation</b>Dashboards, Metrics, Logs, Traces, Sessions, built-in docs.</div></li>
+            <li><span class="n">2</span><div><b>Built-in tiles</b>Traces, logs, metric points, error rate, active services.</div></li>
+            <li><span class="n">3</span><div><b>Metric Value widget</b>One number per service: active time, cost, lines of code.</div></li>
+            <li><span class="n">4</span><div><b>Metric Chart widget</b>Token usage over time, stacked by Cache Creation, Cache Read, Input and Output.</div></li>
+            <li><span class="n">5</span><div><b>Edit</b>Add, move and remove widgets; several saved dashboards.</div></li>
+            <li><span class="n plain">+</span><div><b>Sessions page</b>Agent, start, duration, model, message count. A transcript opens as Chat or Timeline: a chronological list of prompts, tool calls and results.</div></li>
+            <li><span class="n plain">+</span><div><b>Traces page</b>Span waterfall, for example Codex <code>run_task → run_turn → reasoning</code>. Empty without OTLP traces.</div></li>
+          </ol>
+          <p class="basis"><b>Seen on a running instance:</b> every page was checked on 0.6.0 in Subyard (watch mode, Claude Code and Codex). Its screenshots are not published because they contain session data.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. AI Observer fit -->
+    <section class="slide c-aio" id="slide-6" aria-labelledby="title-6">
+      <div class="eyebrow"><span class="tag bg-aio">01 · AI Observer</span> fit to our goals</div>
+      <h2 id="title-6">Tokens and cost by agent. <em>Blind to processes.</em></h2>
+      <div class="fit">
+        <div class="scen-grid">
+          <article class="scen no"><div class="head"><span class="sid">S1 RERUN</span><i class="r no">✗</i></div><p>Bash calls are listed in the transcript, but there is no CPU, memory or process data.</p></article>
+          <article class="scen part"><div class="head"><span class="sid">S2 WAITING</span><i class="r part">~</i></div><p>Lead and subagent are separate sessions with no link between them.</p></article>
+          <article class="scen part"><div class="head"><span class="sid">S3 POLLING</span><i class="r part">~</i></div><p>Counts of tool calls per session; repetition is found by reading.</p></article>
+          <article class="scen part"><div class="head"><span class="sid">S4 LONG WAIT</span><i class="r part">~</i></div><p>Timestamps and session duration; no view of gaps. Waterfall needs OTLP traces.</p></article>
+          <article class="scen part"><div class="head"><span class="sid">S5 NO RESULT</span><i class="r part">~</i></div><p>Cost per session; outcome only through proxies: commits, PRs, lines changed.</p></article>
+        </div>
+        <div class="reqs">
+          <div class="req"><div class="head"><i class="r part">~</i>Tokens</div><p>Input, cache read and write, output per agent. No per-model table.</p></div>
+          <div class="req"><div class="head"><i class="r ok">✓</i>Cost</div><p>Embedded prices for Claude, OpenAI, Gemini, Copilot.</p></div>
+          <div class="req"><div class="head"><i class="r no">✗</i>Compute</div><p>CPU and memory only as Gemini CLI's own metrics.</p></div>
+          <div class="req"><div class="head"><i class="r part">~</i>Attribution</div><p>Session → message → tool call. No subagent tree.</p></div>
+          <div class="req"><div class="head"><i class="r ok">✓</i>Agents</div><p>Claude Code, Codex, Gemini, Copilot; OpenCode via a third-party plugin.</p></div>
+          <div class="req"><div class="head"><i class="r ok">✓</i>Setup</div><p>One binary or container, local DuckDB. Already in Subyard.</p></div>
+        </div>
+        <div class="verdict"><i class="dot"></i><span>Role</span><strong>A light token and cost baseline. On its own it cannot show S1 or S2.</strong></div>
+      </div>
+    </section>
+
+    <!-- 7. OpenLIT interface -->
+    <section class="slide c-olit" id="slide-7" aria-labelledby="title-7">
+      <div class="eyebrow"><span class="tag bg-olit">02 · OpenLIT 2.1.0</span> interface</div>
+      <h2 id="title-7">Coding-agent sessions <em>with loop badges.</em></h2>
+      <div class="shot-layout tall">
+        <div class="shot-col">
+          <figure class="shot"><div class="frame"><img src="img/openlit-readme-hero-coding-agent-trace.png" alt="OpenLIT coding-agent trace: header with status, duration, tokens, cost and model; agent, user, repository, branch and lines changed; a governance panel listing read_file repeated 236 times with wasted tokens and cost"><span class="pin" style="left:61%;top:11%">1</span><span class="pin" style="left:77%;top:19%">2</span><span class="pin" style="left:79%;top:28%">3</span><span class="pin" style="left:46.7%;top:41.5%">4</span></div><figcaption>Coding-agent trace. Official README image.</figcaption></figure>
+          <figure class="shot"><div class="frame"><img src="img/openlit-docs-ai-observability-trace.png" alt="OpenLIT trace detail with Tree, Chat, AI Analysis, Timeline and Graph tabs and a span attribute panel" style="max-height:28vh"><span class="pin" style="left:46%;top:22.6%">5</span><span class="pin" style="left:4%;top:51%">6</span></div><figcaption>Trace detail. Official docs image.</figcaption></figure>
+        </div>
+        <div>
+          <ol class="callouts">
+            <li><span class="n">1</span><div><b>Run header</b>Status, duration, tokens, cost and model of the session.</div></li>
+            <li><span class="n">2</span><div><b>Coding context</b>Agent, user, working folder, repository, branch, terminal, lines added and deleted.</div></li>
+            <li><span class="n">3</span><div><b>Loop banner</b>“read_file repeated 236 times”, with wasted tokens and cost. Same tool, same arguments.</div></li>
+            <li><span class="n">4</span><div><b>Governance panel</b>Each repeated call group with its spans.</div></li>
+            <li><span class="n">5</span><div><b>Five views of a trace</b>Tree, Chat, AI Analysis, Timeline (waterfall over elapsed time) and Graph (DAG).</div></li>
+            <li><span class="n">6</span><div><b>Navigation</b>Telemetry, Agents, Evaluations, Costs, Prompt Hub, Vault, Rule Engine.</div></li>
+            <li><span class="n plain">+</span><div><b>Coding Agents → Sessions</b>Table with duration, model, tool calls, code changed, commits, PRs, tokens, cost and <em>Outcome</em> (merged, committed, abandoned, cancelled).</div></li>
+          </ol>
+          <p class="basis"><b>From documentation.</b> Not run yet.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 8. OpenLIT fit -->
+    <section class="slide c-olit" id="slide-8" aria-labelledby="title-8">
+      <div class="eyebrow"><span class="tag bg-olit">02 · OpenLIT</span> fit to our goals</div>
+      <h2 id="title-8">Closest to our scenarios. <em>Compute lives next door.</em></h2>
+      <div class="fit">
+        <div class="scen-grid">
+          <article class="scen part"><div class="head"><span class="sid">S1 RERUN</span><i class="r part">~</i></div><p>The same test command twice gets a Loop badge. It compares arguments, not code; CPU is in a separate collector.</p></article>
+          <article class="scen part"><div class="head"><span class="sid">S2 WAITING</span><i class="r part">~</i></div><p>Subagent turns fold under the spawning chat; the timeline shows overlap. No “waiting” view.</p></article>
+          <article class="scen ok"><div class="head"><span class="sid">S3 POLLING</span><i class="r ok">✓</i></div><p>Repeated identical calls are flagged in the list and on the session row, with tokens and cost wasted.</p></article>
+          <article class="scen part"><div class="head"><span class="sid">S4 LONG WAIT</span><i class="r part">~</i></div><p>Wide spans in the timeline waterfall; waits are not labelled.</p></article>
+          <article class="scen part"><div class="head"><span class="sid">S5 NO RESULT</span><i class="r part">~</i></div><p>Cost and Outcome sit in the same table. Outcome is Git-based, not test results.</p></article>
+        </div>
+        <div class="reqs">
+          <div class="req"><div class="head"><i class="r ok">✓</i>Tokens</div><p>Per turn: input, output, cached, reasoning.</p></div>
+          <div class="req"><div class="head"><i class="r ok">✓</i>Cost</div><p>Configurable price table, separate from billing.</p></div>
+          <div class="req"><div class="head"><i class="r part">~</i>Compute</div><p>Collector exports host and per-process CPU and memory, without a GPU too. Not joined to sessions.</p></div>
+          <div class="req"><div class="head"><i class="r ok">✓</i>Attribution</div><p>Session → subagent (parent id) → tool span.</p></div>
+          <div class="req"><div class="head"><i class="r part">~</i>Agents</div><p>Claude Code, Codex, Cursor, Windsurf. No OpenCode.</p></div>
+          <div class="req"><div class="head"><i class="r ok">✓</i>Setup</div><p>OpenLIT and ClickHouse containers plus a CLI. Content capture defaults to <code>full</code>.</p></div>
+        </div>
+        <div class="verdict"><i class="dot"></i><span>Role</span><strong>Strongest agent-side fit on paper. Needs the process collector and one query to tie compute to a session.</strong></div>
+      </div>
+    </section>
+
+    <!-- 9. Langfuse interface -->
+    <section class="slide c-lf" id="slide-9" aria-labelledby="title-9">
+      <div class="eyebrow"><span class="tag bg-lf">03 · Langfuse v4</span> interface</div>
+      <h2 id="title-9">Traces you can read <em>as a timeline.</em></h2>
+      <div class="shot-layout tall">
+        <div class="shot-col">
+          <figure class="shot"><div class="frame"><img src="img/langfuse-responsive-timeline.png" alt="Langfuse trace timeline: nested rows for an agent with steps, chat model calls and a tool call, bars sized by elapsed time"><span class="pin" style="left:87%;top:13%">1</span><span class="pin" style="left:28%;top:34%">2</span><span class="pin" style="left:6%;top:59.5%">3</span><span class="pin" style="left:56%;top:79%">4</span></div><figcaption>Trace timeline, August 2026. Official image.</figcaption></figure>
+          <figure class="shot"><div class="frame"><img src="img/langfuse-llm-analytics.png" alt="Langfuse home dashboard: traces by name, model costs with tokens and USD per model, scores, traces by time, model usage" style="max-height:24vh"><span class="pin" style="left:44%;top:15%">5</span><span class="pin" style="left:76%;top:66%">6</span></div><figcaption>Home dashboard. Official docs image.</figcaption></figure>
+        </div>
+        <div>
+          <ol class="callouts">
+            <li><span class="n">1</span><div><b>Tree or Timeline</b>Two views of one trace; the timeline zooms and pans from a dozen to over a thousand spans.</div></li>
+            <li><span class="n">2</span><div><b>Elapsed-time axis</b>Bar width is the duration of each observation.</div></li>
+            <li><span class="n">3</span><div><b>Nesting</b>Agent → step → model call or tool; colour marks the type.</div></li>
+            <li><span class="n">4</span><div><b>Tool call</b>A long tool call is a wide bar: the blocker is visible at a glance.</div></li>
+            <li><span class="n">5</span><div><b>Model costs</b>Tokens and USD per model.</div></li>
+            <li><span class="n">6</span><div><b>Model usage</b>Cost or units by model or by usage type.</div></li>
+            <li><span class="n plain">+</span><div><b>Agent graph</b>Aggregated mode merges repeated steps into one node with a counter and draws loops as cycles.</div></li>
+            <li><span class="n plain">+</span><div><b>Observations table</b>Default view in v4: every span with model, tokens, cost and latency; full-text search.</div></li>
+          </ol>
+          <p class="basis"><b>From documentation.</b> Not run yet.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 10. Langfuse fit -->
+    <section class="slide c-lf" id="slide-10" aria-labelledby="title-10">
+      <div class="eyebrow"><span class="tag bg-lf">03 · Langfuse</span> fit to our goals</div>
+      <h2 id="title-10">Best view of the agent's steps. <em>Nothing outside it.</em></h2>
+      <div class="fit">
+        <div class="scen-grid">
+          <article class="scen part"><div class="head"><span class="sid">S1 RERUN</span><i class="r part">~</i></div><p>Each test run is a tool span with its duration and command. No CPU, no code-change check.</p></article>
+          <article class="scen part"><div class="head"><span class="sid">S2 WAITING</span><i class="r part">~</i></div><p>Codex subagents nest under the spawning turn; repeated wait calls show as a counter.</p></article>
+          <article class="scen part"><div class="head"><span class="sid">S3 POLLING</span><i class="r part">~</i></div><p>The aggregated graph shows “step (n)”; no “no new information” check.</p></article>
+          <article class="scen ok"><div class="head"><span class="sid">S4 LONG WAIT</span><i class="r ok">✓</i></div><p>A long tool call is a wide bar. Waits between turns fall outside any trace.</p></article>
+          <article class="scen part"><div class="head"><span class="sid">S5 NO RESULT</span><i class="r part">~</i></div><p>Cost per trace and session; success needs a score that we define.</p></article>
+        </div>
+        <div class="reqs">
+          <div class="req"><div class="head"><i class="r ok">✓</i>Tokens</div><p>Usage types in separate buckets. Codex plugin: cached and reasoning.</p></div>
+          <div class="req"><div class="head"><i class="r ok">✓</i>Cost</div><p>Model price table with overrides.</p></div>
+          <div class="req"><div class="head"><i class="r no">✗</i>Compute</div><p>Elapsed time per span only. No CPU, memory or processes.</p></div>
+          <div class="req"><div class="head"><i class="r ok">✓</i>Attribution</div><p>Session → trace → generation → tool; subagents nested.</p></div>
+          <div class="req"><div class="head"><i class="r ok">✓</i>Agents</div><p>Plugins for Claude Code, Codex and OpenCode.</p></div>
+          <div class="req"><div class="head"><i class="r part">~</i>Setup</div><p>Six services: web, worker, Postgres, ClickHouse, Redis, S3.</p></div>
+        </div>
+        <div class="verdict"><i class="dot"></i><span>Role</span><strong>Strong for S4 and attribution across all three agents. Needs a system-side partner for compute.</strong></div>
+      </div>
+    </section>
+
+    <!-- 11. AgentSight interface -->
+    <section class="slide c-as" id="slide-11" aria-labelledby="title-11">
+      <div class="eyebrow"><span class="tag bg-as">04 · AgentSight v1.0.34</span> interface</div>
+      <h2 id="title-11">Processes, files and LLM calls <em>in one place.</em></h2>
+      <div class="shot-layout tall">
+        <div class="shot-col">
+          <figure class="shot"><div class="frame"><img src="img/agentsight-top-mode-demo.png" alt="agentsight top terminal view: sessions with agent, state, age, model, tokens, CPU and memory, and counts of processes, tool calls and files"><span class="pin" style="left:1.7%;top:6.8%">1</span><span class="pin" style="left:56%;top:16.9%">2</span><span class="pin" style="left:65%;top:16.9%">3</span><span class="pin" style="left:77%;top:16.9%">4</span></div><figcaption><code>agentsight top</code>, terminal. Official image.</figcaption></figure>
+          <div class="shot-pair">
+            <figure class="shot small"><div class="frame"><img src="img/agentsight-demo-timeline.png" alt="AgentSight timeline with lanes for process, http_parser and sse_processor events"><span class="pin" style="left:8%;top:64.5%">5</span></div><figcaption>Timeline</figcaption></figure>
+            <figure class="shot small"><div class="frame"><img src="img/agentsight-demo-tree.png" alt="AgentSight process tree: claude process with prompts, responses and file opens"><span class="pin" style="left:20%;top:38%">6</span></div><figcaption>Process tree</figcaption></figure>
+            <figure class="shot small"><div class="frame"><img src="img/agentsight-demo-metrics.png" alt="AgentSight resource metrics: average and peak CPU and memory, memory over time for one process"><span class="pin" style="left:11%;top:24%">7</span></div><figcaption>Metrics</figcaption></figure>
+          </div>
+        </div>
+        <div>
+          <ol class="callouts">
+            <li><span class="n">1</span><div><b>Live sessions, sorted by CPU</b>Refreshes every 2 s; works without root from <code>/proc</code> and session files.</div></li>
+            <li><span class="n">2</span><div><b>Tokens</b>Per session, with agent and model.</div></li>
+            <li><span class="n">3</span><div><b>CPU and memory</b>For the whole process family of the agent.</div></li>
+            <li><span class="n">4</span><div><b>Activity</b>Processes, tool calls and files touched.</div></li>
+            <li><span class="n">5</span><div><b>Timeline</b>One lane per source: processes, HTTP, model streams.</div></li>
+            <li><span class="n">6</span><div><b>Process tree</b>Each process with its prompts, responses and file opens.</div></li>
+            <li><span class="n">7</span><div><b>Metrics</b>Average and peak CPU and memory per process over time.</div></li>
+          </ol>
+          <p class="basis"><b>From documentation.</b> Not run yet. <code>record -- &lt;command&gt;</code> saves a run to SQLite; <code>report</code> summarises it. The local tool is open source; a hosted app is in preview.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 12. AgentSight fit -->
+    <section class="slide c-as" id="slide-12" aria-labelledby="title-12">
+      <div class="eyebrow"><span class="tag bg-as">04 · AgentSight</span> fit to our goals</div>
+      <h2 id="title-12">The only one that sees CPU. <em>Weak on meaning.</em></h2>
+      <div class="fit">
+        <div class="scen-grid">
+          <article class="scen part"><div class="head"><span class="sid">S1 RERUN</span><i class="r part">~</i></div><p>Each test process shows with CPU and memory under the agent that started it. No code-change check.</p></article>
+          <article class="scen part"><div class="head"><span class="sid">S2 WAITING</span><i class="r part">~</i></div><p>LLM traffic next to a running child on the timeline; links between agents are not modelled.</p></article>
+          <article class="scen part"><div class="head"><span class="sid">S3 POLLING</span><i class="r part">~</i></div><p>README names repeated model and tool calls and friction signals; how they show is not documented.</p></article>
+          <article class="scen part"><div class="head"><span class="sid">S4 LONG WAIT</span><i class="r part">~</i></div><p>Gaps between events on the timeline; no wait label.</p></article>
+          <article class="scen no"><div class="head"><span class="sid">S5 NO RESULT</span><i class="r no">✗</i></div><p>Tokens and CPU are there; the outcome is not recorded.</p></article>
+        </div>
+        <div class="reqs">
+          <div class="req"><div class="head"><i class="r part">~</i>Tokens</div><p>Input and output; cached and reasoning not documented.</p></div>
+          <div class="req"><div class="head"><i class="r no">✗</i>Cost</div><p>No price calculation documented.</p></div>
+          <div class="req"><div class="head"><i class="r ok">✓</i>Compute</div><p>CPU and memory per process, process tree, files, network.</p></div>
+          <div class="req"><div class="head"><i class="r part">~</i>Attribution</div><p>Process → child process, not agent → subagent → tool.</p></div>
+          <div class="req"><div class="head"><i class="r ok">✓</i>Agents</div><p>Any command; README names Claude Code, Codex, OpenCode.</p></div>
+          <div class="req"><div class="head"><i class="r part">~</i>Setup</div><p>Linux only. eBPF needs root or <code>CAP_BPF</code>; in Docker, a privileged container with the host PID namespace.</p></div>
+        </div>
+        <div class="verdict"><i class="dot"></i><span>Role</span><strong>A compute partner for one of the agent-side tools, where root is available.</strong></div>
+      </div>
+    </section>
+
+    <!-- 13. Matrix -->
+    <section class="slide" id="slide-13" aria-labelledby="title-13">
+      <div class="eyebrow">05 · side by side</div>
+      <h2 id="title-13">No single tool covers it. <em>Pairs might.</em></h2>
+      <table class="matrix" aria-label="Ratings of the four candidates">
+        <thead><tr><th scope="col"></th><th scope="col"><i class="dot bg-aio"></i>AI Observer</th><th scope="col"><i class="dot bg-olit"></i>OpenLIT</th><th scope="col"><i class="dot bg-lf"></i>Langfuse</th><th scope="col"><i class="dot bg-as"></i>AgentSight</th></tr></thead>
+        <tbody>
+          <tr class="sep"><th colspan="5">Scenarios</th></tr>
+          <tr><th scope="row">S1 Rerun without a change</th><td class="no"><span class="cell"><i class="r no">✗</i>no process data</span></td><td class="part"><span class="cell"><i class="r part">~</i>same-args loop</span></td><td class="part"><span class="cell"><i class="r part">~</i>span duration</span></td><td class="part"><span class="cell"><i class="r part">~</i>CPU per run</span></td></tr>
+          <tr><th scope="row">S2 Expensive waiting</th><td class="part"><span class="cell"><i class="r part">~</i>separate sessions</span></td><td class="part"><span class="cell"><i class="r part">~</i>timeline overlap</span></td><td class="part"><span class="cell"><i class="r part">~</i>nested subagents</span></td><td class="part"><span class="cell"><i class="r part">~</i>process timeline</span></td></tr>
+          <tr><th scope="row">S3 Polling</th><td class="part"><span class="cell"><i class="r part">~</i>read transcript</span></td><td class="ok"><span class="cell"><i class="r ok">✓</i>loop badge</span></td><td class="part"><span class="cell"><i class="r part">~</i>graph counter</span></td><td class="part"><span class="cell"><i class="r part">~</i>undocumented</span></td></tr>
+          <tr><th scope="row">S4 Long wait</th><td class="part"><span class="cell"><i class="r part">~</i>timestamps</span></td><td class="part"><span class="cell"><i class="r part">~</i>waterfall</span></td><td class="ok"><span class="cell"><i class="r ok">✓</i>timeline</span></td><td class="part"><span class="cell"><i class="r part">~</i>event gaps</span></td></tr>
+          <tr><th scope="row">S5 Spend without a result</th><td class="part"><span class="cell"><i class="r part">~</i>Git proxies</span></td><td class="part"><span class="cell"><i class="r part">~</i>Git outcome</span></td><td class="part"><span class="cell"><i class="r part">~</i>own scores</span></td><td class="no"><span class="cell"><i class="r no">✗</i>no outcome</span></td></tr>
+          <tr class="sep"><th colspan="5">Requirements</th></tr>
+          <tr><th scope="row">Tokens without double counting</th><td class="part"><span class="cell"><i class="r part">~</i>per agent</span></td><td class="ok"><span class="cell"><i class="r ok">✓</i>per turn</span></td><td class="ok"><span class="cell"><i class="r ok">✓</i>per call</span></td><td class="part"><span class="cell"><i class="r part">~</i>in / out</span></td></tr>
+          <tr><th scope="row">Compute</th><td class="no"><span class="cell"><i class="r no">✗</i></span></td><td class="part"><span class="cell"><i class="r part">~</i>separate collector</span></td><td class="no"><span class="cell"><i class="r no">✗</i></span></td><td class="ok"><span class="cell"><i class="r ok">✓</i>per process</span></td></tr>
+          <tr><th scope="row">Attribution</th><td class="part"><span class="cell"><i class="r part">~</i>no subagents</span></td><td class="ok"><span class="cell"><i class="r ok">✓</i></span></td><td class="ok"><span class="cell"><i class="r ok">✓</i></span></td><td class="part"><span class="cell"><i class="r part">~</i>process tree</span></td></tr>
+          <tr><th scope="row">Cost estimate</th><td class="ok"><span class="cell"><i class="r ok">✓</i></span></td><td class="ok"><span class="cell"><i class="r ok">✓</i></span></td><td class="ok"><span class="cell"><i class="r ok">✓</i></span></td><td class="no"><span class="cell"><i class="r no">✗</i></span></td></tr>
+          <tr><th scope="row">Codex, Claude Code, OpenCode</th><td class="ok"><span class="cell"><i class="r ok">✓</i></span></td><td class="part"><span class="cell"><i class="r part">~</i>no OpenCode</span></td><td class="ok"><span class="cell"><i class="r ok">✓</i></span></td><td class="ok"><span class="cell"><i class="r ok">✓</i></span></td></tr>
+          <tr><th scope="row">Plain devcontainer</th><td class="ok"><span class="cell"><i class="r ok">✓</i>one binary</span></td><td class="ok"><span class="cell"><i class="r ok">✓</i>two containers</span></td><td class="part"><span class="cell"><i class="r part">~</i>six services</span></td><td class="part"><span class="cell"><i class="r part">~</i>needs root</span></td></tr>
+        </tbody>
+      </table>
+      <div class="legend"><span><i class="r ok">✓</i> standard view</span><span><i class="r part">~</i> custom query or manual correlation</span><span><i class="r no">✗</i> data missing</span><span>AI Observer partly seen on a running instance; the rest is from documentation.</span></div>
+    </section>
+
+    <!-- 14. Other options -->
+    <section class="slide" id="slide-14" aria-labelledby="title-14">
+      <div class="eyebrow">06 · other options</div>
+      <h2 id="title-14">Other ways in, <em>by the gap they fill.</em></h2>
+      <div class="opt-grid">
+        <article class="opt"><h3>Local log readers</h3><span class="tools">ccusage · Sniffly</span><p><code>ccusage claude|codex|opencode daily</code> prints token and cost tables from local session files, no server. Sniffly is a local web dashboard for Claude Code logs.</p><div class="fills"><span class="f-tok">tokens</span><span class="f-tok">cost</span></div></article>
+        <article class="opt"><h3>Native OTel into a generic stack</h3><span class="tools">Grafana LGTM · SigNoz</span><p>Send the agents' own OTLP to a general backend. Grafana Cloud has Claude Code and Codex integrations. S1–S5 dashboards are ours to build.</p><div class="fills"><span class="f-tok">tokens</span><span class="f-time">timeline</span></div></article>
+        <article class="opt"><h3>LLM gateway</h3><span class="tools">LiteLLM · Portkey · Helicone</span><p>A proxy behind <code>ANTHROPIC_BASE_URL</code> logs tokens, cost and latency per request. It sees requests, not tools, subagents or processes.</p><div class="fills"><span class="f-tok">tokens</span><span class="f-tok">cost</span></div></article>
+        <article class="opt"><h3>Other tracing platforms</h3><span class="tools">W&amp;B Weave · Opik · Phoenix · Laminar</span><p>Weave has a Claude Code plugin that traces turns, tool calls and subagents. Same class as Langfuse: no compute.</p><div class="fills"><span class="f-tok">tokens</span><span class="f-time">timeline</span></div></article>
+        <article class="opt"><h3>Process and container metrics</h3><span class="tools">cAdvisor · Tetragon · Netdata</span><p>cAdvisor: CPU and memory per container. Tetragon: eBPF exec and exit events with the parent chain, so a test run traces back to the agent. Netdata: processes and cgroups.</p><div class="fills"><span class="f-cpu">compute</span></div></article>
+        <article class="opt"><h3>Reruns visible at the source</h3><span class="tools">pytest cache · Nx · Turborepo · Bazel</span><p>Test and build caches key results on inputs. A cache hit, or a forced rerun, is a direct S1 signal that no observability tool infers today.</p><div class="fills"><span class="f-s1">S1</span></div></article>
+      </div>
+    </section>
+
+    <!-- 15. Combinations -->
+    <section class="slide" id="slide-15" aria-labelledby="title-15">
+      <div class="eyebrow">07 · combinations worth trying</div>
+      <h2 id="title-15">Agent side plus system side. <em>What stays open.</em></h2>
+      <div class="combo-grid">
+        <article class="combo"><div class="pair"><span class="chip"><i class="dot bg-olit"></i>OpenLIT</span><span class="plus">+</span><span class="chip"><i class="dot bg-olit"></i>its process collector</span></div><h3>A. One UI, one database</h3><p>Sessions with loop badges, outcome and cost; host and per-process CPU and memory in the same ClickHouse.</p><p class="open"><b>Open:</b> tying process metrics to a session is a custom SQL dashboard. No OpenCode.</p></article>
+        <article class="combo"><div class="pair"><span class="chip"><i class="dot bg-lf"></i>Langfuse</span><span class="plus">+</span><span class="chip"><i class="dot bg-as"></i>AgentSight</span></div><h3>B. Best of each side</h3><p>Langfuse for the agent tree and timeline across all three agents; AgentSight for test processes, CPU and memory.</p><p class="open"><b>Open:</b> two UIs correlated by time; eBPF needs root; Langfuse is heavy to host.</p></article>
+        <article class="combo"><div class="pair"><span class="chip">Native OTel</span><span class="plus">+</span><span class="chip">SigNoz or Grafana</span><span class="plus">+</span><span class="chip">cAdvisor or Tetragon</span></div><h3>C. Configuration only</h3><p>Claude Code traces and Codex OTel into a generic backend, with container or process metrics for compute.</p><p class="open"><b>Open:</b> every S1–S5 view is a dashboard we write and maintain.</p></article>
+        <article class="combo"><div class="pair"><span class="chip">ccusage</span></div><h3>D. A cross-check</h3><p>Zero setup. Daily and per-session token and cost tables to validate the totals of whichever tool we pick.</p><p class="open"><b>Open:</b> tokens and cost only.</p></article>
+      </div>
+      <div class="verdict" style="--accent:var(--bad)"><i class="dot"></i><span>Not covered by any</span><strong>“No code or environment change since the last run” and “waiting for another agent” are not detected out of the box.</strong></div>
+    </section>
+
+    <!-- 16. Next step -->
+    <section class="slide" id="slide-16" aria-labelledby="title-16">
+      <div class="eyebrow">08 · next step</div>
+      <h2 id="title-16">Pick finalists. <em>Try them on real runs.</em></h2>
+      <div class="finalists">
+        <div class="finalist c-olit"><span>Agent side · proposal</span><h3>OpenLIT</h3><p>Coding-agent sessions, loop detection, outcome column, and a process collector in the same stack.</p></div>
+        <div class="finalist c-as"><span>System side · proposal</span><h3>AgentSight</h3><p>The only candidate that ties CPU, memory and test processes to an agent.</p></div>
+        <div class="finalist c-lf"><span>Fallback</span><h3>Langfuse</h3><p>If OpenLIT's Claude Code, Codex or OpenCode coverage falls short.</p></div>
+      </div>
+      <ol class="steps">
+        <li><b>Install</b>In an ordinary devcontainer next to Codex, Claude Code and OpenCode, without Subyard.</li>
+        <li><b>Use in real work</b>Everyday tasks, not synthetic ones (decision D7).</li>
+        <li><b>Note what was quick to see</b>For each weak spot S1–S5: which view showed it, and how long it took.</li>
+        <li><b>Record</b>Fill the ratings in <code>solutions/</code>, marked “tried”; log the choice in <code>docs/decisions.md</code>.</li>
+      </ol>
+      <div class="slide-bottom"><span>Usage Visibility · candidate tools · a proposal for discussion, not a decision</span><button class="source-link" data-open-sources>Open sources ↗</button></div>
+    </section>
+  </main>
+
+  <footer class="controls">
+    <span class="keyboard-hint">← → navigate <span>·</span> F fullscreen</span>
+    <div class="progress" id="progress" aria-label="Choose a slide"></div>
+    <div class="pager"><span id="slide-counter" aria-live="polite" aria-atomic="true">01 / 16</span><button id="previous-button" aria-label="Previous slide">←</button><button id="next-button" aria-label="Next slide">→</button></div>
+  </footer>
+
+  <dialog id="sources-dialog" aria-labelledby="sources-title">
+    <div class="dialog-heading"><h2 id="sources-title">Sources</h2><button id="close-sources" aria-label="Close sources">×</button></div>
+    <p>Checked on 2026-10-09. Ratings follow the scale in <code>solutions/README.md</code>. AI Observer pages were checked on a running 0.6.0 instance (Subyard, watch mode, Claude Code and Codex); everything else is from documentation and has not been run. Screenshots are the projects' own images, used with attribution.</p>
+    <h3><i class="dot bg-aio"></i>AI Observer 0.6.0 · MIT</h3>
+    <ul><li><a href="https://github.com/tobilg/ai-observer">github.com/tobilg/ai-observer</a> — README, <code>frontend/src/App.tsx</code>, <code>docs/images/</code></li><li><a href="https://github.com/subyard/subyard/blob/master/docs/ai-observer.md">Subyard AI Observer integration</a></li></ul>
+    <h3><i class="dot bg-olit"></i>OpenLIT 2.1.0 · Apache-2.0</h3>
+    <ul><li><a href="https://github.com/openlit/openlit">github.com/openlit/openlit</a> — README and <code>docs/images/</code></li><li><a href="https://docs.openlit.io/latest/openlit/coding-agents/overview">Coding agents</a>: setup, sessions, analytics</li><li><a href="https://docs.openlit.io/latest/openlit/observability/telemetry/traces">Traces and agent loops</a></li><li><a href="https://docs.openlit.io/latest/gpu-collector/overview">GPU collector</a>: host and process metrics</li></ul>
+    <h3><i class="dot bg-lf"></i>Langfuse v4 · MIT core</h3>
+    <ul><li><a href="https://langfuse.com/integrations/developer-tools/claude-code">Claude Code</a>, <a href="https://langfuse.com/integrations/other/codex">Codex</a> and <a href="https://langfuse.com/integrations/developer-tools/opencode">OpenCode</a> integrations</li><li><a href="https://langfuse.com/changelog/2026-08-28-responsive-timeline">Responsive timeline</a>, <a href="https://langfuse.com/docs/observability/features/agent-graphs">agent graphs</a>, <a href="https://langfuse.com/docs/model-usage-and-cost">usage and cost</a></li><li><a href="https://langfuse.com/self-hosting">Self-hosting</a></li></ul>
+    <h3><i class="dot bg-as"></i>AgentSight v1.0.34 · MIT</h3>
+    <ul><li><a href="https://github.com/eunomia-bpf/agentsight">github.com/eunomia-bpf/agentsight</a> — README, <code>docs/</code> images, <code>docs/docker.md</code>, <code>docs/otel.md</code></li><li><a href="https://arxiv.org/abs/2508.02736">AgentSight paper</a></li></ul>
+    <h3>Agent telemetry and other options</h3>
+    <ul><li><a href="https://code.claude.com/docs/en/monitoring-usage">Claude Code monitoring</a> — metrics, events, traces (beta)</li><li><a href="https://github.com/openai/codex/blob/main/docs/config.md">Codex config</a> — <code>[otel]</code> and metrics catalog</li><li><a href="https://github.com/ryoppippi/ccusage">ccusage</a>, <a href="https://github.com/chiphuyen/sniffly">Sniffly</a>, <a href="https://docs.wandb.ai/weave/guides/integrations/agents/claude-code-harness">Weave Claude Code plugin</a>, <a href="https://github.com/cilium/tetragon">Tetragon</a>, <a href="https://github.com/google/cadvisor">cAdvisor</a></li></ul>
+    <p class="download-links"><a href="usage-visibility-candidates.pdf" download>Presentation PDF ↓</a></p>
+  </dialog>
+  <noscript><p class="noscript-note">All slides are available below. Enable JavaScript for navigation.</p></noscript>
+</body>
+</html>

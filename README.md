@@ -37,6 +37,9 @@ current shortlist are in [`solutions/`](solutions/README.md).
 
 - [Intro presentation](presentation1-intro/usage-visibility.pdf) — the problem,
   with figures from a sample of real agent sessions.
+- [Candidate tools presentation](presentation2-solutions/usage-visibility-candidates.pdf) —
+  what each shortlisted tool shows, how our goals map onto it, and other
+  options.
 - [Solution comparison](solutions/README.md) — candidate tools against shared
   criteria.
 - [Requirements and decisions](docs/decisions.md) — what the solution must do
