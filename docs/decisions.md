@@ -148,3 +148,14 @@ be added if these leave gaps, for example in compute visibility.
 AgentSight is added to the comparison alongside the D9 candidates. It observes
 agents from the system side with eBPF, so it may cover compute and process
 activity, which the other candidates are least likely to show.
+
+### D11. Present candidates from their real interfaces
+
+2026-10-09 · Accepted
+
+`presentation2-solutions/` shows the D9 and D10 candidates as they look: the
+projects' own screenshots, their documentation and a running AI Observer. It
+maps the reference scenarios and requirements onto each tool and lists other
+options. Its ratings are a first reading from documentation, not trial
+results; `solutions/` records the ratings once candidates are tried. Screenshots
+of local instances are not published, because they show session data (D4).
