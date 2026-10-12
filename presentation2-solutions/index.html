@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="light">
-  <meta name="description" content="Usage Visibility — AI Observer, OpenLIT, Langfuse and AgentSight: what their interfaces show, how our goals map onto each, and other options.">
+  <meta name="description" content="Usage Visibility — AI Observer, OpenLIT, Langfuse, AgentSight and MLflow: what their interfaces show, how our goals map onto each, and other options.">
   <title>Usage Visibility — candidate tools and their interfaces</title>
   <link rel="stylesheet" href="style.css">
   <script src="presentation.js" defer></script>
@@ -26,7 +26,7 @@
       <div class="eyebrow">Solution comparison · interfaces and fit</div>
       <div class="cover-grid">
         <div>
-          <h1 id="title-1">Four tools.<br>What each one<br><em>actually shows.</em></h1>
+          <h1 id="title-1">Five tools.<br>What each one<br><em>actually shows.</em></h1>
           <p class="lead">The shortlist, described from real interfaces: the projects' own screenshots, their documentation and a running AI Observer. For each tool: what you see, how our goals map onto it, and what is missing.</p>
         </div>
         <div>
@@ -36,11 +36,12 @@
             <div class="tool-card c-olit"><span class="bar"></span><div><h3>OpenLIT</h3><p>OpenTelemetry platform with a coding-agent section</p></div><div class="strip" role="img" aria-label="Tokens yes, cost yes, attribution yes, timeline partial, compute partial, outcome partial"><i class="ok">✓</i><i class="ok">✓</i><i class="ok">✓</i><i class="part">~</i><i class="part">~</i><i class="part">~</i></div></div>
             <div class="tool-card c-lf"><span class="bar"></span><div><h3>Langfuse</h3><p>LLM tracing with timelines and agent graphs</p></div><div class="strip" role="img" aria-label="Tokens yes, cost yes, attribution yes, timeline partial, compute no, outcome partial"><i class="ok">✓</i><i class="ok">✓</i><i class="ok">✓</i><i class="part">~</i><i class="no">✗</i><i class="part">~</i></div></div>
             <div class="tool-card c-as"><span class="bar"></span><div><h3>AgentSight</h3><p>System-side view of agents through eBPF</p></div><div class="strip" role="img" aria-label="Tokens partial, cost no, attribution partial, timeline partial, compute yes, outcome no"><i class="part">~</i><i class="no">✗</i><i class="part">~</i><i class="part">~</i><i class="ok">✓</i><i class="no">✗</i></div></div>
+            <div class="tool-card c-mlf"><span class="bar"></span><div><h3>MLflow</h3><p>Coding-agent traces, usage and evaluation</p></div><div class="strip" role="img" aria-label="Tokens partial, cost yes, attribution partial, timeline partial, compute partial, outcome partial"><i class="part">~</i><i class="ok">✓</i><i class="part">~</i><i class="part">~</i><i class="part">~</i><i class="part">~</i></div></div>
           </div>
           <div class="legend" style="margin-top:14px;justify-content:flex-end"><span><i class="r ok">✓</i> standard view</span><span><i class="r part">~</i> custom query or manual</span><span><i class="r no">✗</i> data missing</span></div>
         </div>
       </div>
-      <div class="slide-bottom"><span>Follows the intro presentation and <code>solutions/</code></span><span>Checked on 2026-10-09 · ratings from documentation unless marked</span></div>
+      <div class="slide-bottom"><span>Follows the intro presentation and <code>solutions/</code></span><span>Original four: 2026-10-09 · MLflow: 2026-10-12 · docs unless marked</span></div>
     </section>
 
     <!-- 2. What we look for -->
@@ -103,9 +104,10 @@
           <tr><th scope="row"><i class="dot bg-olit"></i>OpenLIT</th><td><i class="yes" title="yes"></i></td><td><i class="yes" title="yes"></i><span class="via">token deltas</span></td><td><i class="yes" title="yes"></i><span class="via">openlit coding install</span></td><td class="sys">—</td><td class="sys"><i class="yes" title="yes"></i><span class="via">separate collector</span></td><td class="sees">Turns, tools, subagents, Git outcome; host and process metrics beside them.</td></tr>
           <tr><th scope="row"><i class="dot bg-lf"></i>Langfuse</th><td><i class="yes" title="yes"></i><span class="via">traces only</span></td><td><i class="yes" title="yes"></i><span class="via">read by plugins</span></td><td><i class="yes" title="yes"></i><span class="via">Claude Code, Codex, OpenCode</span></td><td class="sys">—</td><td class="sys">—</td><td class="sees">The agent's own steps in detail; nothing outside the agent.</td></tr>
           <tr><th scope="row"><i class="dot bg-as"></i>AgentSight</th><td>—<span class="via">exports only</span></td><td><i class="yes" title="yes"></i><span class="via">without root</span></td><td>—</td><td class="sys"><i class="yes" title="yes"></i><span class="via">root or CAP_BPF</span></td><td class="sys"><i class="yes" title="yes"></i></td><td class="sees">Processes, files, LLM traffic and CPU of any command; not the agent's intent.</td></tr>
+          <tr><th scope="row"><i class="dot bg-mlf"></i>MLflow</th><td><i class="yes" title="yes"></i><span class="via">traces only</span></td><td><i class="yes" title="yes"></i><span class="via">read by hooks</span></td><td><i class="yes" title="yes"></i><span class="via">all three agents</span></td><td class="sys">—</td><td class="sys"><i class="yes" title="yes"></i><span class="via">host metrics, separate run</span></td><td class="sees">Tool/model spans, usage and assessments; no test-process attribution.</td></tr>
         </tbody>
       </table>
-      <div class="verdict"><span>Pattern</span><strong>Three tools look from inside the agent. Only the system side sees test runs, CPU and memory.</strong></div>
+      <div class="verdict"><span>Pattern</span><strong>Four tools trace the agent's own activity. Per-process compute needs system-side observation.</strong></div>
     </section>
 
     <!-- 5. AI Observer interface -->
@@ -231,7 +233,7 @@
     <!-- 10. Langfuse fit -->
     <section class="slide c-lf" id="slide-10" aria-labelledby="title-10">
       <div class="eyebrow"><span class="tag bg-lf">03 · Langfuse</span> fit to our goals</div>
-      <h2 id="title-10">Best view of the agent's steps. <em>Nothing outside it.</em></h2>
+      <h2 id="title-10">A detailed view of the agent's steps. <em>Nothing outside it.</em></h2>
       <div class="fit">
         <div class="scen-grid">
           <article class="scen part"><div class="head"><span class="sid">S1 RERUN</span><i class="r part">~</i></div><p>Each test run is a tool span with its duration and command. No CPU, no code-change check.</p></article>
@@ -283,7 +285,7 @@
     <!-- 12. AgentSight fit -->
     <section class="slide c-as" id="slide-12" aria-labelledby="title-12">
       <div class="eyebrow"><span class="tag bg-as">04 · AgentSight</span> fit to our goals</div>
-      <h2 id="title-12">The only one that sees CPU. <em>Weak on meaning.</em></h2>
+      <h2 id="title-12">CPU for the agent's processes. <em>Weak on meaning.</em></h2>
       <div class="fit">
         <div class="scen-grid">
           <article class="scen part"><div class="head"><span class="sid">S1 RERUN</span><i class="r part">~</i></div><p>Each test process shows with CPU and memory under the agent that started it. No code-change check.</p></article>
@@ -304,35 +306,103 @@
       </div>
     </section>
 
-    <!-- 13. Matrix -->
-    <section class="slide" id="slide-13" aria-labelledby="title-13">
-      <div class="eyebrow">05 · side by side</div>
-      <h2 id="title-13">No single tool covers it. <em>Pairs might.</em></h2>
-      <table class="matrix" aria-label="Ratings of the four candidates">
-        <thead><tr><th scope="col"></th><th scope="col"><i class="dot bg-aio"></i>AI Observer</th><th scope="col"><i class="dot bg-olit"></i>OpenLIT</th><th scope="col"><i class="dot bg-lf"></i>Langfuse</th><th scope="col"><i class="dot bg-as"></i>AgentSight</th></tr></thead>
+    <!-- 13. MLflow trace interface -->
+    <section class="slide c-mlf" id="slide-13" aria-labelledby="title-13">
+      <div class="eyebrow"><span class="tag bg-mlf">05 · MLflow</span> trace interface</div>
+      <h2 id="title-13">Tools and nested subagents. <em>One trace to inspect.</em></h2>
+      <div class="shot-layout">
+        <div class="shot-col">
+          <figure class="shot"><div class="frame"><img src="img/mlflow-claude-code-trace.png" alt="Official MLflow Claude Code trace: status, token count, latency, session and user in the header; nested Agent, Explore subagent, LLM and Bash tool spans; selected model messages and an agent graph"><span class="pin" style="left:48%;top:2.5%">1</span><span class="pin" style="left:12%;top:33%">2</span><span class="pin" style="left:62%;top:36%">3</span><span class="pin" style="left:19%;top:82%">4</span></div><figcaption>Claude Code trace. Official MLflow documentation image; public example data.</figcaption></figure>
+        </div>
+        <div>
+          <ol class="callouts">
+            <li><span class="n">1</span><div><b>Trace summary</b>Status, tokens, elapsed time, session and user.</div></li>
+            <li><span class="n">2</span><div><b>Trace breakdown</b>Agent → subagent → model and tool calls. This screenshot shows Claude Code's nested activity.</div></li>
+            <li><span class="n">3</span><div><b>Inspect a step</b>Model and messages, inputs/outputs, attributes and events.</div></li>
+            <li><span class="n">4</span><div><b>Agent graph</b>Explore how tool and subagent spans relate.</div></li>
+            <li><span class="n plain">+</span><div><b>Details and Timeline</b>Inspect span durations to find a long recorded step.</div></li>
+            <li><span class="n plain">+</span><div><b>Three CLI integrations</b>Claude Code exports at session end; Codex after each turn; OpenCode when the session becomes idle.</div></li>
+          </ol>
+          <p class="basis"><b>From current documentation, 2026-10-12.</b> Not run yet. Codex and OpenCode tool traces are documented; equivalent nested subagent linkage needs validation.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 14. MLflow usage interface -->
+    <section class="slide c-mlf" id="slide-14" aria-labelledby="title-14">
+      <div class="eyebrow"><span class="tag bg-mlf">05 · MLflow</span> usage interface</div>
+      <h2 id="title-14">Usage over time. <em>Keep cache accounting explicit.</em></h2>
+      <div class="shot-layout">
+        <div class="shot-col">
+          <figure class="shot"><div class="frame"><img src="img/mlflow-claude-code-token-cost.png" alt="Official MLflow experiment Overview Usage dashboard: latency percentiles, errors, token usage split into input, output, cache read and cache write, and tokens-per-trace percentiles"><span class="pin" style="left:18%;top:22%">1</span><span class="pin" style="left:61%;top:22%">2</span><span class="pin" style="left:26%;top:64%">3</span><span class="pin" style="left:63%;top:64%">4</span></div><figcaption>Experiment Overview → Usage. Official Claude Code guide image.</figcaption></figure>
+        </div>
+        <div>
+          <ol class="callouts">
+            <li><span class="n">1</span><div><b>Latency</b>Percentiles over the chosen time window reveal slow traces.</div></li>
+            <li><span class="n">2</span><div><b>Errors</b>Execution error count and rate. An OK trace can still fail the development task.</div></li>
+            <li><span class="n">3</span><div><b>Token buckets</b>Input, output, cache read and cache write are shown separately for this integration.</div></li>
+            <li><span class="n">4</span><div><b>Tokens per trace</b>Distribution over time helps identify unusually large turns.</div></li>
+            <li><span class="n plain">+</span><div><b>Estimated cost</b>Documented at span and trace level from model prices; requires server <code>mlflow[genai] ≥ 3.10</code>. Subscription spend can differ.</div></li>
+            <li><span class="n plain">+</span><div><b>Quality and tool views</b>The Overview also has quality and tool-call tabs; outcome assessments must be supplied.</div></li>
+          </ol>
+          <p class="basis"><b>Accounting to validate:</b> this example's headline excludes cache buckets. Reconcile provider fields so our input includes cached input once; reasoning stays part of output.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 15. MLflow fit -->
+    <section class="slide c-mlf" id="slide-15" aria-labelledby="title-15">
+      <div class="eyebrow"><span class="tag bg-mlf">05 · MLflow</span> fit to our goals</div>
+      <h2 id="title-15">A local tracing and evaluation option. <em>Compute needs glue.</em></h2>
+      <div class="fit">
+        <div class="scen-grid">
+          <article class="scen part"><div class="head"><span class="sid">S1 RERUN</span><i class="r part">~</i></div><p>Repeated tool spans and their duration. No code-change check or CPU per test process.</p></article>
+          <article class="scen part"><div class="head"><span class="sid">S2 WAITING</span><i class="r part">~</i></div><p>Claude subagents are nested. Relating lead calls to another agent's work needs inspection.</p></article>
+          <article class="scen part"><div class="head"><span class="sid">S3 POLLING</span><i class="r part">~</i></div><p>Read repeated calls and outputs; no documented check for new information.</p></article>
+          <article class="scen ok"><div class="head"><span class="sid">S4 LONG WAIT</span><i class="r ok">✓</i></div><p>Timeline and span durations expose long steps; gaps between turns need instrumentation.</p></article>
+          <article class="scen part"><div class="head"><span class="sid">S5 NO RESULT</span><i class="r part">~</i></div><p>Cost beside human or evaluated assessments. Task success is a definition we supply.</p></article>
+        </div>
+        <div class="reqs">
+          <div class="req"><div class="head"><i class="r part">~</i>Tokens</div><p>Input/output plus provider-specific cache fields. Reasoning and totals need validation.</p></div>
+          <div class="req"><div class="head"><i class="r ok">✓</i>Cost</div><p>Model-price estimates; supported model and usage required.</p></div>
+          <div class="req"><div class="head"><i class="r part">~</i>Compute</div><p>Opt-in host CPU/memory per MLflow run; no automatic CLI/process link.</p></div>
+          <div class="req"><div class="head"><i class="r part">~</i>Attribution</div><p>Session → tool/model span. Subagent coverage varies by integration.</p></div>
+          <div class="req"><div class="head"><i class="r ok">✓</i>Agents</div><p>Official Claude Code, Codex and OpenCode integrations.</p></div>
+          <div class="req"><div class="head"><i class="r ok">✓</i>Setup</div><p>Local server + SQLite + plugins. Disable usage telemetry for local-only use.</p></div>
+        </div>
+        <div class="verdict"><i class="dot"></i><span>Role</span><strong>Another agent-side candidate across all three CLIs. Pair with process observation for compute.</strong></div>
+      </div>
+    </section>
+
+    <!-- 16. Matrix -->
+    <section class="slide" id="slide-16" aria-labelledby="title-16">
+      <div class="eyebrow">06 · side by side</div>
+      <h2 id="title-16">No single tool covers it. <em>Pairs might.</em></h2>
+      <table class="matrix" aria-label="Ratings of the five candidates">
+        <thead><tr><th scope="col"></th><th scope="col"><i class="dot bg-aio"></i>AI Observer</th><th scope="col"><i class="dot bg-olit"></i>OpenLIT</th><th scope="col"><i class="dot bg-lf"></i>Langfuse</th><th scope="col"><i class="dot bg-as"></i>AgentSight</th><th scope="col"><i class="dot bg-mlf"></i>MLflow</th></tr></thead>
         <tbody>
-          <tr class="sep"><th colspan="5">Scenarios</th></tr>
-          <tr><th scope="row">S1 Rerun without a change</th><td class="no"><span class="cell"><i class="r no">✗</i>no process data</span></td><td class="part"><span class="cell"><i class="r part">~</i>same-args loop</span></td><td class="part"><span class="cell"><i class="r part">~</i>span duration</span></td><td class="part"><span class="cell"><i class="r part">~</i>CPU per run</span></td></tr>
-          <tr><th scope="row">S2 Expensive waiting</th><td class="part"><span class="cell"><i class="r part">~</i>separate sessions</span></td><td class="part"><span class="cell"><i class="r part">~</i>timeline overlap</span></td><td class="part"><span class="cell"><i class="r part">~</i>nested subagents</span></td><td class="part"><span class="cell"><i class="r part">~</i>process timeline</span></td></tr>
-          <tr><th scope="row">S3 Polling</th><td class="part"><span class="cell"><i class="r part">~</i>read transcript</span></td><td class="ok"><span class="cell"><i class="r ok">✓</i>loop badge</span></td><td class="part"><span class="cell"><i class="r part">~</i>graph counter</span></td><td class="part"><span class="cell"><i class="r part">~</i>undocumented</span></td></tr>
-          <tr><th scope="row">S4 Long wait</th><td class="part"><span class="cell"><i class="r part">~</i>timestamps</span></td><td class="part"><span class="cell"><i class="r part">~</i>waterfall</span></td><td class="ok"><span class="cell"><i class="r ok">✓</i>timeline</span></td><td class="part"><span class="cell"><i class="r part">~</i>event gaps</span></td></tr>
-          <tr><th scope="row">S5 Spend without a result</th><td class="part"><span class="cell"><i class="r part">~</i>Git proxies</span></td><td class="part"><span class="cell"><i class="r part">~</i>Git outcome</span></td><td class="part"><span class="cell"><i class="r part">~</i>own scores</span></td><td class="no"><span class="cell"><i class="r no">✗</i>no outcome</span></td></tr>
-          <tr class="sep"><th colspan="5">Requirements</th></tr>
-          <tr><th scope="row">Tokens without double counting</th><td class="part"><span class="cell"><i class="r part">~</i>per agent</span></td><td class="ok"><span class="cell"><i class="r ok">✓</i>per turn</span></td><td class="ok"><span class="cell"><i class="r ok">✓</i>per call</span></td><td class="part"><span class="cell"><i class="r part">~</i>in / out</span></td></tr>
-          <tr><th scope="row">Compute</th><td class="no"><span class="cell"><i class="r no">✗</i></span></td><td class="part"><span class="cell"><i class="r part">~</i>separate collector</span></td><td class="no"><span class="cell"><i class="r no">✗</i></span></td><td class="ok"><span class="cell"><i class="r ok">✓</i>per process</span></td></tr>
-          <tr><th scope="row">Attribution</th><td class="part"><span class="cell"><i class="r part">~</i>no subagents</span></td><td class="ok"><span class="cell"><i class="r ok">✓</i></span></td><td class="ok"><span class="cell"><i class="r ok">✓</i></span></td><td class="part"><span class="cell"><i class="r part">~</i>process tree</span></td></tr>
-          <tr><th scope="row">Cost estimate</th><td class="ok"><span class="cell"><i class="r ok">✓</i></span></td><td class="ok"><span class="cell"><i class="r ok">✓</i></span></td><td class="ok"><span class="cell"><i class="r ok">✓</i></span></td><td class="no"><span class="cell"><i class="r no">✗</i></span></td></tr>
-          <tr><th scope="row">Codex, Claude Code, OpenCode</th><td class="ok"><span class="cell"><i class="r ok">✓</i></span></td><td class="part"><span class="cell"><i class="r part">~</i>no OpenCode</span></td><td class="ok"><span class="cell"><i class="r ok">✓</i></span></td><td class="ok"><span class="cell"><i class="r ok">✓</i></span></td></tr>
-          <tr><th scope="row">Plain devcontainer</th><td class="ok"><span class="cell"><i class="r ok">✓</i>one binary</span></td><td class="ok"><span class="cell"><i class="r ok">✓</i>two containers</span></td><td class="part"><span class="cell"><i class="r part">~</i>six services</span></td><td class="part"><span class="cell"><i class="r part">~</i>needs root</span></td></tr>
+          <tr class="sep"><th colspan="6">Scenarios</th></tr>
+          <tr><th scope="row">S1 Rerun without a change</th><td class="no"><span class="cell"><i class="r no">✗</i>no process data</span></td><td class="part"><span class="cell"><i class="r part">~</i>same-args loop</span></td><td class="part"><span class="cell"><i class="r part">~</i>span duration</span></td><td class="part"><span class="cell"><i class="r part">~</i>CPU per run</span></td><td class="part"><span class="cell"><i class="r part">~</i>tool spans</span></td></tr>
+          <tr><th scope="row">S2 Expensive waiting</th><td class="part"><span class="cell"><i class="r part">~</i>separate sessions</span></td><td class="part"><span class="cell"><i class="r part">~</i>timeline overlap</span></td><td class="part"><span class="cell"><i class="r part">~</i>nested subagents</span></td><td class="part"><span class="cell"><i class="r part">~</i>process timeline</span></td><td class="part"><span class="cell"><i class="r part">~</i>Claude nesting</span></td></tr>
+          <tr><th scope="row">S3 Polling</th><td class="part"><span class="cell"><i class="r part">~</i>read transcript</span></td><td class="ok"><span class="cell"><i class="r ok">✓</i>loop badge</span></td><td class="part"><span class="cell"><i class="r part">~</i>graph counter</span></td><td class="part"><span class="cell"><i class="r part">~</i>undocumented</span></td><td class="part"><span class="cell"><i class="r part">~</i>read tool outputs</span></td></tr>
+          <tr><th scope="row">S4 Long wait</th><td class="part"><span class="cell"><i class="r part">~</i>timestamps</span></td><td class="part"><span class="cell"><i class="r part">~</i>waterfall</span></td><td class="ok"><span class="cell"><i class="r ok">✓</i>timeline</span></td><td class="part"><span class="cell"><i class="r part">~</i>event gaps</span></td><td class="ok"><span class="cell"><i class="r ok">✓</i>span timeline</span></td></tr>
+          <tr><th scope="row">S5 Spend without a result</th><td class="part"><span class="cell"><i class="r part">~</i>Git proxies</span></td><td class="part"><span class="cell"><i class="r part">~</i>Git outcome</span></td><td class="part"><span class="cell"><i class="r part">~</i>own scores</span></td><td class="no"><span class="cell"><i class="r no">✗</i>no outcome</span></td><td class="part"><span class="cell"><i class="r part">~</i>own assessments</span></td></tr>
+          <tr class="sep"><th colspan="6">Requirements</th></tr>
+          <tr><th scope="row">Tokens without double counting</th><td class="part"><span class="cell"><i class="r part">~</i>per agent</span></td><td class="ok"><span class="cell"><i class="r ok">✓</i>per turn</span></td><td class="ok"><span class="cell"><i class="r ok">✓</i>per call</span></td><td class="part"><span class="cell"><i class="r part">~</i>in / out</span></td><td class="part"><span class="cell"><i class="r part">~</i>check buckets</span></td></tr>
+          <tr><th scope="row">Compute</th><td class="no"><span class="cell"><i class="r no">✗</i></span></td><td class="part"><span class="cell"><i class="r part">~</i>separate collector</span></td><td class="no"><span class="cell"><i class="r no">✗</i></span></td><td class="ok"><span class="cell"><i class="r ok">✓</i>per process</span></td><td class="part"><span class="cell"><i class="r part">~</i>host metrics</span></td></tr>
+          <tr><th scope="row">Attribution</th><td class="part"><span class="cell"><i class="r part">~</i>no subagents</span></td><td class="ok"><span class="cell"><i class="r ok">✓</i></span></td><td class="ok"><span class="cell"><i class="r ok">✓</i></span></td><td class="part"><span class="cell"><i class="r part">~</i>process tree</span></td><td class="part"><span class="cell"><i class="r part">~</i>varies by agent</span></td></tr>
+          <tr><th scope="row">Cost estimate</th><td class="ok"><span class="cell"><i class="r ok">✓</i></span></td><td class="ok"><span class="cell"><i class="r ok">✓</i></span></td><td class="ok"><span class="cell"><i class="r ok">✓</i></span></td><td class="no"><span class="cell"><i class="r no">✗</i></span></td><td class="ok"><span class="cell"><i class="r ok">✓</i>model prices</span></td></tr>
+          <tr><th scope="row">Codex, Claude Code, OpenCode</th><td class="ok"><span class="cell"><i class="r ok">✓</i></span></td><td class="part"><span class="cell"><i class="r part">~</i>no OpenCode</span></td><td class="ok"><span class="cell"><i class="r ok">✓</i></span></td><td class="ok"><span class="cell"><i class="r ok">✓</i></span></td><td class="ok"><span class="cell"><i class="r ok">✓</i>official plugins</span></td></tr>
+          <tr><th scope="row">Plain devcontainer</th><td class="ok"><span class="cell"><i class="r ok">✓</i>one binary</span></td><td class="ok"><span class="cell"><i class="r ok">✓</i>two containers</span></td><td class="part"><span class="cell"><i class="r part">~</i>six services</span></td><td class="part"><span class="cell"><i class="r part">~</i>needs root</span></td><td class="ok"><span class="cell"><i class="r ok">✓</i>server + SQLite</span></td></tr>
         </tbody>
       </table>
       <div class="legend"><span><i class="r ok">✓</i> standard view</span><span><i class="r part">~</i> custom query or manual correlation</span><span><i class="r no">✗</i> data missing</span><span>AI Observer partly seen on a running instance; the rest is from documentation.</span></div>
     </section>
 
-    <!-- 14. Other options -->
-    <section class="slide" id="slide-14" aria-labelledby="title-14">
-      <div class="eyebrow">06 · other options</div>
-      <h2 id="title-14">Other ways in, <em>by the gap they fill.</em></h2>
+    <!-- 17. Other options -->
+    <section class="slide" id="slide-17" aria-labelledby="title-17">
+      <div class="eyebrow">07 · other options</div>
+      <h2 id="title-17">Other ways in, <em>by the gap they fill.</em></h2>
       <div class="opt-grid">
         <article class="opt"><h3>Local log readers</h3><span class="tools">ccusage · Sniffly</span><p><code>ccusage claude|codex|opencode daily</code> prints token and cost tables from local session files, no server. Sniffly is a local web dashboard for Claude Code logs.</p><div class="fills"><span class="f-tok">tokens</span><span class="f-tok">cost</span></div></article>
         <article class="opt"><h3>Native OTel into a generic stack</h3><span class="tools">Grafana LGTM · SigNoz</span><p>Send the agents' own OTLP to a general backend. Grafana Cloud has Claude Code and Codex integrations. S1–S5 dashboards are ours to build.</p><div class="fills"><span class="f-tok">tokens</span><span class="f-time">timeline</span></div></article>
@@ -343,27 +413,27 @@
       </div>
     </section>
 
-    <!-- 15. Combinations -->
-    <section class="slide" id="slide-15" aria-labelledby="title-15">
-      <div class="eyebrow">07 · combinations worth trying</div>
-      <h2 id="title-15">Agent side plus system side. <em>What stays open.</em></h2>
+    <!-- 18. Combinations -->
+    <section class="slide" id="slide-18" aria-labelledby="title-18">
+      <div class="eyebrow">08 · combinations worth trying</div>
+      <h2 id="title-18">Agent side plus system side. <em>What stays open.</em></h2>
       <div class="combo-grid">
         <article class="combo"><div class="pair"><span class="chip"><i class="dot bg-olit"></i>OpenLIT</span><span class="plus">+</span><span class="chip"><i class="dot bg-olit"></i>its process collector</span></div><h3>A. One UI, one database</h3><p>Sessions with loop badges, outcome and cost; host and per-process CPU and memory in the same ClickHouse.</p><p class="open"><b>Open:</b> tying process metrics to a session is a custom SQL dashboard. No OpenCode.</p></article>
-        <article class="combo"><div class="pair"><span class="chip"><i class="dot bg-lf"></i>Langfuse</span><span class="plus">+</span><span class="chip"><i class="dot bg-as"></i>AgentSight</span></div><h3>B. Best of each side</h3><p>Langfuse for the agent tree and timeline across all three agents; AgentSight for test processes, CPU and memory.</p><p class="open"><b>Open:</b> two UIs correlated by time; eBPF needs root; Langfuse is heavy to host.</p></article>
+        <article class="combo"><div class="pair"><span class="chip"><i class="dot bg-lf"></i>Langfuse</span><span class="plus">or</span><span class="chip"><i class="dot bg-mlf"></i>MLflow</span><span class="plus">+</span><span class="chip"><i class="dot bg-as"></i>AgentSight</span></div><h3>B. Agent traces and processes</h3><p>Agent-side traces and timelines; AgentSight for test processes, CPU and memory. MLflow offers a smaller local setup.</p><p class="open"><b>Open:</b> two UIs correlated by time; eBPF needs root; MLflow's token buckets and subagent links need validation.</p></article>
         <article class="combo"><div class="pair"><span class="chip">Native OTel</span><span class="plus">+</span><span class="chip">SigNoz or Grafana</span><span class="plus">+</span><span class="chip">cAdvisor or Tetragon</span></div><h3>C. Configuration only</h3><p>Claude Code traces and Codex OTel into a generic backend, with container or process metrics for compute.</p><p class="open"><b>Open:</b> every S1–S5 view is a dashboard we write and maintain.</p></article>
         <article class="combo"><div class="pair"><span class="chip">ccusage</span></div><h3>D. A cross-check</h3><p>Zero setup. Daily and per-session token and cost tables to validate the totals of whichever tool we pick.</p><p class="open"><b>Open:</b> tokens and cost only.</p></article>
       </div>
       <div class="verdict" style="--accent:var(--bad)"><i class="dot"></i><span>Not covered by any</span><strong>“No code or environment change since the last run” and “waiting for another agent” are not detected out of the box.</strong></div>
     </section>
 
-    <!-- 16. Next step -->
-    <section class="slide" id="slide-16" aria-labelledby="title-16">
-      <div class="eyebrow">08 · next step</div>
-      <h2 id="title-16">Pick finalists. <em>Try them on real runs.</em></h2>
+    <!-- 19. Next step -->
+    <section class="slide" id="slide-19" aria-labelledby="title-19">
+      <div class="eyebrow">09 · next step</div>
+      <h2 id="title-19">Pick finalists. <em>Try them on real runs.</em></h2>
       <div class="finalists">
         <div class="finalist c-olit"><span>Agent side · proposal</span><h3>OpenLIT</h3><p>Coding-agent sessions, loop detection, outcome column, and a process collector in the same stack.</p></div>
         <div class="finalist c-as"><span>System side · proposal</span><h3>AgentSight</h3><p>The only candidate that ties CPU, memory and test processes to an agent.</p></div>
-        <div class="finalist c-lf"><span>Fallback</span><h3>Langfuse</h3><p>If OpenLIT's Claude Code, Codex or OpenCode coverage falls short.</p></div>
+        <div class="finalist c-lf"><span>Agent-side alternatives</span><h3>Langfuse / MLflow</h3><p>If OpenLIT falls short. Check MLflow's token accounting and subagent links on real runs.</p></div>
       </div>
       <ol class="steps">
         <li><b>Install</b>In an ordinary devcontainer next to Codex, Claude Code and OpenCode, without Subyard.</li>
@@ -378,12 +448,12 @@
   <footer class="controls">
     <span class="keyboard-hint">← → navigate <span>·</span> F fullscreen</span>
     <div class="progress" id="progress" aria-label="Choose a slide"></div>
-    <div class="pager"><span id="slide-counter" aria-live="polite" aria-atomic="true">01 / 16</span><button id="previous-button" aria-label="Previous slide">←</button><button id="next-button" aria-label="Next slide">→</button></div>
+    <div class="pager"><span id="slide-counter" aria-live="polite" aria-atomic="true">01 / 19</span><button id="previous-button" aria-label="Previous slide">←</button><button id="next-button" aria-label="Next slide">→</button></div>
   </footer>
 
   <dialog id="sources-dialog" aria-labelledby="sources-title">
     <div class="dialog-heading"><h2 id="sources-title">Sources</h2><button id="close-sources" aria-label="Close sources">×</button></div>
-    <p>Checked on 2026-10-09. Ratings follow the scale in <code>solutions/README.md</code>. AI Observer pages were checked on a running 0.6.0 instance (Subyard, watch mode, Claude Code and Codex); everything else is from documentation and has not been run. Screenshots are the projects' own images, used with attribution.</p>
+    <p>Original four candidates checked on 2026-10-09; MLflow documentation checked on 2026-10-12. Ratings follow the scale in <code>solutions/README.md</code>. AI Observer pages were checked on a running 0.6.0 instance (Subyard, watch mode, Claude Code and Codex); everything else is from documentation and has not been run. Screenshots are the projects' own images, used with attribution.</p>
     <h3><i class="dot bg-aio"></i>AI Observer 0.6.0 · MIT</h3>
     <ul><li><a href="https://github.com/tobilg/ai-observer">github.com/tobilg/ai-observer</a> — README, <code>frontend/src/App.tsx</code>, <code>docs/images/</code></li><li><a href="https://github.com/subyard/subyard/blob/master/docs/ai-observer.md">Subyard AI Observer integration</a></li></ul>
     <h3><i class="dot bg-olit"></i>OpenLIT 2.1.0 · Apache-2.0</h3>
@@ -392,6 +462,14 @@
     <ul><li><a href="https://langfuse.com/integrations/developer-tools/claude-code">Claude Code</a>, <a href="https://langfuse.com/integrations/other/codex">Codex</a> and <a href="https://langfuse.com/integrations/developer-tools/opencode">OpenCode</a> integrations</li><li><a href="https://langfuse.com/changelog/2026-08-28-responsive-timeline">Responsive timeline</a>, <a href="https://langfuse.com/docs/observability/features/agent-graphs">agent graphs</a>, <a href="https://langfuse.com/docs/model-usage-and-cost">usage and cost</a></li><li><a href="https://langfuse.com/self-hosting">Self-hosting</a></li></ul>
     <h3><i class="dot bg-as"></i>AgentSight v1.0.34 · MIT</h3>
     <ul><li><a href="https://github.com/eunomia-bpf/agentsight">github.com/eunomia-bpf/agentsight</a> — README, <code>docs/</code> images, <code>docs/docker.md</code>, <code>docs/otel.md</code></li><li><a href="https://arxiv.org/abs/2508.02736">AgentSight paper</a></li></ul>
+    <h3><i class="dot bg-mlf"></i>MLflow · current documentation · Apache-2.0</h3>
+    <ul>
+      <li><a href="https://github.com/mlflow/mlflow">MLflow repository</a> and <a href="https://github.com/mlflow/mlflow/blob/master/LICENSE">license</a>; no installed release tested</li>
+      <li><a href="https://mlflow.org/docs/latest/genai/tracing/integrations/listing/claude_code/">Claude Code</a>, <a href="https://mlflow.org/docs/latest/genai/tracing/integrations/listing/codex/">Codex</a> and <a href="https://mlflow.org/docs/latest/genai/tracing/integrations/listing/opencode/">OpenCode</a> integrations</li>
+      <li>Official images from the Claude Code guide: <a href="https://mlflow.org/docs/latest/images/llms/anthropic/claude-code-trace-ui.png">trace detail</a> → <code>img/mlflow-claude-code-trace.png</code>; <a href="https://mlflow.org/docs/latest/assets/images/claude-code-token-cost-93b59d672945aa960af000ccbeca86df.png">usage overview</a> → <code>img/mlflow-claude-code-token-cost.png</code></li>
+      <li><a href="https://mlflow.org/docs/latest/genai/tracing/observe-with-traces/ui/">Trace UI</a>, <a href="https://mlflow.org/docs/latest/genai/tracing/observe-with-traces/dashboard/">Overview dashboard</a>, <a href="https://mlflow.org/docs/latest/genai/tracing/token-usage-cost/">tokens and estimated cost</a>, <a href="https://mlflow.org/docs/latest/genai/tracing/opentelemetry/ingest/">OTLP ingestion</a></li>
+      <li><a href="https://mlflow.org/docs/latest/ml/tracking/system-metrics/">System metrics</a>: opt-in host metrics per run; <a href="https://mlflow.org/docs/latest/self-hosting/architecture/tracking-server/">local server and storage</a>; <a href="https://mlflow.org/docs/latest/community/usage-tracking/">anonymous telemetry and opt-out</a></li>
+    </ul>
     <h3>Agent telemetry and other options</h3>
     <ul><li><a href="https://code.claude.com/docs/en/monitoring-usage">Claude Code monitoring</a> — metrics, events, traces (beta)</li><li><a href="https://github.com/openai/codex/blob/main/docs/config.md">Codex config</a> — <code>[otel]</code> and metrics catalog</li><li><a href="https://github.com/ryoppippi/ccusage">ccusage</a>, <a href="https://github.com/chiphuyen/sniffly">Sniffly</a>, <a href="https://docs.wandb.ai/weave/guides/integrations/agents/claude-code-harness">Weave Claude Code plugin</a>, <a href="https://github.com/cilium/tetragon">Tetragon</a>, <a href="https://github.com/google/cadvisor">cAdvisor</a></li></ul>
     <p class="download-links"><a href="usage-visibility-candidates.pdf" download>Presentation PDF ↓</a></p>
