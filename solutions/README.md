@@ -12,7 +12,8 @@ tables below are the summary; the candidate file holds the evidence.
 
 Confirmed for comparison
 ([D9](../docs/decisions.md#d9-shortlist-ai-observer-openlit-and-langfuse),
-[D10](../docs/decisions.md#d10-add-agentsight-to-the-shortlist)):
+[D10](../docs/decisions.md#d10-add-agentsight-to-the-shortlist),
+[D12](../docs/decisions.md#d12-add-mlflow-to-the-shortlist)):
 
 | Candidate | What it is | File |
 | --- | --- | --- |
@@ -20,6 +21,7 @@ Confirmed for comparison
 | [OpenLIT](https://github.com/openlit/openlit) | Open-source, OpenTelemetry-based observability for LLM applications | [openlit.md](openlit.md) |
 | [Langfuse](https://github.com/langfuse/langfuse) | Open-source LLM engineering platform with tracing and cost tracking | [langfuse.md](langfuse.md) |
 | [AgentSight](https://github.com/eunomia-bpf/agentsight) | eBPF-based system-level observability for AI agents: LLM traffic, processes, files, CPU and memory | [agentsight.md](agentsight.md) |
+| [MLflow](https://github.com/mlflow/mlflow) | Open-source ML and GenAI platform with coding-agent traces, token and cost analytics, and evaluation | [mlflow.md](mlflow.md) |
 
 Possible additions, if the confirmed candidates leave gaps:
 
@@ -58,6 +60,11 @@ cannot be seen because the data is missing (❌).
 | [OpenLIT](openlit.md) | ? | ? | ? | ? | ? |
 | [Langfuse](langfuse.md) | ? | ? | ? | ? | ? |
 | [AgentSight](agentsight.md) | ? | ? | ? | ? | ? |
+| [MLflow](mlflow.md) | ⚠️ | ⚠️ | ⚠️ | ✅ | ⚠️ |
+
+MLflow's ratings are based on documentation checked on 2026-10-12, not real
+runs. S4 covers long spans within a trace; waits between turns need additional
+instrumentation. Other candidates' trial ratings remain pending.
 
 ## Criteria
 
@@ -91,6 +98,7 @@ tools, for example one for model usage and one for compute.
 | [OpenLIT](openlit.md) | ? | ? | ? | ? | ? | ? | ? | ? | ? | ? | Not started |
 | [Langfuse](langfuse.md) | ? | ? | ? | ? | ? | ? | ? | ? | ? | ? | Not started |
 | [AgentSight](agentsight.md) | ? | ? | ? | ? | ? | ? | ? | ? | ? | ? | Not started |
+| [MLflow](mlflow.md) | ✅ | ✅ | ⚠️ | ⚠️ | ✅ | ⚠️ | ⚠️ | ⚠️ | ✅ | ✅ | Docs checked; not tried |
 
 ## Conclusion
 

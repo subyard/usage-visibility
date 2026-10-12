@@ -159,3 +159,17 @@ maps the reference scenarios and requirements onto each tool and lists other
 options. Its ratings are a first reading from documentation, not trial
 results; `solutions/` records the ratings once candidates are tried. Screenshots
 of local instances are not published, because they show session data (D4).
+
+### D12. Add MLflow to the shortlist
+
+2026-10-12 · Accepted
+
+MLflow joins the D9 and D10 candidates at the user's request. Evaluate its
+GenAI tracing, coding-agent integrations, token and cost views, and optional
+system metrics against the same requirements and reference scenarios.
+
+Add the project's official screenshots and an explanation of its interface
+and fit to `presentation2-solutions/`, with source links. Record the initial
+MLflow ratings as documentation-based in `solutions/`; they do not replace
+the real-run validation required by D7. Rebuild the presentation PDF and check
+that every slide fits on one page.
