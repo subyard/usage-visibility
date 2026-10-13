@@ -1,0 +1,72 @@
+diff --git a/docker-compose.yml b/docker-compose.yml
+index 16b44561..60a8c663 100644
+--- a/docker-compose.yml
++++ b/docker-compose.yml
+@@ -23,7 +23,10 @@ services:
+     restart: always
+ 
+   openlit:
+-    image: ghcr.io/openlit/openlit:latest
++    image: sensorwatch-openlit:local
++    build:
++      context: ./src
++      dockerfile: Dockerfile
+     container_name: openlit
+     environment:
+       TELEMETRY_ENABLED: "true"
+diff --git a/src/client/src/lib/platform/clickhouse/helpers.ts b/src/client/src/lib/platform/clickhouse/helpers.ts
+index 9423555c..9ca0542e 100644
+--- a/src/client/src/lib/platform/clickhouse/helpers.ts
++++ b/src/client/src/lib/platform/clickhouse/helpers.ts
+@@ -1,7 +1,8 @@
+ import migrations from "@/clickhouse/migrations";
+ import { dataCollector } from "../common";
+ import asaw from "@/utils/asaw";
+-import { getFirstDBConfig } from "@/lib/db-config";
++import { getFirstDBConfig, getDBConfigByUser } from "@/lib/db-config";
++import { getCurrentUser } from "@/lib/session";
+ 
+ export async function pingClickhouse() {
+ 	const pingResponse = await dataCollector({}, "ping");
+@@ -17,8 +18,11 @@ export async function pingClickhouse() {
+ }
+ 
+ export async function runClickhouseMigrations() {
+-	const dbConfig = await getFirstDBConfig();
+-	if (!dbConfig?.id) {
++        const user = await getCurrentUser();
++	const dbConfig = user
++	    ? await getDBConfigByUser(true)
++	    : await getFirstDBConfig();
++        if (Array.isArray(dbConfig) || !dbConfig?.id) {
+ 		console.log("No ClickHouse DB config found; skipping migrations");
+ 		return;
+ 	}
+
+
+--- Latest Commit Message ---
+Working Configuration for Monitoring VSCode Codex Extension
+
+Run OpenLIT's UI and database on your host
+Run your project in a VSCode devcontainer and install the Codex extension in your devcontainer
+When setting up database after OpenLIT UI greets you, lookup correct credentials in docker-compose.yml
+Username: default
+Host: clickhouse
+Port: 8123
+Database: openlit
+Password: OPENLIT
+Create an API key in your OpenLIT UI
+Add openlit cli tool in the devcontainer
+Look up the full openlit configure command with API key by going to the Coding Agents tab and clicking "add coding agent"
+Specify endpoint http://172.17.0.1:4318 or correct docker network in the openlit configure command
+Ask your Codex agent to report where its codex cli tool is
+Add codex cli tool to the PATH of devcontainer and execute the openlit install command
+ctrl+shift+p "reload window" to restart Codex, look below chat window notification to trust hooks, or go to Codex settings menu to do the same thing
+
+--- Summary of fixes ---
+We made four actual fixes:
+Problem	What fixed it
+Wrong ClickHouse connector settings	Set host to clickhouse, port to 8123, database to openlit, username to default, and the matching password. 127.0.0.1 pointed back into the OpenLIT container.
+Published OpenLIT image didn’t match the host checkout	Built OpenLIT locally from the host checkout and used that image in Compose. The published image’s collector supervisor failed because its YAML configuration was missing; the local build supplied the newer OTLP receiver.
+Migrations selected another project’s connector	Patched helpers.ts so signed-in requests use the user’s selected connector instead of the oldest connector globally. Added an array guard to satisfy TypeScript. This cleared the UI’s migration error.
+CLI silently switched HTTP to HTTPS	Changed the devcontainer endpoint to http://172.17.0.1:4318. It reaches the same Docker host, but the CLI preserves HTTP for this private IP.
