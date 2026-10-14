@@ -81,7 +81,7 @@ em { font-style: normal; color: var(--lime); }
 .detail-layout > h2 { font-size: 30px; line-height: 1.15; }
 .detail-layout > h2 em { display: block; }
 .detail-slide .main-screenshot { justify-content: flex-start; }
-.detail-slide .image-frame img { max-height: calc(100svh - 310px); object-fit: contain; object-position: right top; }
+.detail-slide .image-frame img { width: auto; max-width: 100%; max-height: calc(100svh - 310px); }
 .image-frame { position: relative; line-height: 0; }
 .image-frame img { display: block; width: 100%; height: auto; border-radius: 10px; }
 .pin { position: absolute; transform: translate(-50%, -50%); width: 27px; height: 27px; border: 3px solid white; border-radius: 50%; background: #2a78d6; color: white; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; line-height: 1; box-shadow: 0 2px 8px #0003; }
@@ -148,8 +148,9 @@ body.overview .controls { position: sticky; bottom: 0; background: var(--bg); bo
   .eyebrow { font-size: 9px; }
   .usage-layout { padding-top: 0; }
   .controls { padding-inline: 22px; }
-  .progress { gap: 4px; }
-  .progress button { width: 14px; }
+  .progress { gap: 4px; flex: 1; min-width: 0; }
+  .progress button { width: 14px; flex: 1; min-width: 0; max-width: 14px; }
+  .pager { flex-shrink: 0; }
   .selector-group ul { columns: 1; }
   .harness-table-wrap { overflow-x: auto; }
   .harness-table { min-width: 850px; }
@@ -161,20 +162,18 @@ body.overview .controls { position: sticky; bottom: 0; background: var(--bg); bo
   .required-tag { font-size: 8px; padding: 3px 5px; }
   .collection-gap strong { white-space: normal; }
 }
-@media print {
-  @page { size: A4 landscape; margin: 0; }
-  :root { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
-  .topbar, .controls, dialog, .noscript-note { display: none !important; }
-  .slide, .js .slide, .js .slide.active, body.overview .slide {
-    display: flex !important; width: 297mm; height: 210mm; min-height: 0;
+/* Share the verified page composition with desktop presentation mode. */
+@media print, screen and (min-width: 901px) {
+  .slide {
+    width: 297mm; height: 210mm; min-height: 0;
     padding: 14mm 16mm 12mm; gap: 8mm; border: 0;
     break-after: page; break-inside: avoid;
   }
   .slide:last-child { break-after: auto; }
   .eyebrow { font-size: 8pt; }
-  #slide-1 { padding: 8mm; gap: 5mm; }
-  #slide-3 { padding: 7mm; gap: 3mm; }
-  #slide-3 .slide-bottom { padding-top: 3mm; }
+  .slide.usage-slide { padding: 8mm; gap: 5mm; }
+  .slide.harness-slide { padding: 7mm; gap: 3mm; }
+  .harness-slide .slide-bottom { padding-top: 3mm; }
   .harness-intro { font-size: 10pt; }
   .harness-slide > h2 { font-size: 29pt; }
   .harness-table th, .harness-table td { padding: 2.5mm 3.5mm; }
@@ -186,7 +185,7 @@ body.overview .controls { position: sticky; bottom: 0; background: var(--bg); bo
   .config-hint { margin-top: 2mm; }
   .collection-gap { font-size: 10pt; padding: 3mm 4mm; }
   .harness-note { font-size: 8pt; }
-  #slide-2, #slide-6, #slide-7, #slide-8 { padding: 5mm; gap: 4mm; }
+  .slide.subyard-slide, .slide.detail-slide, .slide.screenshot-slide { padding: 5mm; gap: 4mm; }
   .subyard-layout { grid-template-columns: minmax(0, 3fr) minmax(0, 1fr); gap: 7mm; }
   .subyard-context dl { margin-bottom: 7mm; }
   .subyard-context dt { font-size: 13pt; margin-top: 6mm; }
@@ -223,7 +222,7 @@ body.overview .controls { position: sticky; bottom: 0; background: var(--bg); bo
 .slide.closing-slide { justify-content: center; align-items: center; text-align: center; }
 .slide.closing-slide h2 { font-size: clamp(64px, 10vw, 150px); line-height: 1; }
 .closing-message { font-size: clamp(24px, 3vw, 38px); line-height: 1.5; }
-@media print {
+@media print, screen and (min-width: 901px) {
   .slide.closing-slide h2 { font-size: 80pt; }
   .closing-message { font-size: 26pt; }
 }
@@ -235,9 +234,24 @@ body.overview .controls { position: sticky; bottom: 0; background: var(--bg); bo
 @media screen and (max-width: 900px) {
   .worker-review-images { width: 100%; }
 }
-@media print {
+@media print, screen and (min-width: 901px) {
   .slide.worker-review-slide { padding: 5mm; gap: 2mm; }
   .worker-review-slide > h2 { font-size: 27pt; }
   .worker-review-images { width: 172mm; gap: 2mm; }
   .worker-review-slide .slide-bottom { padding-top: 2mm; }
+}
+
+
+@media screen and (min-width: 901px) {
+  .js #deck { min-height: calc(100svh - 144px); }
+  .slide {
+    margin-inline: auto;
+    zoom: min(calc(100vw / 297mm), calc((100svh - 144px) / 210mm));
+  }
+}
+@media print {
+  @page { size: A4 landscape; margin: 0; }
+  :root { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+  .topbar, .controls, dialog, .noscript-note { display: none !important; }
+  .slide, .js .slide, .js .slide.active, body.overview .slide { display: flex !important; }
 }
