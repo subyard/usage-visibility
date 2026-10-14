@@ -367,3 +367,36 @@ were inspected, exporters enabled, or candidate ratings changed.
 
 The deck now has seven slides: usage, Subyard, harness data, All Tools, Default
 Dashboard, Metrics and MLflow. Rebuild the PDF and verify one page per slide.
+
+
+### D25. Clarify collection categories and include OpenCode on slide 3
+
+2026-10-14 · Accepted · Clarifies D24
+
+Replace “Three data layers” with a concrete comparison of what each harness
+records locally and can export. These categories are our presentation structure,
+not a common vendor hierarchy: metrics, events and traces are all telemetry.
+List concrete fields, default persistence, opt-in collection controls and trace
+coverage separately for Codex CLI, Claude Code and OpenCode. The user's mention
+of “2” alongside OpenCode is ambiguous; show all three pending clarification,
+without changing D13's mandatory/optional implementation priorities.
+
+Mark Claude Code tracing beta and OpenCode native trace export unverified.
+The current pinned development config/runner does not expose the older
+experimental.openTelemetry flag; do not promise it as current support.
+Distinguish documented OpenCode JSON export and SDK/plugin events from the
+proposed tracing adapter. Record pinned source links for local usage fields
+and the bounded tracing review in the deck's Sources notes.
+Keep the deck at seven slides; rebuild the PDF and check every page fits.
+
+
+### D26. Append the OpenLIT custom evaluation screenshot
+
+2026-10-14 · Accepted
+
+Add the supplied OpenLIT v2.1.1 Create Custom Evaluation Type screenshot as the
+last slide (8) of presentation 3. Preserve the original unchanged in
+`presentation3/img/openlit-custom-evaluation-original.png`. Use the existing
+compact title and large screenshot layout. Describe only the captured setup
+fields and on-screen guidance; do not imply a completed evaluation or tested
+integration. Rebuild the eight-page PDF and verify one page per slide.

@@ -63,12 +63,16 @@ explains isolation, shared staging and host management beside the slightly
 smaller diagram, with a large, high-contrast repository link. Subyard is a
 reference environment; the visibility solution must also work without it (D2).
 
-Slide 3: **Two harnesses. Three data layers.** Compares required Codex CLI and
-Claude Code support (D13): default local records, optional OTel export, and
-separately enabled trace spans. Claude Code native tracing is labeled beta.
-OpenCode remains optional. The highlighted project gap is process CPU/RAM and
-cross-harness task/agent/step attribution. Official source links and configuration
-caveats are in Sources; checked October 14, 2026, without testing live exports.
+Slide 3: **What each harness records and exports.** Compares Codex CLI,
+Claude Code and OpenCode by collection method: local records, configurable
+metrics/events, and optional timed spans. These are our comparison categories,
+not vendor-defined levels; traces are a type of telemetry. Each column lists
+concrete records and collection controls. Claude Code tracing is beta; OpenCode
+native trace export is unverified; SDK/plugin instrumentation is a proposed
+integration path. Local usage fields are source/version-dependent. D13's implementation priorities are unchanged.
+Official documentation and pinned source references are in Sources, checked
+October 14, 2026; live exports were not tested. The highlighted integration work
+is normalization, task/agent/step correlation and process CPU/RAM collection.
 
 Slide 4: **AI Observer All Tools dashboard.** Reuses the matching official image
 from presentation 2, with the five numbered callouts from the user's supplied
@@ -94,14 +98,20 @@ selected LLM call's attributes on the right. The image includes the supplied
 browser chrome and trace details. No live instance was accessed or candidate
 ratings changed.
 
-Slides 6 and 7 place compact titles to the left of enlarged, right-aligned
+Slide 8: **OpenLIT Custom evaluations.** The supplied OpenLIT v2.1.1
+screenshot shows the evaluation type fields and judge prompt, plus guidance on
+judge outputs and trace-based Rule Engine conditions. Saved unchanged as
+`img/openlit-custom-evaluation-original.png`. This is a setup view, not a
+completed evaluation or a verified live integration.
+
+Slides 6–8 place compact titles to the left of enlarged, right-aligned
 screenshots, using the title area for image height. On narrow screens, titles
 and images stack vertically. Full originals remain visible without cropping.
 
 ## Add the next slide
 
-Insert a new `<section class="slide" id="slide-8" aria-labelledby="title-8">`
-inside `#deck`, with an `h1` or `h2` carrying `id="title-8"`. Continue unique
+Insert a new `<section class="slide" id="slide-9" aria-labelledby="title-9">`
+inside `#deck`, with an `h1` or `h2` carrying `id="title-9"`. Continue unique
 numbering for later slides. Navigation, progress indicators, the slide counter
 and print pagination discover all `.slide` sections automatically. Update the
 fallback counter in the HTML and this content list when adding slides.
@@ -129,7 +139,8 @@ for clipped text, chart labels and footnotes before delivering an update.
 
 The October 14 export succeeded using a temporary Playwright Chromium headless
 installation, with `preferCSSPageSize: true` and `printBackground: true`.
-[`usage-visibility.pdf`](usage-visibility.pdf) contains seven A4 landscape pages,
-one per slide. All seven browser print layouts were visually checked and had no
-layout overflow. All four saved original screenshots were verified byte for byte
-against their attachments.
+[`usage-visibility.pdf`](usage-visibility.pdf) contains eight A4 landscape pages,
+one per slide. The first seven browser print layouts were visually checked in prior updates;
+the new eighth layout was checked in this update. All eight pass overflow
+checks. The five saved original screenshots were verified byte for byte
+against their attachments across these updates.

@@ -49,13 +49,16 @@ em { font-style: normal; color: var(--lime); }
 .dashboard-shot { min-width: 0; }
 .main-screenshot { flex: 1; display: flex; flex-direction: column; justify-content: center; }
 .detail-slide, .subyard-slide { padding: 24px 2vw 20px; gap: 20px; }
-.harness-slide { padding: 28px 3vw 24px; gap: 22px; }
+.harness-slide { padding: 28px 3vw 24px; gap: 18px; }
+.harness-intro { font-size: 15px; color: var(--muted); line-height: 1.45; }
+.harness-intro strong { color: var(--ink); font-weight: 500; }
+.harness-table-wrap { min-width: 0; }
 .harness-table { width: 100%; border-collapse: separate; border-spacing: 0; table-layout: fixed; }
-.harness-table th, .harness-table td { text-align: left; vertical-align: top; padding: 20px 24px; border-bottom: 1px solid var(--line); }
+.harness-table th, .harness-table td { text-align: left; vertical-align: top; padding: 16px 18px; border-bottom: 1px solid var(--line); }
 .harness-table thead th { font-size: 27px; font-weight: 550; padding-top: 0; }
-.harness-table thead th:first-child { width: 19%; font-size: 12px; color: var(--muted); vertical-align: bottom; }
+.harness-table thead th:first-child { width: 16%; font-size: 12px; color: var(--muted); vertical-align: bottom; }
 .harness-table tbody th { font-size: 16px; font-weight: 550; padding-left: 0; }
-.harness-table td { background: #1d2323; border-left: 5px solid var(--bg); font-size: 16px; line-height: 1.45; }
+.harness-table td { background: #1d2323; border-left: 5px solid var(--bg); font-size: 15px; line-height: 1.45; }
 .harness-table strong { font-weight: 550; }
 .harness-table p { margin-top: 7px; color: var(--muted); }
 .harness-table code { font-size: 12px; overflow-wrap: anywhere; }
@@ -146,7 +149,8 @@ body.overview .controls { position: sticky; bottom: 0; background: var(--bg); bo
   .usage-layout { padding-top: 0; }
   .controls { padding-inline: 22px; }
   .selector-group ul { columns: 1; }
-  .harness-table { table-layout: auto; }
+  .harness-table-wrap { overflow-x: auto; }
+  .harness-table { min-width: 850px; }
   .harness-table thead th { font-size: 17px; }
   .harness-table thead th:first-child { width: 22%; font-size: 10px; }
   .harness-table tbody th, .harness-table td { font-size: 12px; padding: 12px 6px; }
@@ -167,18 +171,20 @@ body.overview .controls { position: sticky; bottom: 0; background: var(--bg); bo
   .slide:last-child { break-after: auto; }
   .eyebrow { font-size: 8pt; }
   #slide-1 { padding: 8mm; gap: 5mm; }
-  #slide-3 { padding: 9mm; gap: 5mm; }
+  #slide-3 { padding: 7mm; gap: 3mm; }
+  #slide-3 .slide-bottom { padding-top: 3mm; }
+  .harness-intro { font-size: 10pt; }
   .harness-slide > h2 { font-size: 29pt; }
-  .harness-table th, .harness-table td { padding: 4mm 5mm; }
-  .harness-table thead th { font-size: 20pt; }
-  .harness-table tbody th { font-size: 12pt; }
-  .harness-table td { font-size: 11pt; }
+  .harness-table th, .harness-table td { padding: 2.5mm 3.5mm; }
+  .harness-table thead th { font-size: 17pt; }
+  .harness-table tbody th { font-size: 11pt; }
+  .harness-table td { font-size: 10pt; }
   .harness-table code { font-size: 8pt; }
   .harness-table p { margin-top: 1.5mm; }
   .config-hint { margin-top: 2mm; }
   .collection-gap { font-size: 10pt; padding: 3mm 4mm; }
   .harness-note { font-size: 8pt; }
-  #slide-2, #slide-6, #slide-7 { padding: 5mm; gap: 4mm; }
+  #slide-2, #slide-6, #slide-7, #slide-8 { padding: 5mm; gap: 4mm; }
   .subyard-layout { grid-template-columns: minmax(0, 3fr) minmax(0, 1fr); gap: 7mm; }
   .subyard-context dl { margin-bottom: 7mm; }
   .subyard-context dt { font-size: 13pt; margin-top: 6mm; }
