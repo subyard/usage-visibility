@@ -175,8 +175,18 @@
       <div class="slide-bottom"><span>Source: user-supplied original screenshot</span><span>OpenLIT v2.1.1 · evaluation setup</span></div>
     </section>
 
-    <section class="slide closing-slide" id="slide-9" aria-labelledby="title-9">
-      <h2 id="title-9"><em>Thank you.</em></h2>
+    <section class="slide worker-review-slide" id="slide-9" aria-labelledby="title-9">
+      <div class="eyebrow"><span class="status-dot" aria-hidden="true"></span>09 / improve the workflow</div>
+      <h2 id="title-9">Ask the worker agent <em>how to improve.</em></h2>
+      <div class="worker-review-images">
+        <a href="img/worker-agent-review-prompt-original.png" aria-label="Open the original review prompt screenshot"><img src="img/worker-agent-review-prompt-original.png" width="1430" height="508" alt="A user asks the worker agent to review recent host sessions for improvements, wasted tokens and unnecessarily long staging VM runs. The agent begins inspecting session logs and VM usage."></a>
+        <a href="img/worker-agent-review-response-original.png" aria-label="Open the original agent response screenshot"><img src="img/worker-agent-review-response-original.png" width="1432" height="703" alt="The agent recommends reducing coordination chatter, rerunning only affected checks, validating fixture prerequisites early, and fixing VM preparation and deadline handling. It reports roughly 8,000 waiting or coordination responses out of 27,308, while noting that these are not all waste and exact wasted VM-hours are not established."></a>
+      </div>
+      <div class="slide-bottom"><span>Example: ask for a review of recent sessions, then validate the findings.</span><span>User-supplied agent report · Oct 12–14 sessions</span></div>
+    </section>
+
+    <section class="slide closing-slide" id="slide-10" aria-labelledby="title-10">
+      <h2 id="title-10"><em>Thank you.</em></h2>
       <p class="closing-message">LLMs are great tools.<br>Use them wisely.</p>
     </section>
 
@@ -186,7 +196,7 @@
   <footer class="controls">
     <span class="keyboard-hint">← → navigate <span>·</span> F fullscreen</span>
     <div class="progress" id="progress" aria-label="Choose a slide"></div>
-    <div class="pager"><span id="slide-counter" aria-live="polite" aria-atomic="true">01 / 09</span><button id="previous-button" type="button" aria-label="Previous slide">←</button><button id="next-button" type="button" aria-label="Next slide">→</button></div>
+    <div class="pager"><span id="slide-counter" aria-live="polite" aria-atomic="true">01 / 10</span><button id="previous-button" type="button" aria-label="Previous slide">←</button><button id="next-button" type="button" aria-label="Next slide">→</button></div>
   </footer>
 
   <dialog id="sources-dialog" aria-labelledby="sources-title">
@@ -216,6 +226,8 @@
     <p>Slide 7 starts the MLflow section with the user's original screenshot, saved unchanged as <code>img/mlflow-trace-original.jpg</code>. The captured MLflow 3.17.0 interface shows a trace marked Success, nested spans and their durations, and attributes of the selected LLM call. These are observations from the supplied image; no live instance was accessed and no candidate ratings were changed.</p>
     <h3>OpenLIT custom evaluation setup</h3>
     <p>Slide 8 preserves the user's original screenshot as <code>img/openlit-custom-evaluation-original.png</code>. The OpenLIT v2.1.1 view shows the Create Custom Evaluation Type form: Type ID, Label, Description and Evaluation Prompt. The displayed guidance describes LLM judge scores, classifications and explanations, and conditional application through Rule Engine rules based on trace attributes. This is a setup screen, not a completed evaluation or evidence of tested results. No live instance was accessed.</p>
+    <h3>Worker agent review</h3>
+    <p>Slide 9 preserves the two user-supplied screenshots unchanged: the request to review recent host sessions and the worker agent's response. The response recommends less coordination chatter, selective reruns, early prerequisite checks and VM boot/deadline repairs. Its counts (27,308 model responses, roughly 8,000 involving waiting or coordination) are the agent's reported findings, not independently verified measurements. The screenshot explicitly states that these responses are not all waste and that exact wasted VM-hours are not established. This slide illustrates asking an agent to review its workflow; the underlying host and session records were not inspected for this slide.</p>
     <p>Use the PDF action in the toolbar to print all slides or save them as a PDF.</p>
   </dialog>
   <noscript><p class="noscript-note">All slides are shown. Enable JavaScript for navigation, or use your browser's print command to save a PDF.</p></noscript>

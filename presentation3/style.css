@@ -148,6 +148,8 @@ body.overview .controls { position: sticky; bottom: 0; background: var(--bg); bo
   .eyebrow { font-size: 9px; }
   .usage-layout { padding-top: 0; }
   .controls { padding-inline: 22px; }
+  .progress { gap: 4px; }
+  .progress button { width: 14px; }
   .selector-group ul { columns: 1; }
   .harness-table-wrap { overflow-x: auto; }
   .harness-table { min-width: 850px; }
@@ -224,4 +226,18 @@ body.overview .controls { position: sticky; bottom: 0; background: var(--bg); bo
 @media print {
   .slide.closing-slide h2 { font-size: 80pt; }
   .closing-message { font-size: 26pt; }
+}
+
+
+.worker-review-slide { padding: 22px 3vw 18px; gap: 14px; }
+.worker-review-images { display: grid; gap: 10px; width: min(100%, 900px, calc((100svh - 310px) * 1.18)); margin: 0 auto; }
+.worker-review-images img { display: block; width: 100%; height: auto; border-radius: 6px; }
+@media screen and (max-width: 900px) {
+  .worker-review-images { width: 100%; }
+}
+@media print {
+  .slide.worker-review-slide { padding: 5mm; gap: 2mm; }
+  .worker-review-slide > h2 { font-size: 27pt; }
+  .worker-review-images { width: 172mm; gap: 2mm; }
+  .worker-review-slide .slide-bottom { padding-top: 2mm; }
 }

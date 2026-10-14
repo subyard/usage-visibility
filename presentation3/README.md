@@ -116,12 +116,22 @@ Slides 6–8 place compact titles to the left of enlarged, right-aligned
 screenshots, using the title area for image height. On narrow screens, titles
 and images stack vertically. Full originals remain visible without cropping.
 
-Slide 9: **Thank you.** Closing message: “LLMs are great tools. Use them wisely.”
+Slide 9: **Ask the worker agent how to improve.** The two supplied screenshots
+show a request to examine recent sessions and the agent's recommendations:
+reduce coordination chatter, rerun affected checks, validate prerequisites
+early, and repair VM boot/deadline handling. Originals are preserved unchanged
+as `img/worker-agent-review-prompt-original.png` and
+`img/worker-agent-review-response-original.png`, stacked in reading order and
+linked to their full-size files. Counts are reported by the captured agent,
+not independently verified; the response explicitly says waiting/coordination
+is not all waste and exact wasted VM-hours are not established.
+
+Slide 10: **Thank you.** Closing message: “LLMs are great tools. Use them wisely.”
 
 ## Add the next slide
 
-Insert a new `<section class="slide" id="slide-10" aria-labelledby="title-10">`
-inside `#deck`, with an `h1` or `h2` carrying `id="title-10"`. Continue unique
+Insert a new `<section class="slide" id="slide-11" aria-labelledby="title-11">`
+inside `#deck`, with an `h1` or `h2` carrying `id="title-11"`. Continue unique
 numbering for later slides. Navigation, progress indicators, the slide counter
 and print pagination discover all `.slide` sections automatically. Update the
 fallback counter in the HTML and this content list when adding slides.
@@ -149,7 +159,7 @@ for clipped text, chart labels and footnotes before delivering an update.
 
 The October 14 export succeeded using a temporary Playwright Chromium headless
 installation, with `preferCSSPageSize: true` and `printBackground: true`.
-[`usage-visibility.pdf`](usage-visibility.pdf) contains nine A4 landscape pages,
-one per slide. All nine browser print layouts pass overflow checks; the closing
-slide was visually checked. The five saved original screenshots were verified
+[`usage-visibility.pdf`](usage-visibility.pdf) contains ten A4 landscape pages,
+one per slide. All ten browser print layouts pass overflow checks and all PDF
+pages were visually reviewed. Both new worker-review screenshots were verified
 byte for byte against their attachments.
