@@ -249,3 +249,121 @@ the available tools. Checks of the repository and available attachment
 locations found no originals. Do not claim they have been saved or insert
 broken image references. Once the files are available, embed them, rebuild
 the PDF and verify every page.
+
+### D17. Use the supplied token screenshot on slide 1
+
+2026-10-14 · Accepted · Updates D16's pending status for the token image
+
+The user supplied the token-usage image as an accessible file. Preserve it
+unchanged in `presentation3/img/token-usage-original.png` and replace slide 1's
+right-hand chart with it. Keep the headline and session context on the left.
+The screenshot shows October 5–13; the existing headline, average and JSON
+aggregates remain scoped to October 6–13, excluding October 5. Explain that
+scope in the caption and source notes. The other three originals remain pending.
+
+
+### D18. Make the supplied screenshot the main content of slide 3
+
+2026-10-14 · Accepted · Updates D15's snapshot and D16's pending image status
+
+Preserve the newly supplied Default Dashboard screenshot unchanged as
+`presentation3/img/ai-observer-default-dashboard-original.png`. Replace slide
+3's text summary with the full screenshot as its main content; supporting
+headings and captions may surround it. The new Last 1 hour capture shows
+830,397 metric data points and 210,782 log records, superseding the earlier
+snapshot's counts. Codex CLI remains listed, with zero traces/spans and a
+displayed 0.00% error rate. The All Tools and Metrics originals remain pending.
+
+
+### D19. Enlarge slide 1 and use the original Metrics screenshot on slide 4
+
+2026-10-14 · Accepted · Updates D15's Metrics snapshot and D16's image status
+
+Reduce the empty margins on slide 1 and enlarge its screenshot, keeping the
+headline and supporting figures compact on the left. Preserve the full image.
+
+Save the supplied Metrics screenshot unchanged as
+`presentation3/img/ai-observer-metrics-original.png` and make it the main content
+of slide 4. This capture shows All Services, Last 15 minutes, no selected metric
+and 697 real-time updates, superseding the earlier 146 counter. The visible
+Gemini CLI menu now also includes Lines Changed and Memory Usage. Menu entries
+do not establish successful resource collection. Only the original annotated
+All Tools image for slide 2 remains pending.
+
+
+### D20. Open the MLflow section with the supplied trace screenshot
+
+2026-10-14 · Accepted
+
+Add slide 5 after the AI Observer slides to start the MLflow section. Preserve
+`.orca/drops/mlflow_trace_view_real.jpg` unchanged as
+`presentation3/img/mlflow-trace-original.jpg` and make the full screenshot the
+main content, with a short heading and caption. The user's request authorizes
+inclusion of this supplied trace view, including its browser chrome and visible
+trace details, extending D16's screenshot inclusion decision to MLflow.
+
+Describe only what is visible: MLflow 3.17.0, a trace marked Success, a hierarchy
+of spans and timings, and attributes of the selected LLM call. This does not
+change candidate ratings or establish task outcome beyond the displayed trace
+status. Rebuild the PDF with five pages, one per slide.
+
+
+### D21. Use the title area to enlarge screenshots on slides 4 and 5
+
+2026-10-14 · Accepted
+
+Move the screenshots on slides 4 and 5 slightly right and place compact titles
+beside them so the images can start higher and appear larger. Keep the full
+originals visible without cropping. Use the same layout in the PDF and stack
+titles above images on narrow screens. Other slides retain their layouts.
+
+
+### D22. Insert a Subyard introduction as slide 2
+
+2026-10-14 · Accepted · Updates the slide numbering in D15–D21
+
+Add a Subyard slide immediately after token usage, using the architecture image
+from the project's README and a visible, clickable repository link:
+https://github.com/subyard/subyard. Save the image unchanged as
+`presentation3/img/subyard-agent-workspace.webp`; source asset
+`docs/assets/agent-workspace.webp`, commit `dbf15e3ee96a249f153324167f7c06afd498a401`.
+
+Describe its container or VM yards for coding agents, shared staging, SSH host
+management and Git settings, based on the README. Keep Subyard's role as a
+reference environment rather than a dependency (D2). Existing slides keep their
+relative order: All Tools is now 3, Default Dashboard 4, Metrics 5 and MLflow 6.
+Preserve the enlarged image layouts for Metrics and MLflow. Rebuild and verify
+six PDF pages, one per slide.
+
+
+### D23. Make the Subyard link prominent and add context
+
+2026-10-14 · Accepted
+
+Reduce slide 2's diagram slightly to make room for a context column covering
+isolated containers or VMs and resource limits, shared staging, and SSH/Git
+host management. Move the repository link out of the small footer into a large,
+high-contrast link beside the explanation. Keep the README diagram intact and
+the link clickable in both the presentation and its PDF.
+
+
+### D24. Compare required harness data sources on slide 3
+
+2026-10-14 · Accepted · Updates D22's slide numbering
+
+Insert a designed comparison of Codex CLI and Claude Code at position 3, after
+Subyard. They remain mandatory and OpenCode optional (D13). Separate default
+local persistence from telemetry sent to our collector and separately enabled
+native trace spans. Use OpenTelemetry (OTel) and OTLP terminology; label Claude
+Code's enhanced tracing beta. Record official source links and export controls
+in the deck's Sources notes, checked October 14, 2026.
+
+Local session formats are version-dependent. Provider operational analytics
+are separate from configured collector exports, and redacting exported prompt
+content does not remove local transcripts. The remaining need for process-level
+CPU/RAM and cross-harness task/agent/step correlation is a project assessment,
+not a claim that native tool timing or spans are absent. No private sessions
+were inspected, exporters enabled, or candidate ratings changed.
+
+The deck now has seven slides: usage, Subyard, harness data, All Tools, Default
+Dashboard, Metrics and MLflow. Rebuild the PDF and verify one page per slide.
