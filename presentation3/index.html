@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <meta name="description" content="Usage Visibility, presentation 3: token usage and AI Observer dashboard and metric views.">
+  <title>Usage Visibility — presentation 3</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="presentation.js" defer></script>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#slide-1" aria-label="Usage Visibility, first slide"><span class="brand-mark" aria-hidden="true"></span>usage visibility <span class="brand-note">/ presentation 3</span></a>
+    <nav aria-label="Presentation actions">
+      <button id="sources-button" class="text-button" type="button">Sources</button>
+      <button id="overview-button" class="text-button" type="button" aria-pressed="false">All slides</button>
+      <button id="print-button" class="text-button" type="button">PDF ↗</button>
+    </nav>
+  </header>
+
+  <main id="deck" aria-label="Usage Visibility presentation 3">
+    <section class="slide" id="slide-1" aria-labelledby="title-1">
+      <div class="eyebrow"><span class="status-dot" aria-hidden="true"></span>01 / tokens used · October 6–13, 2026</div>
+      <div class="usage-layout">
+        <div class="headline">
+          <h1 id="title-1"><em>13.4 billion</em><br>tokens in 8 days.</h1>
+          <p class="lead">Roughly <strong>5–7 sessions</strong>,<br>running nearly <strong>24/7</strong>.</p>
+          <div class="average"><strong>1.67B</strong><span>tokens per day<br>on average</span></div>
+        </div>
+        <figure class="daily-usage" aria-labelledby="chart-title">
+          <figcaption id="chart-title"><span>Daily token usage</span><span>Billions of tokens</span></figcaption>
+          <div class="bar-chart">
+            <div class="bar-row"><span class="date">Oct 06</span><div class="track"><span class="bar" style="--value:94.565804" aria-hidden="true"></span></div><span class="value" aria-label="1,891,316,077 tokens">1.89B</span></div>
+            <div class="bar-row"><span class="date">Oct 07</span><div class="track"><span class="bar" style="--value:56.237575" aria-hidden="true"></span></div><span class="value" aria-label="1,124,751,493 tokens">1.12B</span></div>
+            <div class="bar-row peak"><span class="date">Oct 08</span><div class="track"><span class="bar" style="--value:97.283640" aria-hidden="true"></span></div><span class="value" aria-label="1,945,672,809 tokens">1.95B</span></div>
+            <div class="bar-row"><span class="date">Oct 09</span><div class="track"><span class="bar" style="--value:94.992048" aria-hidden="true"></span></div><span class="value" aria-label="1,899,840,962 tokens">1.90B</span></div>
+            <div class="bar-row"><span class="date">Oct 10</span><div class="track"><span class="bar" style="--value:75.980897" aria-hidden="true"></span></div><span class="value" aria-label="1,519,617,936 tokens">1.52B</span></div>
+            <div class="bar-row"><span class="date">Oct 11</span><div class="track"><span class="bar" style="--value:87.850656" aria-hidden="true"></span></div><span class="value" aria-label="1,757,013,125 tokens">1.76B</span></div>
+            <div class="bar-row"><span class="date">Oct 12</span><div class="track"><span class="bar" style="--value:73.663472" aria-hidden="true"></span></div><span class="value" aria-label="1,473,269,437 tokens">1.47B</span></div>
+            <div class="bar-row"><span class="date">Oct 13</span><div class="track"><span class="bar" style="--value:89.243976" aria-hidden="true"></span></div><span class="value" aria-label="1,784,879,516 tokens">1.78B</span></div>
+          </div>
+          <div class="chart-axis" aria-hidden="true"><span>0</span><span>1B</span><span>2B</span></div>
+        </figure>
+      </div>
+      <div class="slide-bottom"><span>Source: supplied Codex usage screenshot · daily totals counted once</span><span>Session count and operating pattern: user estimate</span></div>
+    </section>
+
+    <section class="slide interface-slide" id="slide-2" aria-labelledby="title-2">
+      <div class="eyebrow"><span class="status-dot" aria-hidden="true"></span>02 / AI Observer · All Tools dashboard</div>
+      <h2 id="title-2">Activity, cost and tokens.<br><em>One dashboard.</em></h2>
+      <div class="interface-layout">
+        <figure class="dashboard-shot">
+          <div class="image-frame">
+            <img src="img/ai-observer-dashboard.png" alt="AI Observer All Tools dashboard: 68 traces, 17,244 logs, 117,221 metric data points, a 0.09% error rate, Claude Code activity and cost, and token charts for Claude Code, Gemini CLI and Codex CLI.">
+            <span class="pin" style="left:1.8%;top:34.4%" aria-hidden="true">1</span>
+            <span class="pin" style="left:19.8%;top:28%" aria-hidden="true">2</span>
+            <span class="pin" style="left:38.6%;top:40%" aria-hidden="true">3</span>
+            <span class="pin" style="left:19.8%;top:54%" aria-hidden="true">4</span>
+            <span class="pin" style="left:97.6%;top:20.4%" aria-hidden="true">5</span>
+          </div>
+          <figcaption>Official AI Observer example · the image underlying the supplied annotated slide</figcaption>
+        </figure>
+        <ol class="callouts">
+          <li><span class="callout-number">1</span><div><strong>Explore the data</strong><p>Metrics, Logs and Traces in the sidebar.</p></div></li>
+          <li><span class="callout-number">2</span><div><strong>Start with the overview</strong><p>Trace count, log records, metric points and error rate.</p></div></li>
+          <li><span class="callout-number">3</span><div><strong>Read service metrics</strong><p>Claude Code active time, cost and lines of code.</p></div></li>
+          <li><span class="callout-number">4</span><div><strong>See usage over time</strong><p>Token charts for Claude Code, Gemini CLI and Codex CLI.</p></div></li>
+          <li><span class="callout-number">5</span><div><strong>Choose the view</strong><p>Timeframe and dashboard editing controls.</p></div></li>
+        </ol>
+      </div>
+      <div class="slide-bottom"><span>Source: official AI Observer dashboard image, reused from presentation 2</span><span>Example data · last 1 hour</span></div>
+    </section>
+
+    <section class="slide" id="slide-3" aria-labelledby="title-3">
+      <div class="eyebrow"><span class="status-dot" aria-hidden="true"></span>03 / AI Observer · supplied Default Dashboard</div>
+      <h2 id="title-3">Metrics and logs.<br><em>No traces in this view.</em></h2>
+      <div class="snapshot-context"><span>Default Dashboard</span><span>Active service: <strong>Codex CLI</strong></span><span>Last 1 hour</span></div>
+      <div class="snapshot-grid" aria-label="Values transcribed from the supplied dashboard screenshot">
+        <article class="snapshot-card"><span class="card-label">Metrics</span><strong>829,535</strong><p>data points</p></article>
+        <article class="snapshot-card"><span class="card-label">Logs</span><strong>210,553</strong><p>log records</p></article>
+        <article class="snapshot-card"><span class="card-label">Total traces</span><strong>0</strong><p>0 spans total</p></article>
+        <article class="snapshot-card"><span class="card-label">Error rate</span><strong>0.00%</strong><p>displayed with zero spans</p></article>
+      </div>
+      <div class="trace-observation"><span class="card-label">Recent Traces</span><p>“Waiting for incoming telemetry data...”</p><span>No recent traces are shown in the captured view.</span></div>
+      <p class="interpretation">The screenshot shows metric and log data. With zero spans, the displayed error rate does not establish error-free operation.</p>
+      <div class="slide-bottom"><span>Source: user-supplied screenshot · values transcribed, not a live view</span><span>Snapshot summary · no session content or host address</span></div>
+    </section>
+
+    <section class="slide" id="slide-4" aria-labelledby="title-4">
+      <div class="eyebrow"><span class="status-dot" aria-hidden="true"></span>04 / AI Observer · Metrics selector</div>
+      <h2 id="title-4">Metric choices,<br><em>grouped by agent tool.</em></h2>
+      <div class="snapshot-context"><span>All Services</span><span>Last 15 minutes</span><span>No metric selected</span></div>
+      <div class="selector-groups">
+        <article class="selector-group">
+          <h3>Claude Code</h3>
+          <ul>
+            <li>Active Time</li><li>Edit Decisions</li><li>Commits</li><li>Cost</li><li>Cost (User-Facing)</li><li>Lines of Code</li><li>Pull Requests</li><li>Sessions</li><li>Token Usage</li><li>Token Usage (User-Facing)</li>
+          </ul>
+        </article>
+        <article class="selector-group gemini-group">
+          <h3>Gemini CLI</h3>
+          <ul>
+            <li>Agent Duration</li><li>Agent Runs</li><li>Agent Turns</li><li>API Request Breakdown</li><li>API Requests (Cumulative)</li><li>API Requests</li><li>API Latency</li><li>Content Retries</li><li>Retry Failures</li><li>Invalid Chunks</li><li>Chat Compression</li><li>Cost</li><li>CPU Usage</li><li>File Operations (Cumulative)</li><li>File Operations</li>
+          </ul>
+        </article>
+      </div>
+      <p class="interpretation">Visible menu entries from the screenshot. No metric is selected and no series is plotted; the captured menu does not show the full agent or metric catalog.</p>
+      <div class="slide-bottom"><span>Source: user-supplied screenshot · selector labels transcribed</span><span>Plot panel shows 146 real-time updates</span></div>
+    </section>
+
+    <!-- Add the next supplied slide here. Use a unique slide-N id and title-N heading. -->
+  </main>
+
+  <footer class="controls">
+    <span class="keyboard-hint">← → navigate <span>·</span> F fullscreen</span>
+    <div class="progress" id="progress" aria-label="Choose a slide"></div>
+    <div class="pager"><span id="slide-counter" aria-live="polite" aria-atomic="true">01 / 04</span><button id="previous-button" type="button" aria-label="Previous slide">←</button><button id="next-button" type="button" aria-label="Next slide">→</button></div>
+  </footer>
+
+  <dialog id="sources-dialog" aria-labelledby="sources-title">
+    <div class="dialog-heading"><h2 id="sources-title">Sources and calculations</h2><button id="close-sources" type="button" aria-label="Close sources">×</button></div>
+    <p>The first slide uses the Codex usage screenshot supplied by the user on October 14, 2026. The eight daily totals cover October 6–13, inclusive. The identical “All” and “Codex” rows are counted once per date.</p>
+    <p>The last token column before the dollar amount is treated as total tokens: each value equals the sum of the three nonzero preceding token columns. Column headers are outside the screenshot, so no input, output or cache breakdown is assigned.</p>
+    <p>Total: <strong>13,396,361,355 tokens</strong> (13.4B). Daily average: 13,396,361,355 ÷ 8 = <strong>1,674,545,169.375 tokens</strong> (1.67B). All bars start at zero and share a 2B scale. Total tokens measure volume; they do not establish cost or efficiency.</p>
+    <p>“Roughly 5–7 sessions, running nearly 24/7” is the user's operating context. The screenshot does not establish concurrency, exact running hours or a session count.</p>
+    <p><a href="data.json">Exact daily aggregates (JSON) ↗</a></p>
+    <h3>AI Observer views</h3>
+    <p>Slide 2 reuses the official dashboard asset already held in <code>presentation2-solutions/img/ai-observer-dashboard.png</code>, with the supplied numbered callouts. Attribution: <a href="https://github.com/tobilg/ai-observer">AI Observer repository</a>. Its figures are example data, separate from the local dashboard on slide 3.</p>
+    <p>Slides 3 and 4 summarize screenshots supplied in this conversation. Their original image files are not available in the repository, so these slides use labeled transcriptions rather than embedding or recreating the screenshots. Internal host addresses and browser chrome are omitted. No live instance was accessed or verified.</p>
+    <p>Slide 3 records the displayed Last 1 hour view: Codex CLI listed as an active service; 829,535 metric data points; 210,553 log records; zero traces and spans; and a displayed 0.00% error rate. These observations do not establish trace support, task success or a meaningful error rate with a zero-span denominator.</p>
+    <p>Slide 4 records fully visible metric names in the captured Claude Code and Gemini CLI selector groups. The menu continues beyond the crop; partially visible entries are omitted. CPU Usage is a selectable name in the screenshot, not verified CPU collection. The view has no selected metric and no plotted series; 146 real-time updates is a UI counter, not a sample count for a chosen metric.</p>
+    <p>Use the PDF action in the toolbar to print all slides or save them as a PDF.</p>
+  </dialog>
+  <noscript><p class="noscript-note">All slides are shown. Enable JavaScript for navigation, or use your browser's print command to save a PDF.</p></noscript>
+</body>
+</html>
