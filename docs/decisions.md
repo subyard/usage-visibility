@@ -4,8 +4,11 @@ This file records what the solution must do and the decisions that shape the
 work. The [README](../README.md) is the short human introduction; candidate
 tools are compared in [`solutions/`](../solutions/README.md).
 
-Add a decision when a choice constrains later work. Do not rewrite old
-decisions: mark them as superseded and add a new entry.
+Record substantive project requirements and decisions that constrain later
+work. Exclude routine editing history, slide ordering, image placement and
+layout adjustments. Keep source evidence with the relevant presentation or
+candidate comparison. When a substantive decision changes, mark it as
+superseded and add a new entry.
 
 ## Requirements
 
@@ -168,11 +171,8 @@ MLflow joins the D9 and D10 candidates at the user's request. Evaluate its
 GenAI tracing, coding-agent integrations, token and cost views, and optional
 system metrics against the same requirements and reference scenarios.
 
-Add the project's official screenshots and an explanation of its interface
-and fit to `presentation2-solutions/`, with source links. Record the initial
-MLflow ratings as documentation-based in `solutions/`; they do not replace
-the real-run validation required by D7. Rebuild the presentation PDF and check
-that every slide fits on one page.
+Record the initial MLflow ratings as documentation-based in `solutions/`;
+they do not replace the real-run validation required by D7.
 
 ### D13. Require Codex and Claude Code support
 
@@ -182,221 +182,3 @@ The user clarified that the selected solution must support both Codex and
 Claude Code. OpenCode remains in the comparison, but its support is optional
 and must not block selection. This narrows the mandatory agent coverage; it
 does not select a candidate or replace the real-run validation required by D7.
-
-### D14. Prepare presentation 3 incrementally from supplied material
-
-2026-10-14 · Accepted
-
-Create `presentation3/` using the existing HTML presentation conventions,
-with a printable PDF and navigation ready for later slides. Prepare only the
-first slide now; the user will supply subsequent slides later.
-
-Slide 1 shows token usage for October 6–13 from the user-provided screenshot:
-13,396,361,355 total tokens across eight daily aggregates, or about 1.67 billion
-per day. Count the identical All and Codex rows only once. Treat the last token
-column as the total because it equals the sum of the three nonzero preceding
-token columns; the screenshot omits the headers, so do not assign breakdown
-labels. Preserve the transcribed totals and source limitations in
-`presentation3/data.json` and the deck's source notes.
-
-The user's context is roughly 5–7 sessions running nearly 24/7. Present it as
-an estimate, without implying measured concurrency or exact operating hours.
-Keep total tokens as the headline (D8); do not infer cost or inefficiency from
-the totals alone. Rebuild the PDF and verify one page per slide after updates.
-
-### D15. Follow the supplied AI Observer slide order
-
-2026-10-14 · Accepted
-
-The next three slides in `presentation3/` cover AI Observer. The user confirmed
-the order: slide 2 is the annotated All Tools dashboard, slide 3 is the supplied
-local Default Dashboard, and slide 4 is the earlier Metrics selector screenshot.
-
-Reuse the matching official dashboard image from presentation 2 for slide 2,
-including its five callouts. Distinguish its example data from the local view.
-Slides 3 and 4 summarize only visible aggregate values and metric labels from
-the supplied captures. The original image files for these two views are not
-available in the workspace; use labeled transcriptions until they are available.
-Do not reproduce internal host addresses or session-level content (D4, D11).
-
-Scope the Default Dashboard observations to the displayed Last 1 hour view:
-829,535 metric data points, 210,553 logs, zero traces/spans and a displayed
-0.00% error rate, with Codex CLI listed as an active service. Zero spans do not
-establish a meaningful error rate. Scope the metric selector to its visible
-Claude Code and Gemini CLI groups; the cropped menu does not establish complete
-agent support, available data or successful CPU collection. These observations
-do not change candidate ratings in `solutions/` or replace D7's evaluation.
-
-### D16. Preserve supplied original images beside presentation 3
-
-2026-10-14 · Accepted · Supersedes D15's use of text summaries as slide content
-
-The user requires the original supplied images to be saved in
-`presentation3/img/`. Preserve all four originals: token usage, the annotated
-All Tools dashboard, the local Default Dashboard and the Metrics selector.
-The existing official dashboard asset is not an archive of the user's annotated
-image. Generated images and text summaries are not replacements for originals.
-
-On slide 1, replace the right-hand daily bar chart with the user's original
-token-usage screenshot. Keep the headline and session context on the left.
-Keep the confirmed order of the four slides. The user explicitly authorizes
-using the supplied screenshots for this presentation; D11 does not prevent
-their requested inclusion.
-
-Implementation is pending access to the original image files. The attachments
-are visible in the conversation but have not been exposed as files through
-the available tools. Checks of the repository and available attachment
-locations found no originals. Do not claim they have been saved or insert
-broken image references. Once the files are available, embed them, rebuild
-the PDF and verify every page.
-
-### D17. Use the supplied token screenshot on slide 1
-
-2026-10-14 · Accepted · Updates D16's pending status for the token image
-
-The user supplied the token-usage image as an accessible file. Preserve it
-unchanged in `presentation3/img/token-usage-original.png` and replace slide 1's
-right-hand chart with it. Keep the headline and session context on the left.
-The screenshot shows October 5–13; the existing headline, average and JSON
-aggregates remain scoped to October 6–13, excluding October 5. Explain that
-scope in the caption and source notes. The other three originals remain pending.
-
-
-### D18. Make the supplied screenshot the main content of slide 3
-
-2026-10-14 · Accepted · Updates D15's snapshot and D16's pending image status
-
-Preserve the newly supplied Default Dashboard screenshot unchanged as
-`presentation3/img/ai-observer-default-dashboard-original.png`. Replace slide
-3's text summary with the full screenshot as its main content; supporting
-headings and captions may surround it. The new Last 1 hour capture shows
-830,397 metric data points and 210,782 log records, superseding the earlier
-snapshot's counts. Codex CLI remains listed, with zero traces/spans and a
-displayed 0.00% error rate. The All Tools and Metrics originals remain pending.
-
-
-### D19. Enlarge slide 1 and use the original Metrics screenshot on slide 4
-
-2026-10-14 · Accepted · Updates D15's Metrics snapshot and D16's image status
-
-Reduce the empty margins on slide 1 and enlarge its screenshot, keeping the
-headline and supporting figures compact on the left. Preserve the full image.
-
-Save the supplied Metrics screenshot unchanged as
-`presentation3/img/ai-observer-metrics-original.png` and make it the main content
-of slide 4. This capture shows All Services, Last 15 minutes, no selected metric
-and 697 real-time updates, superseding the earlier 146 counter. The visible
-Gemini CLI menu now also includes Lines Changed and Memory Usage. Menu entries
-do not establish successful resource collection. Only the original annotated
-All Tools image for slide 2 remains pending.
-
-
-### D20. Open the MLflow section with the supplied trace screenshot
-
-2026-10-14 · Accepted
-
-Add slide 5 after the AI Observer slides to start the MLflow section. Preserve
-`.orca/drops/mlflow_trace_view_real.jpg` unchanged as
-`presentation3/img/mlflow-trace-original.jpg` and make the full screenshot the
-main content, with a short heading and caption. The user's request authorizes
-inclusion of this supplied trace view, including its browser chrome and visible
-trace details, extending D16's screenshot inclusion decision to MLflow.
-
-Describe only what is visible: MLflow 3.17.0, a trace marked Success, a hierarchy
-of spans and timings, and attributes of the selected LLM call. This does not
-change candidate ratings or establish task outcome beyond the displayed trace
-status. Rebuild the PDF with five pages, one per slide.
-
-
-### D21. Use the title area to enlarge screenshots on slides 4 and 5
-
-2026-10-14 · Accepted
-
-Move the screenshots on slides 4 and 5 slightly right and place compact titles
-beside them so the images can start higher and appear larger. Keep the full
-originals visible without cropping. Use the same layout in the PDF and stack
-titles above images on narrow screens. Other slides retain their layouts.
-
-
-### D22. Insert a Subyard introduction as slide 2
-
-2026-10-14 · Accepted · Updates the slide numbering in D15–D21
-
-Add a Subyard slide immediately after token usage, using the architecture image
-from the project's README and a visible, clickable repository link:
-https://github.com/subyard/subyard. Save the image unchanged as
-`presentation3/img/subyard-agent-workspace.webp`; source asset
-`docs/assets/agent-workspace.webp`, commit `dbf15e3ee96a249f153324167f7c06afd498a401`.
-
-Describe its container or VM yards for coding agents, shared staging, SSH host
-management and Git settings, based on the README. Keep Subyard's role as a
-reference environment rather than a dependency (D2). Existing slides keep their
-relative order: All Tools is now 3, Default Dashboard 4, Metrics 5 and MLflow 6.
-Preserve the enlarged image layouts for Metrics and MLflow. Rebuild and verify
-six PDF pages, one per slide.
-
-
-### D23. Make the Subyard link prominent and add context
-
-2026-10-14 · Accepted
-
-Reduce slide 2's diagram slightly to make room for a context column covering
-isolated containers or VMs and resource limits, shared staging, and SSH/Git
-host management. Move the repository link out of the small footer into a large,
-high-contrast link beside the explanation. Keep the README diagram intact and
-the link clickable in both the presentation and its PDF.
-
-
-### D24. Compare required harness data sources on slide 3
-
-2026-10-14 · Accepted · Updates D22's slide numbering
-
-Insert a designed comparison of Codex CLI and Claude Code at position 3, after
-Subyard. They remain mandatory and OpenCode optional (D13). Separate default
-local persistence from telemetry sent to our collector and separately enabled
-native trace spans. Use OpenTelemetry (OTel) and OTLP terminology; label Claude
-Code's enhanced tracing beta. Record official source links and export controls
-in the deck's Sources notes, checked October 14, 2026.
-
-Local session formats are version-dependent. Provider operational analytics
-are separate from configured collector exports, and redacting exported prompt
-content does not remove local transcripts. The remaining need for process-level
-CPU/RAM and cross-harness task/agent/step correlation is a project assessment,
-not a claim that native tool timing or spans are absent. No private sessions
-were inspected, exporters enabled, or candidate ratings changed.
-
-The deck now has seven slides: usage, Subyard, harness data, All Tools, Default
-Dashboard, Metrics and MLflow. Rebuild the PDF and verify one page per slide.
-
-
-### D25. Clarify collection categories and include OpenCode on slide 3
-
-2026-10-14 · Accepted · Clarifies D24
-
-Replace “Three data layers” with a concrete comparison of what each harness
-records locally and can export. These categories are our presentation structure,
-not a common vendor hierarchy: metrics, events and traces are all telemetry.
-List concrete fields, default persistence, opt-in collection controls and trace
-coverage separately for Codex CLI, Claude Code and OpenCode. The user's mention
-of “2” alongside OpenCode is ambiguous; show all three pending clarification,
-without changing D13's mandatory/optional implementation priorities.
-
-Mark Claude Code tracing beta and OpenCode native trace export unverified.
-The current pinned development config/runner does not expose the older
-experimental.openTelemetry flag; do not promise it as current support.
-Distinguish documented OpenCode JSON export and SDK/plugin events from the
-proposed tracing adapter. Record pinned source links for local usage fields
-and the bounded tracing review in the deck's Sources notes.
-Keep the deck at seven slides; rebuild the PDF and check every page fits.
-
-
-### D26. Append the OpenLIT custom evaluation screenshot
-
-2026-10-14 · Accepted
-
-Add the supplied OpenLIT v2.1.1 Create Custom Evaluation Type screenshot as the
-last slide (8) of presentation 3. Preserve the original unchanged in
-`presentation3/img/openlit-custom-evaluation-original.png`. Use the existing
-compact title and large screenshot layout. Describe only the captured setup
-fields and on-screen guidance; do not imply a completed evaluation or tested
-integration. Rebuild the eight-page PDF and verify one page per slide.
