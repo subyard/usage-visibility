@@ -62,31 +62,37 @@
     </section>
 
     <section class="slide harness-slide" id="slide-3" aria-labelledby="title-3">
-      <div class="eyebrow"><span class="status-dot" aria-hidden="true"></span>03 / required harnesses · local data and telemetry</div>
-      <h2 id="title-3">Two harnesses. <em>Three data layers.</em></h2>
-      <table class="harness-table" aria-label="Codex CLI and Claude Code data availability">
-        <thead><tr><th scope="col">Data layer</th><th scope="col">Codex CLI <span class="required-tag">Required</span></th><th scope="col">Claude Code <span class="required-tag">Required</span></th></tr></thead>
+      <div class="eyebrow"><span class="status-dot" aria-hidden="true"></span>03 / harnesses · available data</div>
+      <h2 id="title-3">What each harness <em>records and exports.</em></h2>
+      <p class="harness-intro">Our comparison categories, not vendor-defined levels. <strong>Metrics, events and traces are all telemetry.</strong></p>
+      <div class="harness-table-wrap" role="region" aria-label="Harness comparison" tabindex="0">
+      <table class="harness-table" aria-label="Local records and optional exports in Codex CLI, Claude Code and OpenCode">
+        <thead><tr><th scope="col">Collection method</th><th scope="col">Codex CLI</th><th scope="col">Claude Code</th><th scope="col">OpenCode</th></tr></thead>
         <tbody>
           <tr>
-            <th scope="row"><span class="layer-number">01</span>Saved locally<span class="layer-mode">By default</span></th>
-            <td><strong>Conversations, tool activity and recorded token usage.</strong><p>Local session history under <code>~/.codex/</code>; persistence is configurable.</p></td>
-            <td><strong>JSONL conversations, tool calls/results and local usage totals.</strong><p><code>~/.claude/</code> · session cleanup defaults to 30 days; retention is configurable.</p></td>
+            <th scope="row"><span class="layer-number">01 / LOCAL</span>Saved by default<span class="layer-mode">Read after a session</span></th>
+            <td><strong>Messages, tool calls/results, timestamps and token usage.</strong><p>Input, cached input, output and reasoning counts in local rollouts.</p><code class="config-hint">~/.codex/ · local session files</code></td>
+            <td><strong>Messages, tool calls/results and token/cost statistics.</strong><p>JSONL transcripts, including subagents. Configurable cleanup; default 30 days.</p><code class="config-hint">~/.claude/ · transcripts + stats</code></td>
+            <td><strong>Sessions, messages, tool inputs/results, tokens and cost.</strong><p>Usage fields include input/output, cache read/write and reasoning.*</p><code class="config-hint">~/.local/share/opencode/</code></td>
           </tr>
           <tr>
-            <th scope="row"><span class="layer-number">02</span>Export telemetry<span class="layer-mode">Opt in to our collector</span></th>
-            <td><strong>Tokens, API/tool durations, results and approvals.</strong><p>OTel logs + metrics via OTLP HTTP/gRPC.</p><code class="config-hint">[otel] exporter · metrics_exporter</code></td>
-            <td><strong>Tokens/cache, cost, active time and API/tool events.</strong><p>OTel metrics + logs; choose exporters and endpoint.</p><code class="config-hint">CLAUDE_CODE_ENABLE_TELEMETRY=1</code></td>
+            <th scope="row"><span class="layer-number">02 / EXPORT</span>Metrics &amp; events<span class="layer-mode">Configure collection</span></th>
+            <td><strong>Token counts; API/tool durations, outcomes and approvals.</strong><p>Configure OTel log and metric exporters plus the collector endpoint.</p><code class="config-hint">otel.exporter · otel.metrics_exporter</code></td>
+            <td><strong>Tokens/cache, cost, active time, API calls and tool events.</strong><p>Enable telemetry; select metric/log exporters and the collector endpoint.</p><code class="config-hint">CLAUDE_CODE_ENABLE_TELEMETRY=1</code></td>
+            <td><strong>JSON session export and token/cost summaries.</strong><p>Live collection needs an SDK/plugin adapter. Native OTLP metrics/logs are not documented.</p><code class="config-hint">opencode export · opencode stats</code></td>
           </tr>
           <tr>
-            <th scope="row"><span class="layer-number">03</span>Trace spans<span class="layer-mode">Enable separately</span></th>
-            <td><strong>Native OTLP trace export.</strong><p>Choose the trace exporter and destination; validate span coverage in real runs.</p><code class="config-hint">otel.trace_exporter</code></td>
-            <td><strong>Native spans <span class="beta-tag">Beta</span></strong><p>Interaction, API and tool spans. Add beta tracing to the telemetry setup above.</p><code class="config-hint">CLAUDE_CODE_ENHANCED_TELEMETRY_BETA=1<br>OTEL_TRACES_EXPORTER</code></td>
+            <th scope="row"><span class="layer-number">03 / TRACING</span>Timed spans<span class="layer-mode">Optional telemetry: what ran, for how long</span></th>
+            <td><strong>Native OTLP trace exporter.</strong><p>Enable separately and set the destination. Actual span coverage needs a real-run check.</p><code class="config-hint">otel.trace_exporter</code></td>
+            <td><strong>Interaction → API / tool spans <span class="beta-tag">Beta</span></strong><p>Includes nested subagent calls. Enable enhanced telemetry and a trace exporter.</p><code class="config-hint">Beta flag + trace exporter</code></td>
+            <td><strong>Native trace export: unverified.</strong><p>Plan an SDK/plugin tracing adapter; validate span timing and parent/child links.</p><code class="config-hint">Custom instrumentation to evaluate</code></td>
           </tr>
         </tbody>
       </table>
-      <div class="collection-gap"><strong>Still needed for this project</strong><span>Process CPU/RAM and task → agent → step attribution across both harnesses.</span></div>
-      <p class="harness-note">OTel = OpenTelemetry · OTLP = its export protocol · Prompt export is opt-in; local transcripts are separate. OpenCode is optional.</p>
-      <div class="slide-bottom"><span>Docs checked October 14, 2026 · not a live integration test</span><span><a href="https://learn.chatgpt.com/docs/config-file/config-advanced#observability-and-telemetry">Codex telemetry ↗</a> · <a href="https://code.claude.com/docs/en/monitoring-usage">Claude Code telemetry ↗</a></span></div>
+      </div>
+      <div class="collection-gap"><strong>Our integration work</strong><span>Normalize these records; correlate task → agent → step; add process CPU/RAM measurements.</span></div>
+      <p class="harness-note">OTel = OpenTelemetry; OTLP = its export protocol. Local records and collector exports are separate. *OpenCode usage fields checked in development source; verify the installed version. Provider analytics have separate defaults.</p>
+      <div class="slide-bottom"><span>Docs/source checked October 14, 2026 · export controls and caveats in Sources</span><span><a href="https://learn.chatgpt.com/docs/config-file/config-advanced#observability-and-telemetry">Codex ↗</a> · <a href="https://code.claude.com/docs/en/monitoring-usage">Claude Code ↗</a> · <a href="https://opencode.ai/docs/cli/">OpenCode ↗</a></span></div>
     </section>
 
     <section class="slide interface-slide" id="slide-4" aria-labelledby="title-4">
@@ -155,13 +161,27 @@
       <div class="slide-bottom"><span>Source: user-supplied original screenshot</span><span>MLflow 3.17.0 · captured trace view</span></div>
     </section>
 
+    <section class="slide detail-slide" id="slide-8" aria-labelledby="title-8">
+      <div class="eyebrow"><span class="status-dot" aria-hidden="true"></span>08 / OpenLIT · custom evaluations</div>
+      <div class="detail-layout">
+        <h2 id="title-8">OpenLIT <em>Custom evals.</em></h2>
+        <figure class="dashboard-shot main-screenshot">
+          <div class="image-frame">
+            <img src="img/openlit-custom-evaluation-original.png" width="1568" height="831" alt="Original OpenLIT v2.1.1 Create Custom Evaluation Type screen, with Type ID, Label, Description and Evaluation Prompt fields, a Create Evaluation Type button and guidance about LLM judge outputs and Rule Engine conditions.">
+          </div>
+          <figcaption>Define an evaluation type and its judge prompt. The on-screen guidance describes scores, classifications and explanations, with rules based on trace attributes.</figcaption>
+        </figure>
+      </div>
+      <div class="slide-bottom"><span>Source: user-supplied original screenshot</span><span>OpenLIT v2.1.1 · evaluation setup</span></div>
+    </section>
+
     <!-- Add the next supplied slide here. Use a unique slide-N id and title-N heading. -->
   </main>
 
   <footer class="controls">
     <span class="keyboard-hint">← → navigate <span>·</span> F fullscreen</span>
     <div class="progress" id="progress" aria-label="Choose a slide"></div>
-    <div class="pager"><span id="slide-counter" aria-live="polite" aria-atomic="true">01 / 07</span><button id="previous-button" type="button" aria-label="Previous slide">←</button><button id="next-button" type="button" aria-label="Next slide">→</button></div>
+    <div class="pager"><span id="slide-counter" aria-live="polite" aria-atomic="true">01 / 08</span><button id="previous-button" type="button" aria-label="Previous slide">←</button><button id="next-button" type="button" aria-label="Next slide">→</button></div>
   </footer>
 
   <dialog id="sources-dialog" aria-labelledby="sources-title">
@@ -173,10 +193,12 @@
     <p><a href="data.json">Exact daily aggregates (JSON) ↗</a></p>
     <h3>Subyard</h3>
     <p>Slide 2 introduces Subyard from its <a href="https://github.com/subyard/subyard/blob/dbf15e3ee96a249f153324167f7c06afd498a401/README.md">README</a>. The architecture diagram is copied unchanged from <a href="https://github.com/subyard/subyard/blob/dbf15e3ee96a249f153324167f7c06afd498a401/docs/assets/agent-workspace.webp">docs/assets/agent-workspace.webp</a> at commit <code>dbf15e3ee96a249f153324167f7c06afd498a401</code>. Subyard provides isolated container or VM yards for coding agents, shared staging and local or remote host management. It is a reference environment for this work, not a requirement for the visibility solution.</p>
-    <h3>Required harnesses: local data and opt-in export</h3>
-    <p>Slide 3 follows D13: Codex and Claude Code are mandatory; OpenCode is optional. Sources checked October 14, 2026; no user configuration or private session files were inspected.</p>
+    <h3>Harnesses: local records and optional collection</h3>
+    <p>Slide 3 compares Codex, Claude Code and OpenCode. Its rows are our collection categories, not a shared vendor hierarchy: traces are telemetry, alongside metrics and events. Inclusion of OpenCode restores the comparison; D13's implementation priorities remain unchanged pending clarification. Sources checked October 14, 2026; no user configuration or private session files were inspected.</p>
     <p>Codex: <a href="https://learn.chatgpt.com/docs/config-file/config-advanced#history-persistence">local history</a>, <a href="https://learn.chatgpt.com/docs/app-server">saved thread items and usage events</a>, and <a href="https://learn.chatgpt.com/docs/config-file/config-advanced#observability-and-telemetry">telemetry</a>. The repository's existing <code>scripts/collect_evidence.py</code> reads rollout timestamps, tool calls/results and token usage; this is a version-dependent local format, not a stable export API. <a href="https://learn.chatgpt.com/docs/config-file/config-reference">Exporter settings</a> separate logs, metrics and traces. Token categories include input, cached input, output and reasoning output; cached and reasoning counts are subsets, not extra tokens. User-prompt log content is opt-in. OpenAI usage/health analytics are separate from custom log/trace export; metrics default to Statsig, and <code>analytics.enabled=false</code> also disables custom OTLP metrics in the CLI.</p>
     <p>Claude Code: <a href="https://code.claude.com/docs/en/claude-directory">local application data</a> documents JSONL transcripts, prompt history and aggregate token/cost statistics. The transcript schema is internal; default session cleanup is 30 days. <a href="https://code.claude.com/docs/en/monitoring-usage#traces-beta">Native beta spans</a> require <code>CLAUDE_CODE_ENABLE_TELEMETRY=1</code>, <code>CLAUDE_CODE_ENHANCED_TELEMETRY_BETA=1</code> and trace exporter configuration. API/tool spans carry elapsed timings; token categories include input, output, cache read and cache creation. Prompt/tool content export has separate opt-in controls, which do not redact local transcripts. <a href="https://code.claude.com/docs/en/data-usage">Provider operational telemetry</a> is separate from export to our collector.</p>
+    <p>OpenCode: the <a href="https://opencode.ai/docs/troubleshooting/#storage">storage documentation</a> identifies local session/message data under <code>~/.local/share/opencode/</code> on Linux/macOS. The <a href="https://opencode.ai/docs/cli/#export">CLI</a> exports a session as JSON; <code>opencode stats</code> summarizes tokens and cost. The <a href="https://opencode.ai/docs/sdk/">SDK</a> and <a href="https://opencode.ai/docs/plugins/">plugin hooks</a> provide events for a custom collection adapter. This is not equivalent to a built-in OTLP metrics/log exporter. Development-source fields are version-dependent; they do not establish capabilities of the installed version.</p>
+    <p>OpenCode source is pinned to <code>34d8ded0c58dd66808c1d60e081e8c66da12a896</code>: the <a href="https://github.com/anomalyco/opencode/blob/34d8ded0c58dd66808c1d60e081e8c66da12a896/packages/core/src/session/sql.ts">session persistence schema</a> records token/cache/reasoning counts, cost and timestamps; the <a href="https://github.com/anomalyco/opencode/blob/34d8ded0c58dd66808c1d60e081e8c66da12a896/packages/schema/src/session-message.ts">message schema</a> includes assistant usage and tool input/output, status and timings. These are development schemas, not a guaranteed stable storage contract. The reviewed <a href="https://github.com/anomalyco/opencode/blob/34d8ded0c58dd66808c1d60e081e8c66da12a896/packages/schema/src/config/experimental.ts">experimental config</a> and <a href="https://github.com/anomalyco/opencode/blob/34d8ded0c58dd66808c1d60e081e8c66da12a896/packages/core/src/session/runner/llm.ts">LLM runner</a> do not expose the older <code>experimental.openTelemetry</code> option. Native trace export is therefore marked unverified, not universally absent. An SDK/plugin tracing adapter is a proposed integration path, not a tested exporter.</p>
     <p>The process-resource gap is our assessment of the documented telemetry catalogs: tool wall-clock duration does not measure child-process CPU or RAM. OS/process instrumentation and cross-harness task/agent/step correlation still require implementation and real-run validation. Existing candidate ratings are unchanged.</p>
     <h3>AI Observer views</h3>
     <p>Slide 4 reuses the official dashboard asset already held in <code>presentation2-solutions/img/ai-observer-dashboard.png</code>, with the supplied numbered callouts. Attribution: <a href="https://github.com/tobilg/ai-observer">AI Observer repository</a>. Its figures are example data, separate from the local dashboard on slide 5.</p>
@@ -185,6 +207,8 @@
     <p>Slide 6 shows the captured Claude Code and Gemini CLI selector groups, including Lines Changed and Memory Usage at the bottom. The capture does not establish a complete agent or metric catalog. CPU Usage and Memory Usage are selectable names, not verified resource collection. The view has no selected metric and no plotted series; 697 real-time updates is a UI counter, not a sample count for a chosen metric.</p>
     <h3>MLflow trace view</h3>
     <p>Slide 7 starts the MLflow section with the user's original screenshot, saved unchanged as <code>img/mlflow-trace-original.jpg</code>. The captured MLflow 3.17.0 interface shows a trace marked Success, nested spans and their durations, and attributes of the selected LLM call. These are observations from the supplied image; no live instance was accessed and no candidate ratings were changed.</p>
+    <h3>OpenLIT custom evaluation setup</h3>
+    <p>Slide 8 preserves the user's original screenshot as <code>img/openlit-custom-evaluation-original.png</code>. The OpenLIT v2.1.1 view shows the Create Custom Evaluation Type form: Type ID, Label, Description and Evaluation Prompt. The displayed guidance describes LLM judge scores, classifications and explanations, and conditional application through Rule Engine rules based on trace attributes. This is a setup screen, not a completed evaluation or evidence of tested results. No live instance was accessed.</p>
     <p>Use the PDF action in the toolbar to print all slides or save them as a PDF.</p>
   </dialog>
   <noscript><p class="noscript-note">All slides are shown. Enable JavaScript for navigation, or use your browser's print command to save a PDF.</p></noscript>
