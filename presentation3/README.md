@@ -44,8 +44,9 @@ at commit `dbf15e3ee96a249f153324167f7c06afd498a401`. Its local copy is
 ## Current content
 
 Slide 1: **13.4 billion tokens in 8 days**, October 6–13, 2026.
-The user describes roughly 5–7 sessions running nearly 24/7. This is operating
-context, not an exact session count or a measured concurrency claim.
+The user describes roughly 5–7 sessions running nearly 24/7, with many sessions
+lasting 20–40 hours. This is user-supplied operating context, not an exact session
+count, a measured concurrency claim or durations inferred from the usage screenshot.
 
 [`data.json`](data.json) transcribes the eight daily token totals from the
 user's screenshot. The identical All and Codex rows are counted once per day.
@@ -106,17 +107,24 @@ selected LLM call's attributes on the right. The image includes the supplied
 browser chrome and trace details. No live instance was accessed or candidate
 ratings changed.
 
-Slide 8: **OpenLIT Custom evaluations.** The supplied OpenLIT v2.1.1
+Slide 8: **OpenLIT LLM dashboard.** Opens the OpenLIT section with the supplied
+v2.1.0 dashboard screenshot, preserved unchanged as
+`img/openlit-llm-dashboard-original.png`. The selected 24H view displays 7.11M
+requests, 0.6487 seconds average duration, zero average tokens per request,
+$0 costs and zero detection counters. These are captured UI values; collection
+and evaluation coverage and the underlying measurements were not verified.
+
+Slide 9: **OpenLIT Custom evaluations.** The supplied OpenLIT v2.1.1
 screenshot shows the evaluation type fields and judge prompt, plus guidance on
 judge outputs and trace-based Rule Engine conditions. Saved unchanged as
 `img/openlit-custom-evaluation-original.png`. This is a setup view, not a
 completed evaluation or a verified live integration.
 
-Slides 6–8 place compact titles to the left of enlarged, right-aligned
-screenshots, using the title area for image height. On narrow screens, titles
+Slides 6, 7 and 9 place compact titles directly beside screenshots that keep
+their intrinsic proportions, with captions aligned beneath the images. On narrow screens, titles
 and images stack vertically. Full originals remain visible without cropping.
 
-Slide 9: **Ask the worker agent how to improve.** The two supplied screenshots
+Slide 10: **Ask the worker agent how to improve.** The two supplied screenshots
 show a request to examine recent sessions and the agent's recommendations:
 reduce coordination chatter, rerun affected checks, validate prerequisites
 early, and repair VM boot/deadline handling. Originals are preserved unchanged
@@ -126,12 +134,12 @@ linked to their full-size files. Counts are reported by the captured agent,
 not independently verified; the response explicitly says waiting/coordination
 is not all waste and exact wasted VM-hours are not established.
 
-Slide 10: **Thank you.** Closing message: “LLMs are great tools. Use them wisely.”
+Slide 11: **Thank you.** Closing message: “LLMs are great tools. Use them wisely.”
 
 ## Add the next slide
 
-Insert a new `<section class="slide" id="slide-11" aria-labelledby="title-11">`
-inside `#deck`, with an `h1` or `h2` carrying `id="title-11"`. Continue unique
+Insert a new `<section class="slide" id="slide-12" aria-labelledby="title-12">`
+inside `#deck`, with an `h1` or `h2` carrying `id="title-12"`. Continue unique
 numbering for later slides. Navigation, progress indicators, the slide counter
 and print pagination discover all `.slide` sections automatically. Update the
 fallback counter in the HTML and this content list when adding slides.
@@ -139,6 +147,11 @@ fallback counter in the HTML and this content list when adding slides.
 Use arrow keys or Page Up / Page Down to navigate, Home / End to jump, F for
 fullscreen, and All slides for overview. Sources opens the calculation notes.
 The deck works directly from a local file without a web server or dependencies.
+On desktop windows wider than 900px, slides share the A4 landscape composition
+used for the PDF and scale to the available viewport below the toolbar and
+above navigation. The complete slide remains visible without vertical scrolling.
+At narrower widths, content reflows and can scroll vertically; the comparison
+table has its own horizontal scrolling area. Image originals remain uncropped.
 
 ## Rebuild and verify the PDF
 
@@ -159,7 +172,14 @@ for clipped text, chart labels and footnotes before delivering an update.
 
 The October 14 export succeeded using a temporary Playwright Chromium headless
 installation, with `preferCSSPageSize: true` and `printBackground: true`.
-[`usage-visibility.pdf`](usage-visibility.pdf) contains ten A4 landscape pages,
-one per slide. All ten browser print layouts pass overflow checks and all PDF
-pages were visually reviewed. Both new worker-review screenshots were verified
-byte for byte against their attachments.
+[`usage-visibility.pdf`](usage-visibility.pdf) contains eleven A4 landscape pages,
+one per slide. All eleven browser print layouts pass overflow checks and all PDF
+pages were visually reviewed. The new OpenLIT dashboard screenshot was verified byte for byte against its
+attachment; the two worker-review originals were verified in the previous update.
+
+
+The layout repair was checked in Chromium on all 11 slides at 1920×1080,
+1440×900, 1366×768 and 1024×768: slide content and navigation fit the viewport.
+At 900×700, 390×844 and 320×640 there is no document-wide horizontal overflow.
+Direct slide links, previous/next navigation and overview switching were checked.
+All 11 PDF pages were rebuilt and visually reviewed, one slide per page.

@@ -25,7 +25,7 @@
       <div class="usage-layout">
         <div class="headline">
           <h1 id="title-1"><em>13.4 billion</em><br>tokens in 8 days.</h1>
-          <p class="lead">Roughly <strong>5–7 sessions</strong>,<br>running nearly <strong>24/7</strong>.</p>
+          <p class="lead">Roughly <strong>5–7 sessions</strong>,<br>running nearly <strong>24/7</strong>.<br>Many sessions last<br><strong>20–40 hours</strong>.</p>
           <div class="average"><strong>1.67B</strong><span>tokens per day<br>on average</span></div>
         </div>
         <figure class="usage-screenshot">
@@ -161,10 +161,22 @@
       <div class="slide-bottom"><span>Source: user-supplied original screenshot</span><span>MLflow 3.17.0 · captured trace view</span></div>
     </section>
 
-    <section class="slide detail-slide" id="slide-8" aria-labelledby="title-8">
-      <div class="eyebrow"><span class="status-dot" aria-hidden="true"></span>08 / OpenLIT · custom evaluations</div>
+    <section class="slide screenshot-slide" id="slide-8" aria-labelledby="title-8">
+      <div class="eyebrow"><span class="status-dot" aria-hidden="true"></span>08 / OpenLIT · LLM dashboard</div>
+      <h2 id="title-8">OpenLIT <em>LLM dashboard.</em></h2>
+      <figure class="dashboard-shot main-screenshot">
+        <div class="image-frame">
+          <img src="img/openlit-llm-dashboard-original.png" width="1918" height="944" alt="Original OpenLIT v2.1.0 LLM dashboard with 24H selected: 7.11M total requests, 0.6487 seconds average request duration, zero average tokens per request and $0 total costs. Requests per time chart spans October 13–14, 2026; hallucination, bias and toxicity counters display zero.">
+        </div>
+        <figcaption>Captured 24H view: request volume and duration, token/cost counters, and requests over time.</figcaption>
+      </figure>
+      <div class="slide-bottom"><span>Source: user-supplied original screenshot</span><span>OpenLIT v2.1.0 · captured dashboard</span></div>
+    </section>
+
+    <section class="slide detail-slide" id="slide-9" aria-labelledby="title-9">
+      <div class="eyebrow"><span class="status-dot" aria-hidden="true"></span>09 / OpenLIT · custom evaluations</div>
       <div class="detail-layout">
-        <h2 id="title-8">OpenLIT <em>Custom evals.</em></h2>
+        <h2 id="title-9">OpenLIT <em>Custom evals.</em></h2>
         <figure class="dashboard-shot main-screenshot">
           <div class="image-frame">
             <img src="img/openlit-custom-evaluation-original.png" width="1568" height="831" alt="Original OpenLIT v2.1.1 Create Custom Evaluation Type screen, with Type ID, Label, Description and Evaluation Prompt fields, a Create Evaluation Type button and guidance about LLM judge outputs and Rule Engine conditions.">
@@ -175,9 +187,9 @@
       <div class="slide-bottom"><span>Source: user-supplied original screenshot</span><span>OpenLIT v2.1.1 · evaluation setup</span></div>
     </section>
 
-    <section class="slide worker-review-slide" id="slide-9" aria-labelledby="title-9">
-      <div class="eyebrow"><span class="status-dot" aria-hidden="true"></span>09 / improve the workflow</div>
-      <h2 id="title-9">Ask the worker agent <em>how to improve.</em></h2>
+    <section class="slide worker-review-slide" id="slide-10" aria-labelledby="title-10">
+      <div class="eyebrow"><span class="status-dot" aria-hidden="true"></span>10 / improve the workflow</div>
+      <h2 id="title-10">Ask the worker agent <em>how to improve.</em></h2>
       <div class="worker-review-images">
         <a href="img/worker-agent-review-prompt-original.png" aria-label="Open the original review prompt screenshot"><img src="img/worker-agent-review-prompt-original.png" width="1430" height="508" alt="A user asks the worker agent to review recent host sessions for improvements, wasted tokens and unnecessarily long staging VM runs. The agent begins inspecting session logs and VM usage."></a>
         <a href="img/worker-agent-review-response-original.png" aria-label="Open the original agent response screenshot"><img src="img/worker-agent-review-response-original.png" width="1432" height="703" alt="The agent recommends reducing coordination chatter, rerunning only affected checks, validating fixture prerequisites early, and fixing VM preparation and deadline handling. It reports roughly 8,000 waiting or coordination responses out of 27,308, while noting that these are not all waste and exact wasted VM-hours are not established."></a>
@@ -185,8 +197,8 @@
       <div class="slide-bottom"><span>Example: ask for a review of recent sessions, then validate the findings.</span><span>User-supplied agent report · Oct 12–14 sessions</span></div>
     </section>
 
-    <section class="slide closing-slide" id="slide-10" aria-labelledby="title-10">
-      <h2 id="title-10"><em>Thank you.</em></h2>
+    <section class="slide closing-slide" id="slide-11" aria-labelledby="title-11">
+      <h2 id="title-11"><em>Thank you.</em></h2>
       <p class="closing-message">LLMs are great tools.<br>Use them wisely.</p>
     </section>
 
@@ -196,7 +208,7 @@
   <footer class="controls">
     <span class="keyboard-hint">← → navigate <span>·</span> F fullscreen</span>
     <div class="progress" id="progress" aria-label="Choose a slide"></div>
-    <div class="pager"><span id="slide-counter" aria-live="polite" aria-atomic="true">01 / 10</span><button id="previous-button" type="button" aria-label="Previous slide">←</button><button id="next-button" type="button" aria-label="Next slide">→</button></div>
+    <div class="pager"><span id="slide-counter" aria-live="polite" aria-atomic="true">01 / 11</span><button id="previous-button" type="button" aria-label="Previous slide">←</button><button id="next-button" type="button" aria-label="Next slide">→</button></div>
   </footer>
 
   <dialog id="sources-dialog" aria-labelledby="sources-title">
@@ -204,7 +216,7 @@
     <p>The first slide uses the Codex usage screenshot supplied by the user on October 14, 2026. The eight daily totals cover October 6–13, inclusive. The identical “All” and “Codex” rows are counted once per date.</p>
     <p>The last token column before the dollar amount is treated as total tokens: each value equals the sum of the three nonzero preceding token columns. Column headers are outside the screenshot, so no input, output or cache breakdown is assigned.</p>
     <p>Total: <strong>13,396,361,355 tokens</strong> (13.4B). Daily average: 13,396,361,355 ÷ 8 = <strong>1,674,545,169.375 tokens</strong> (1.67B). The original screenshot also shows October 5; that date is excluded from these calculations. Total tokens measure volume; they do not establish cost or efficiency.</p>
-    <p>“Roughly 5–7 sessions, running nearly 24/7” is the user's operating context. The screenshot does not establish concurrency, exact running hours or a session count.</p>
+    <p>“Roughly 5–7 sessions, running nearly 24/7” and “many sessions last 20–40 hours” describe the user's operating context. The screenshot does not establish concurrency, exact running hours or a session count.</p>
     <p><a href="data.json">Exact daily aggregates (JSON) ↗</a></p>
     <h3>Subyard</h3>
     <p>Slide 2 introduces Subyard from its <a href="https://github.com/subyard/subyard/blob/dbf15e3ee96a249f153324167f7c06afd498a401/README.md">README</a>. The architecture diagram is copied unchanged from <a href="https://github.com/subyard/subyard/blob/dbf15e3ee96a249f153324167f7c06afd498a401/docs/assets/agent-workspace.webp">docs/assets/agent-workspace.webp</a> at commit <code>dbf15e3ee96a249f153324167f7c06afd498a401</code>. Subyard provides isolated container or VM yards for coding agents, shared staging and local or remote host management. It is a reference environment for this work, not a requirement for the visibility solution.</p>
@@ -224,10 +236,12 @@
     <p>Slide 6 shows the captured Claude Code and Gemini CLI selector groups, including Lines Changed and Memory Usage at the bottom. The capture does not establish a complete agent or metric catalog. CPU Usage and Memory Usage are selectable names, not verified resource collection. The view has no selected metric and no plotted series; 697 real-time updates is a UI counter, not a sample count for a chosen metric.</p>
     <h3>MLflow trace view</h3>
     <p>Slide 7 starts the MLflow section with the user's original screenshot, saved unchanged as <code>img/mlflow-trace-original.jpg</code>. The captured MLflow 3.17.0 interface shows a trace marked Success, nested spans and their durations, and attributes of the selected LLM call. These are observations from the supplied image; no live instance was accessed and no candidate ratings were changed.</p>
+    <h3>OpenLIT LLM dashboard</h3>
+    <p>Slide 8 opens the OpenLIT section with the user's original screenshot, saved unchanged as <code>img/openlit-llm-dashboard-original.png</code>. The OpenLIT v2.1.0 dashboard has 24H selected and displays 7.11M total requests, 0.6487 seconds average request duration, zero average tokens per request, $0 total and average costs, and zero hallucination, bias and toxicity detections. The requests chart shows October 13–14, 2026. These are captured UI values, not independently verified measurements. Zero token, cost or detection counters do not establish free inference or evaluated quality; collection and evaluation coverage were not checked.</p>
     <h3>OpenLIT custom evaluation setup</h3>
-    <p>Slide 8 preserves the user's original screenshot as <code>img/openlit-custom-evaluation-original.png</code>. The OpenLIT v2.1.1 view shows the Create Custom Evaluation Type form: Type ID, Label, Description and Evaluation Prompt. The displayed guidance describes LLM judge scores, classifications and explanations, and conditional application through Rule Engine rules based on trace attributes. This is a setup screen, not a completed evaluation or evidence of tested results. No live instance was accessed.</p>
+    <p>Slide 9 preserves the user's original screenshot as <code>img/openlit-custom-evaluation-original.png</code>. The OpenLIT v2.1.1 view shows the Create Custom Evaluation Type form: Type ID, Label, Description and Evaluation Prompt. The displayed guidance describes LLM judge scores, classifications and explanations, and conditional application through Rule Engine rules based on trace attributes. This is a setup screen, not a completed evaluation or evidence of tested results. No live instance was accessed.</p>
     <h3>Worker agent review</h3>
-    <p>Slide 9 preserves the two user-supplied screenshots unchanged: the request to review recent host sessions and the worker agent's response. The response recommends less coordination chatter, selective reruns, early prerequisite checks and VM boot/deadline repairs. Its counts (27,308 model responses, roughly 8,000 involving waiting or coordination) are the agent's reported findings, not independently verified measurements. The screenshot explicitly states that these responses are not all waste and that exact wasted VM-hours are not established. This slide illustrates asking an agent to review its workflow; the underlying host and session records were not inspected for this slide.</p>
+    <p>Slide 10 preserves the two user-supplied screenshots unchanged: the request to review recent host sessions and the worker agent's response. The response recommends less coordination chatter, selective reruns, early prerequisite checks and VM boot/deadline repairs. Its counts (27,308 model responses, roughly 8,000 involving waiting or coordination) are the agent's reported findings, not independently verified measurements. The screenshot explicitly states that these responses are not all waste and that exact wasted VM-hours are not established. This slide illustrates asking an agent to review its workflow; the underlying host and session records were not inspected for this slide.</p>
     <p>Use the PDF action in the toolbar to print all slides or save them as a PDF.</p>
   </dialog>
   <noscript><p class="noscript-note">All slides are shown. Enable JavaScript for navigation, or use your browser's print command to save a PDF.</p></noscript>
