@@ -120,9 +120,11 @@ judge outputs and trace-based Rule Engine conditions. Saved unchanged as
 `img/openlit-custom-evaluation-original.png`. This is a setup view, not a
 completed evaluation or a verified live integration.
 
-Slides 6, 7 and 9 place compact titles directly beside screenshots that keep
-their intrinsic proportions, with captions aligned beneath the images. On narrow screens, titles
-and images stack vertically. Full originals remain visible without cropping.
+All slides use the same compact header with a fixed slide number/topic position.
+Content slides also share title sizing and alignment. A flexible body centers
+each image or content group between the header and footer. The closing title
+is part of its centered message. Screenshots retain their original proportions
+without cropping; click an image to open its full-resolution original.
 
 Slide 10: **Ask the worker agent how to improve.** The two supplied screenshots
 show a request to examine recent sessions and the agent's recommendations:
@@ -147,9 +149,10 @@ fallback counter in the HTML and this content list when adding slides.
 Use arrow keys or Page Up / Page Down to navigate, Home / End to jump, F for
 fullscreen, and All slides for overview. Sources opens the calculation notes.
 The deck works directly from a local file without a web server or dependencies.
-On desktop windows wider than 900px, slides share the A4 landscape composition
-used for the PDF and scale to the available viewport below the toolbar and
-above navigation. The complete slide remains visible without vertical scrolling.
+The toolbar is 44px high and navigation is 48px high. Their combined height is
+defined once in CSS. On desktop windows wider than 900px, slides share a
+1600×900 (16:9) composition with the PDF and scale to the available viewport
+below the toolbar and above navigation. The complete slide remains visible without vertical scrolling.
 At narrower widths, content reflows and can scroll vertically; the comparison
 table has its own horizontal scrolling area. Image originals remain uncropped.
 
@@ -166,20 +169,21 @@ pdfinfo presentation3/usage-visibility.pdf
 ```
 
 Chromium prints the HTML with its print stylesheet and backgrounds. Each slide
-must occupy one A4 landscape page. Verify the page count against the slide
+must occupy one 16:9 page (1200×675 PDF points). Verify the page count against the slide
 count and render every PDF page with `pdftoppm` for visual inspection; check
 for clipped text, chart labels and footnotes before delivering an update.
 
 The October 14 export succeeded using a temporary Playwright Chromium headless
-installation, with `preferCSSPageSize: true` and `printBackground: true`.
-[`usage-visibility.pdf`](usage-visibility.pdf) contains eleven A4 landscape pages,
-one per slide. All eleven browser print layouts pass overflow checks and all PDF
-pages were visually reviewed. The new OpenLIT dashboard screenshot was verified byte for byte against its
-attachment; the two worker-review originals were verified in the previous update.
+installation, with `prefer_css_page_size=True` and `print_background=True`.
+[`usage-visibility.pdf`](usage-visibility.pdf) contains eleven 16:9 pages,
+one per slide. All eleven browser print layouts pass overflow checks, and all
+PDF pages were visually reviewed.
 
+The screen composition was checked on all 11 slides at 1920×1080, 1440×900,
+1366×768 and 1024×768: slide content and navigation fit the viewport, and
+content stays inside its body area. At 900×700, 390×844 and 320×640 there is no
+document-wide horizontal overflow. Header positions match across slides.
+Overview switching and opening an original image in a new tab were verified.
 
-The layout repair was checked in Chromium on all 11 slides at 1920×1080,
-1440×900, 1366×768 and 1024×768: slide content and navigation fit the viewport.
-At 900×700, 390×844 and 320×640 there is no document-wide horizontal overflow.
-Direct slide links, previous/next navigation and overview switching were checked.
-All 11 PDF pages were rebuilt and visually reviewed, one slide per page.
+The OpenLIT dashboard original was previously verified byte for byte against
+its attachment, as were the two worker-review originals.
