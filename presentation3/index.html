@@ -21,125 +21,147 @@
 
   <main id="deck" aria-label="Usage Visibility presentation 3">
     <section class="slide usage-slide" id="slide-1" aria-labelledby="title-1">
-      <div class="eyebrow"><span class="status-dot" aria-hidden="true"></span>01 / tokens used · October 6–13, 2026</div>
-      <div class="usage-layout">
-        <div class="headline">
-          <h1 id="title-1"><em>13.4 billion</em><br>tokens in 8 days.</h1>
-          <p class="lead">Roughly <strong>5–7 sessions</strong>,<br>running nearly <strong>24/7</strong>.<br>Many sessions last<br><strong>20–40 hours</strong>.</p>
-          <div class="average"><strong>1.67B</strong><span>tokens per day<br>on average</span></div>
+      <header class="slide-header">
+        <div class="eyebrow"><span class="status-dot" aria-hidden="true"></span>01 / tokens used · October 6–13, 2026</div>
+        <h1 id="title-1"><em>13.4 billion</em> tokens in 8 days.</h1>
+      </header>
+      <div class="slide-body">
+        <div class="usage-layout">
+          <div class="usage-summary">
+            <p class="lead">Roughly <strong>5–7 sessions</strong>,<br>running nearly <strong>24/7</strong>.<br>Many sessions last<br><strong>20–40 hours</strong>.</p>
+            <div class="average"><strong>1.67B</strong><span>tokens per day<br>on average</span></div>
+          </div>
+          <figure class="usage-screenshot">
+            <a class="image-original" href="img/token-usage-original.png" target="_blank" rel="noopener noreferrer" aria-label="Open original image at full resolution" title="Open original image"><img src="img/token-usage-original.png" width="1210" height="799" alt="Original Codex usage screenshot showing daily All and Codex rows for October 5–13, 2026. The headline counts October 6–13 only, once per day."></a>
+            <figcaption>Original screenshot · October 5 is shown but excluded from the headline.</figcaption>
+          </figure>
         </div>
-        <figure class="usage-screenshot">
-          <img src="img/token-usage-original.png" width="1210" height="799" alt="Original Codex usage screenshot showing daily All and Codex rows for October 5–13, 2026. The headline counts October 6–13 only, once per day.">
-          <figcaption>Original screenshot · October 5 is shown but excluded from the headline.</figcaption>
-        </figure>
       </div>
       <div class="slide-bottom"><span>Source: supplied Codex usage screenshot · daily totals counted once</span><span>Session count and operating pattern: user estimate</span></div>
     </section>
 
     <section class="slide subyard-slide" id="slide-2" aria-labelledby="title-2">
-      <div class="eyebrow"><span class="status-dot" aria-hidden="true"></span>02 / Subyard · agent workspaces</div>
-      <h2 id="title-2">Subyard <em>Workspaces for coding agents.</em></h2>
-      <div class="subyard-layout">
-        <figure class="dashboard-shot">
-          <div class="image-frame">
-            <img src="img/subyard-agent-workspace.webp" width="1916" height="821" alt="Subyard README diagram: a developer laptop and remote server contain isolated yards for agents, projects and shared staging. Hosts connect over SSH, synchronize settings through Git and exchange encrypted staging credentials; projects and history stay local to each host.">
+      <header class="slide-header">
+        <div class="eyebrow"><span class="status-dot" aria-hidden="true"></span>02 / Subyard · agent workspaces</div>
+        <h2 id="title-2">Subyard <em>Workspaces for coding agents.</em></h2>
+      </header>
+      <div class="slide-body">
+        <div class="subyard-layout">
+          <figure class="dashboard-shot">
+            <div class="image-frame">
+              <a class="image-original" href="img/subyard-agent-workspace.webp" target="_blank" rel="noopener noreferrer" aria-label="Open original image at full resolution" title="Open original image"><img src="img/subyard-agent-workspace.webp" width="1916" height="821" alt="Subyard README diagram: a developer laptop and remote server contain isolated yards for agents, projects and shared staging. Hosts connect over SSH, synchronize settings through Git and exchange encrypted staging credentials; projects and history stay local to each host."></a>
+            </div>
+            <figcaption>Architecture diagram from the Subyard README.</figcaption>
+          </figure>
+          <div class="subyard-context">
+            <dl>
+              <dt>Isolated agent environments</dt>
+              <dd>Containers or VMs with per-yard CPU and memory limits.</dd>
+              <dt>Shared staging</dt>
+              <dd>Run services and test changes on your own compute.</dd>
+              <dt>Across your machines</dt>
+              <dd>Manage hosts over SSH and sync settings through Git.</dd>
+            </dl>
+            <a class="repository-link" href="https://github.com/subyard/subyard" target="_blank" rel="noopener noreferrer">github.com/subyard/subyard</a>
           </div>
-          <figcaption>Architecture diagram from the Subyard README.</figcaption>
-        </figure>
-        <div class="subyard-context">
-          <dl>
-            <dt>Isolated agent environments</dt>
-            <dd>Containers or VMs with per-yard CPU and memory limits.</dd>
-            <dt>Shared staging</dt>
-            <dd>Run services and test changes on your own compute.</dd>
-            <dt>Across your machines</dt>
-            <dd>Manage hosts over SSH and sync settings through Git.</dd>
-          </dl>
-          <a class="repository-link" href="https://github.com/subyard/subyard" target="_blank" rel="noopener noreferrer">github.com/subyard/subyard</a>
         </div>
       </div>
       <div class="slide-bottom"><span>Source: Subyard README</span><span>Reference environment for this work</span></div>
     </section>
 
     <section class="slide harness-slide" id="slide-3" aria-labelledby="title-3">
-      <div class="eyebrow"><span class="status-dot" aria-hidden="true"></span>03 / harnesses · available data</div>
-      <h2 id="title-3">What each harness <em>records and exports.</em></h2>
-      <p class="harness-intro">Our comparison categories, not vendor-defined levels. <strong>Metrics, events and traces are all telemetry.</strong></p>
-      <div class="harness-table-wrap" role="region" aria-label="Harness comparison" tabindex="0">
-      <table class="harness-table" aria-label="Local records and optional exports in Codex CLI, Claude Code and OpenCode">
-        <thead><tr><th scope="col">Collection method</th><th scope="col">Codex CLI</th><th scope="col">Claude Code</th><th scope="col">OpenCode</th></tr></thead>
-        <tbody>
-          <tr>
-            <th scope="row"><span class="layer-number">01 / LOCAL</span>Saved by default<span class="layer-mode">Read after a session</span></th>
-            <td><strong>Messages, tool calls/results, timestamps and token usage.</strong><p>Input, cached input, output and reasoning counts in local rollouts.</p><code class="config-hint">~/.codex/ · local session files</code></td>
-            <td><strong>Messages, tool calls/results and token/cost statistics.</strong><p>JSONL transcripts, including subagents. CLI session cleanup defaults to 30 days.</p><code class="config-hint">~/.claude/ · transcripts + stats</code></td>
-            <td><strong>Sessions, messages, tool inputs/results, tokens and cost.</strong><p>Usage fields include input/output, cache read/write and reasoning.*</p><code class="config-hint">~/.local/share/opencode/</code></td>
-          </tr>
-          <tr>
-            <th scope="row"><span class="layer-number">02 / EXPORT</span>Metrics &amp; logs<span class="layer-mode">Configure collection</span></th>
-            <td><strong>Token counts; API/tool durations, outcomes and approvals.</strong><p>Configure OTel log and metric exporters plus the collector endpoint.</p><code class="config-hint">otel.exporter · otel.metrics_exporter</code></td>
-            <td><strong>Tokens/cache, cost, active time, API calls and tool events.</strong><p>Enable telemetry; select metric/log exporters and the collector endpoint.</p><code class="config-hint">CLAUDE_CODE_ENABLE_TELEMETRY=1</code></td>
-            <td><strong>Native OTLP/HTTP logs; metrics via plugins.*</strong><p>Built-in JSON session export and token/cost summaries remain available.</p><code class="config-hint">opencode export · opencode stats</code></td>
-          </tr>
-          <tr>
-            <th scope="row"><span class="layer-number">03 / TRACING</span>Timed spans<span class="layer-mode">Optional telemetry: what ran, for how long</span></th>
-            <td><strong>Native OTLP trace exporter.</strong><p>Enable separately and set the destination. Actual span coverage needs a real-run check.</p><code class="config-hint">otel.trace_exporter</code></td>
-            <td><strong>Interaction → API / tool spans <span class="beta-tag">Beta</span></strong><p>Includes nested subagent calls. Enable enhanced telemetry and a trace exporter.</p><code class="config-hint">Beta flag + trace exporter</code></td>
-            <td><strong>Native OTLP/HTTP traces in v1.19.0.*</strong><p>Set the endpoint; enable AI SDK spans with <code>experimental.openTelemetry</code>. MLflow/Langfuse plugins also exist.</p><code class="config-hint">OTEL_EXPORTER_OTLP_ENDPOINT</code></td>
-          </tr>
-        </tbody>
-      </table>
+      <header class="slide-header">
+        <div class="eyebrow"><span class="status-dot" aria-hidden="true"></span>03 / harnesses · available data</div>
+        <h2 id="title-3">What each harness <em>records and exports.</em></h2>
+      </header>
+      <div class="slide-body">
+        <p class="harness-intro">Our comparison categories, not vendor-defined levels. <strong>Metrics, events and traces are all telemetry.</strong></p>
+        <div class="harness-table-wrap" role="region" aria-label="Harness comparison" tabindex="0">
+          <table class="harness-table" aria-label="Local records and optional exports in Codex CLI, Claude Code and OpenCode">
+            <thead><tr><th scope="col">Collection method</th><th scope="col">Codex CLI</th><th scope="col">Claude Code</th><th scope="col">OpenCode</th></tr></thead>
+            <tbody>
+              <tr>
+                <th scope="row"><span class="layer-number">01 / LOCAL</span>Saved by default<span class="layer-mode">Read after a session</span></th>
+                <td><strong>Messages, tool calls/results, timestamps and token usage.</strong><p>Input, cached input, output and reasoning counts in local rollouts.</p><code class="config-hint">~/.codex/ · local session files</code></td>
+                <td><strong>Messages, tool calls/results and token/cost statistics.</strong><p>JSONL transcripts, including subagents. CLI session cleanup defaults to 30 days.</p><code class="config-hint">~/.claude/ · transcripts + stats</code></td>
+                <td><strong>Sessions, messages, tool inputs/results, tokens and cost.</strong><p>Usage fields include input/output, cache read/write and reasoning.*</p><code class="config-hint">~/.local/share/opencode/</code></td>
+              </tr>
+              <tr>
+                <th scope="row"><span class="layer-number">02 / EXPORT</span>Metrics &amp; logs<span class="layer-mode">Configure collection</span></th>
+                <td><strong>Token counts; API/tool durations, outcomes and approvals.</strong><p>Configure OTel log and metric exporters plus the collector endpoint.</p><code class="config-hint">otel.exporter · otel.metrics_exporter</code></td>
+                <td><strong>Tokens/cache, cost, active time, API calls and tool events.</strong><p>Enable telemetry; select metric/log exporters and the collector endpoint.</p><code class="config-hint">CLAUDE_CODE_ENABLE_TELEMETRY=1</code></td>
+                <td><strong>Native OTLP/HTTP logs; metrics via plugins.*</strong><p>Built-in JSON session export and token/cost summaries remain available.</p><code class="config-hint">opencode export · opencode stats</code></td>
+              </tr>
+              <tr>
+                <th scope="row"><span class="layer-number">03 / TRACING</span>Timed spans<span class="layer-mode">Optional telemetry: what ran, for how long</span></th>
+                <td><strong>Native OTLP trace exporter.</strong><p>Enable separately and set the destination. Actual span coverage needs a real-run check.</p><code class="config-hint">otel.trace_exporter</code></td>
+                <td><strong>Interaction → API / tool spans <span class="beta-tag">Beta</span></strong><p>Includes nested subagent calls. Enable enhanced telemetry and a trace exporter.</p><code class="config-hint">Beta flag + trace exporter</code></td>
+                <td><strong>Native OTLP/HTTP traces in v1.19.0.*</strong><p>Set the endpoint; enable AI SDK spans with <code>experimental.openTelemetry</code>. MLflow/Langfuse plugins also exist.</p><code class="config-hint">OTEL_EXPORTER_OTLP_ENDPOINT</code></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="collection-gap"><strong>Our integration work</strong><span>Normalize these records; correlate task → agent → step; add process CPU/RAM measurements.</span></div>
+        <p class="harness-note">OTel = OpenTelemetry; OTLP = its export protocol. *OpenCode: v1.19.0 source; metrics plugin documented separately. Coverage varies by version/provider. Export delivery and span linkage need a live check. Provider analytics have separate defaults.</p>
       </div>
-      <div class="collection-gap"><strong>Our integration work</strong><span>Normalize these records; correlate task → agent → step; add process CPU/RAM measurements.</span></div>
-      <p class="harness-note">OTel = OpenTelemetry; OTLP = its export protocol. *OpenCode: v1.19.0 source; metrics plugin documented separately. Coverage varies by version/provider. Export delivery and span linkage need a live check. Provider analytics have separate defaults.</p>
       <div class="slide-bottom"><span>Docs/source checked October 14, 2026 · export controls and caveats in Sources</span><span><a href="https://learn.chatgpt.com/docs/config-file/config-advanced#observability-and-telemetry">Codex ↗</a> · <a href="https://code.claude.com/docs/en/monitoring-usage">Claude Code ↗</a> · <a href="https://opencode.ai/docs/cli/">OpenCode ↗</a></span></div>
     </section>
 
     <section class="slide interface-slide" id="slide-4" aria-labelledby="title-4">
-      <div class="eyebrow"><span class="status-dot" aria-hidden="true"></span>04 / AI Observer · All Tools dashboard</div>
-      <h2 id="title-4">Activity, cost and tokens.<br><em>One dashboard.</em></h2>
-      <div class="interface-layout">
-        <figure class="dashboard-shot">
-          <div class="image-frame">
-            <img src="img/ai-observer-dashboard.png" alt="AI Observer All Tools dashboard: 68 traces, 17,244 logs, 117,221 metric data points, a 0.09% error rate, Claude Code activity and cost, and token charts for Claude Code, Gemini CLI and Codex CLI.">
-            <span class="pin" style="left:1.8%;top:34.4%" aria-hidden="true">1</span>
-            <span class="pin" style="left:19.8%;top:28%" aria-hidden="true">2</span>
-            <span class="pin" style="left:38.6%;top:40%" aria-hidden="true">3</span>
-            <span class="pin" style="left:19.8%;top:54%" aria-hidden="true">4</span>
-            <span class="pin" style="left:97.6%;top:20.4%" aria-hidden="true">5</span>
-          </div>
-          <figcaption>Official AI Observer example · the image underlying the supplied annotated slide</figcaption>
-        </figure>
-        <ol class="callouts">
-          <li><span class="callout-number">1</span><div><strong>Explore the data</strong><p>Metrics, Logs and Traces in the sidebar.</p></div></li>
-          <li><span class="callout-number">2</span><div><strong>Start with the overview</strong><p>Trace count, log records, metric points and error rate.</p></div></li>
-          <li><span class="callout-number">3</span><div><strong>Read service metrics</strong><p>Claude Code active time, cost and lines of code.</p></div></li>
-          <li><span class="callout-number">4</span><div><strong>See usage over time</strong><p>Token charts for Claude Code, Gemini CLI and Codex CLI.</p></div></li>
-          <li><span class="callout-number">5</span><div><strong>Choose the view</strong><p>Timeframe and dashboard editing controls.</p></div></li>
-        </ol>
+      <header class="slide-header">
+        <div class="eyebrow"><span class="status-dot" aria-hidden="true"></span>04 / AI Observer · All Tools dashboard</div>
+        <h2 id="title-4">Activity, cost and tokens. <em>One dashboard.</em></h2>
+      </header>
+      <div class="slide-body">
+        <div class="interface-layout">
+          <figure class="dashboard-shot">
+            <div class="image-frame">
+              <a class="image-original" href="img/ai-observer-dashboard.png" target="_blank" rel="noopener noreferrer" aria-label="Open original image at full resolution" title="Open original image"><img src="img/ai-observer-dashboard.png" alt="AI Observer All Tools dashboard: 68 traces, 17,244 logs, 117,221 metric data points, a 0.09% error rate, Claude Code activity and cost, and token charts for Claude Code, Gemini CLI and Codex CLI."></a>
+              <span class="pin" style="left:1.8%;top:34.4%" aria-hidden="true">1</span>
+              <span class="pin" style="left:19.8%;top:28%" aria-hidden="true">2</span>
+              <span class="pin" style="left:38.6%;top:40%" aria-hidden="true">3</span>
+              <span class="pin" style="left:19.8%;top:54%" aria-hidden="true">4</span>
+              <span class="pin" style="left:97.6%;top:20.4%" aria-hidden="true">5</span>
+            </div>
+            <figcaption>Official AI Observer example · the image underlying the supplied annotated slide</figcaption>
+          </figure>
+          <ol class="callouts">
+            <li><span class="callout-number">1</span><div><strong>Explore the data</strong><p>Metrics, Logs and Traces in the sidebar.</p></div></li>
+            <li><span class="callout-number">2</span><div><strong>Start with the overview</strong><p>Trace count, log records, metric points and error rate.</p></div></li>
+            <li><span class="callout-number">3</span><div><strong>Read service metrics</strong><p>Claude Code active time, cost and lines of code.</p></div></li>
+            <li><span class="callout-number">4</span><div><strong>See usage over time</strong><p>Token charts for Claude Code, Gemini CLI and Codex CLI.</p></div></li>
+            <li><span class="callout-number">5</span><div><strong>Choose the view</strong><p>Timeframe and dashboard editing controls.</p></div></li>
+          </ol>
+        </div>
       </div>
       <div class="slide-bottom"><span>Source: official AI Observer dashboard image, reused from presentation 2</span><span>Example data · last 1 hour</span></div>
     </section>
 
     <section class="slide screenshot-slide" id="slide-5" aria-labelledby="title-5">
-      <div class="eyebrow"><span class="status-dot" aria-hidden="true"></span>05 / AI Observer · supplied Default Dashboard</div>
-      <h2 id="title-5">AI Observer <em>Default Dashboard.</em></h2>
-      <figure class="dashboard-shot main-screenshot">
-        <div class="image-frame">
-          <img src="img/ai-observer-default-dashboard-original.png" width="1917" height="696" alt="Original AI Observer Default Dashboard screenshot, Last 1 hour: 830,397 metric data points, 210,782 logs, zero traces and spans, displayed 0.00% error rate, and Codex CLI as the active service. Recent Traces is waiting for incoming telemetry data.">
-        </div>
-        <figcaption>Metrics and logs are present; no traces are shown. With zero spans, the displayed error rate does not establish error-free operation.</figcaption>
-      </figure>
+      <header class="slide-header">
+        <div class="eyebrow"><span class="status-dot" aria-hidden="true"></span>05 / AI Observer · supplied Default Dashboard</div>
+        <h2 id="title-5">AI Observer <em>Default Dashboard.</em></h2>
+      </header>
+      <div class="slide-body">
+        <figure class="dashboard-shot main-screenshot">
+          <div class="image-frame">
+            <a class="image-original" href="img/ai-observer-default-dashboard-original.png" target="_blank" rel="noopener noreferrer" aria-label="Open original image at full resolution" title="Open original image"><img src="img/ai-observer-default-dashboard-original.png" width="1917" height="696" alt="Original AI Observer Default Dashboard screenshot, Last 1 hour: 830,397 metric data points, 210,782 logs, zero traces and spans, displayed 0.00% error rate, and Codex CLI as the active service. Recent Traces is waiting for incoming telemetry data."></a>
+          </div>
+          <figcaption>Metrics and logs are present; no traces are shown. With zero spans, the displayed error rate does not establish error-free operation.</figcaption>
+        </figure>
+      </div>
       <div class="slide-bottom"><span>Source: user-supplied original screenshot</span><span>Captured view · last 1 hour</span></div>
     </section>
 
-    <section class="slide detail-slide" id="slide-6" aria-labelledby="title-6">
-      <div class="eyebrow"><span class="status-dot" aria-hidden="true"></span>06 / AI Observer · Metrics selector</div>
-      <div class="detail-layout">
+    <section class="slide screenshot-slide" id="slide-6" aria-labelledby="title-6">
+      <header class="slide-header">
+        <div class="eyebrow"><span class="status-dot" aria-hidden="true"></span>06 / AI Observer · Metrics selector</div>
         <h2 id="title-6">AI Observer <em>Metrics.</em></h2>
+      </header>
+      <div class="slide-body">
         <figure class="dashboard-shot main-screenshot">
           <div class="image-frame">
-            <img src="img/ai-observer-metrics-original.png" width="1637" height="960" alt="Original AI Observer Metrics screenshot: All Services, Last 15 minutes, no metric selected, and 697 real-time updates. Open selector shows Claude Code and Gemini CLI groups, including CPU Usage and Memory Usage.">
+            <a class="image-original" href="img/ai-observer-metrics-original.png" target="_blank" rel="noopener noreferrer" aria-label="Open original image at full resolution" title="Open original image"><img src="img/ai-observer-metrics-original.png" width="1637" height="960" alt="Original AI Observer Metrics screenshot: All Services, Last 15 minutes, no metric selected, and 697 real-time updates. Open selector shows Claude Code and Gemini CLI groups, including CPU Usage and Memory Usage."></a>
           </div>
           <figcaption>Available metric choices in the captured menu. No metric is selected and no series is plotted.</figcaption>
         </figure>
@@ -147,13 +169,15 @@
       <div class="slide-bottom"><span>Source: user-supplied original screenshot</span><span>Captured view · last 15 minutes</span></div>
     </section>
 
-    <section class="slide detail-slide" id="slide-7" aria-labelledby="title-7">
-      <div class="eyebrow"><span class="status-dot" aria-hidden="true"></span>07 / MLflow · trace explorer</div>
-      <div class="detail-layout">
+    <section class="slide screenshot-slide" id="slide-7" aria-labelledby="title-7">
+      <header class="slide-header">
+        <div class="eyebrow"><span class="status-dot" aria-hidden="true"></span>07 / MLflow · trace explorer</div>
         <h2 id="title-7">MLflow <em>Trace explorer.</em></h2>
+      </header>
+      <div class="slide-body">
         <figure class="dashboard-shot main-screenshot">
           <div class="image-frame">
-            <img src="img/mlflow-trace-original.jpg" width="1432" height="931" alt="Original MLflow 3.17.0 trace view: Success status, a hierarchy of user prompt, LLM call, tool scheduling and tool call spans with durations, and the selected LLM call's model, system instructions and tool definitions in the Attributes panel.">
+            <a class="image-original" href="img/mlflow-trace-original.jpg" target="_blank" rel="noopener noreferrer" aria-label="Open original image at full resolution" title="Open original image"><img src="img/mlflow-trace-original.jpg" width="1432" height="931" alt="Original MLflow 3.17.0 trace view: Success status, a hierarchy of user prompt, LLM call, tool scheduling and tool call spans with durations, and the selected LLM call's model, system instructions and tool definitions in the Attributes panel."></a>
           </div>
           <figcaption>Span hierarchy and timings on the left; selected LLM call attributes on the right.</figcaption>
         </figure>
@@ -162,24 +186,30 @@
     </section>
 
     <section class="slide screenshot-slide" id="slide-8" aria-labelledby="title-8">
-      <div class="eyebrow"><span class="status-dot" aria-hidden="true"></span>08 / OpenLIT · LLM dashboard</div>
-      <h2 id="title-8">OpenLIT <em>LLM dashboard.</em></h2>
-      <figure class="dashboard-shot main-screenshot">
-        <div class="image-frame">
-          <img src="img/openlit-llm-dashboard-original.png" width="1918" height="944" alt="Original OpenLIT v2.1.0 LLM dashboard with 24H selected: 7.11M total requests, 0.6487 seconds average request duration, zero average tokens per request and $0 total costs. Requests per time chart spans October 13–14, 2026; hallucination, bias and toxicity counters display zero.">
-        </div>
-        <figcaption>Captured 24H view: request volume and duration, token/cost counters, and requests over time.</figcaption>
-      </figure>
+      <header class="slide-header">
+        <div class="eyebrow"><span class="status-dot" aria-hidden="true"></span>08 / OpenLIT · LLM dashboard</div>
+        <h2 id="title-8">OpenLIT <em>LLM dashboard.</em></h2>
+      </header>
+      <div class="slide-body">
+        <figure class="dashboard-shot main-screenshot">
+          <div class="image-frame">
+            <a class="image-original" href="img/openlit-llm-dashboard-original.png" target="_blank" rel="noopener noreferrer" aria-label="Open original image at full resolution" title="Open original image"><img src="img/openlit-llm-dashboard-original.png" width="1918" height="944" alt="Original OpenLIT v2.1.0 LLM dashboard with 24H selected: 7.11M total requests, 0.6487 seconds average request duration, zero average tokens per request and $0 total costs. Requests per time chart spans October 13–14, 2026; hallucination, bias and toxicity counters display zero."></a>
+          </div>
+          <figcaption>Captured 24H view: request volume and duration, token/cost counters, and requests over time.</figcaption>
+        </figure>
+      </div>
       <div class="slide-bottom"><span>Source: user-supplied original screenshot</span><span>OpenLIT v2.1.0 · captured dashboard</span></div>
     </section>
 
-    <section class="slide detail-slide" id="slide-9" aria-labelledby="title-9">
-      <div class="eyebrow"><span class="status-dot" aria-hidden="true"></span>09 / OpenLIT · custom evaluations</div>
-      <div class="detail-layout">
+    <section class="slide screenshot-slide" id="slide-9" aria-labelledby="title-9">
+      <header class="slide-header">
+        <div class="eyebrow"><span class="status-dot" aria-hidden="true"></span>09 / OpenLIT · custom evaluations</div>
         <h2 id="title-9">OpenLIT <em>Custom evals.</em></h2>
+      </header>
+      <div class="slide-body">
         <figure class="dashboard-shot main-screenshot">
           <div class="image-frame">
-            <img src="img/openlit-custom-evaluation-original.png" width="1568" height="831" alt="Original OpenLIT v2.1.1 Create Custom Evaluation Type screen, with Type ID, Label, Description and Evaluation Prompt fields, a Create Evaluation Type button and guidance about LLM judge outputs and Rule Engine conditions.">
+            <a class="image-original" href="img/openlit-custom-evaluation-original.png" target="_blank" rel="noopener noreferrer" aria-label="Open original image at full resolution" title="Open original image"><img src="img/openlit-custom-evaluation-original.png" width="1568" height="831" alt="Original OpenLIT v2.1.1 Create Custom Evaluation Type screen, with Type ID, Label, Description and Evaluation Prompt fields, a Create Evaluation Type button and guidance about LLM judge outputs and Rule Engine conditions."></a>
           </div>
           <figcaption>Define an evaluation type and its judge prompt. The on-screen guidance describes scores, classifications and explanations, with rules based on trace attributes.</figcaption>
         </figure>
@@ -188,18 +218,27 @@
     </section>
 
     <section class="slide worker-review-slide" id="slide-10" aria-labelledby="title-10">
-      <div class="eyebrow"><span class="status-dot" aria-hidden="true"></span>10 / improve the workflow</div>
-      <h2 id="title-10">Ask the worker agent <em>how to improve.</em></h2>
-      <div class="worker-review-images">
-        <a href="img/worker-agent-review-prompt-original.png" aria-label="Open the original review prompt screenshot"><img src="img/worker-agent-review-prompt-original.png" width="1430" height="508" alt="A user asks the worker agent to review recent host sessions for improvements, wasted tokens and unnecessarily long staging VM runs. The agent begins inspecting session logs and VM usage."></a>
-        <a href="img/worker-agent-review-response-original.png" aria-label="Open the original agent response screenshot"><img src="img/worker-agent-review-response-original.png" width="1432" height="703" alt="The agent recommends reducing coordination chatter, rerunning only affected checks, validating fixture prerequisites early, and fixing VM preparation and deadline handling. It reports roughly 8,000 waiting or coordination responses out of 27,308, while noting that these are not all waste and exact wasted VM-hours are not established."></a>
+      <header class="slide-header">
+        <div class="eyebrow"><span class="status-dot" aria-hidden="true"></span>10 / improve the workflow</div>
+        <h2 id="title-10">Ask the worker agent <em>how to improve.</em></h2>
+      </header>
+      <div class="slide-body">
+        <div class="worker-review-images">
+          <a href="img/worker-agent-review-prompt-original.png" aria-label="Open the original review prompt screenshot"><img src="img/worker-agent-review-prompt-original.png" width="1430" height="508" alt="A user asks the worker agent to review recent host sessions for improvements, wasted tokens and unnecessarily long staging VM runs. The agent begins inspecting session logs and VM usage."></a>
+          <a href="img/worker-agent-review-response-original.png" aria-label="Open the original agent response screenshot"><img src="img/worker-agent-review-response-original.png" width="1432" height="703" alt="The agent recommends reducing coordination chatter, rerunning only affected checks, validating fixture prerequisites early, and fixing VM preparation and deadline handling. It reports roughly 8,000 waiting or coordination responses out of 27,308, while noting that these are not all waste and exact wasted VM-hours are not established."></a>
+        </div>
       </div>
       <div class="slide-bottom"><span>Example: ask for a review of recent sessions, then validate the findings.</span><span>User-supplied agent report · Oct 12–14 sessions</span></div>
     </section>
 
     <section class="slide closing-slide" id="slide-11" aria-labelledby="title-11">
-      <h2 id="title-11"><em>Thank you.</em></h2>
-      <p class="closing-message">LLMs are great tools.<br>Use them wisely.</p>
+      <header class="slide-header">
+        <div class="eyebrow"><span class="status-dot" aria-hidden="true"></span>11 / closing</div>
+      </header>
+      <div class="slide-body">
+        <h2 id="title-11" class="closing-title"><em>Thank you.</em></h2>
+        <p class="closing-message">LLMs are great tools.<br>Use them wisely.</p>
+      </div>
     </section>
 
     <!-- Add the next supplied slide here. Use a unique slide-N id and title-N heading. -->
