@@ -67,12 +67,20 @@ Slide 3: **What each harness records and exports.** Compares Codex CLI,
 Claude Code and OpenCode by collection method: local records, configurable
 metrics/events, and optional timed spans. These are our comparison categories,
 not vendor-defined levels; traces are a type of telemetry. Each column lists
-concrete records and collection controls. Claude Code tracing is beta; OpenCode
-native trace export is unverified; SDK/plugin instrumentation is a proposed
-integration path. Local usage fields are source/version-dependent. D13's implementation priorities are unchanged.
-Official documentation and pinned source references are in Sources, checked
-October 14, 2026; live exports were not tested. The highlighted integration work
-is normalization, task/agent/step correlation and process CPU/RAM collection.
+concrete records and collection controls. Claude Code tracing is beta. OpenCode
+v1.19.0 has native OTLP/HTTP logs and traces, enabled by a collector endpoint;
+`experimental.openTelemetry` adds AI SDK call spans. Community OTLP metrics
+and ready-made MLflow/Langfuse tracing plugins are documented separately.
+This corrects the earlier development-source-only review that marked native
+trace export unverified and implied a custom adapter was necessary.
+Local usage fields are source/version/provider-dependent; OpenCode CLI source
+is pinned to release commit `733b2c627e5aec39cb33cc22373bdce33053ef2c`.
+Claude Code's 30-day cleanup applies to CLI session transcripts, not all stats.
+Codex OTel controls belong in user-level configuration. D13's implementation
+priorities are unchanged. Official documentation and source references are in
+Sources, rechecked October 14, 2026; live exports were not tested.
+The highlighted integration work is normalization, task/agent/step correlation
+and process CPU/RAM collection.
 
 Slide 4: **AI Observer All Tools dashboard.** Reuses the matching official image
 from presentation 2, with the five numbered callouts from the user's supplied
@@ -140,7 +148,6 @@ for clipped text, chart labels and footnotes before delivering an update.
 The October 14 export succeeded using a temporary Playwright Chromium headless
 installation, with `preferCSSPageSize: true` and `printBackground: true`.
 [`usage-visibility.pdf`](usage-visibility.pdf) contains eight A4 landscape pages,
-one per slide. The first seven browser print layouts were visually checked in prior updates;
-the new eighth layout was checked in this update. All eight pass overflow
-checks. The five saved original screenshots were verified byte for byte
+one per slide. After the slide 3 fact check, all eight PDF pages were visually checked and
+all eight browser print layouts passed overflow checks. The five saved original screenshots were verified byte for byte
 against their attachments across these updates.
