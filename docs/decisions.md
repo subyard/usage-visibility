@@ -182,3 +182,70 @@ The user clarified that the selected solution must support both Codex and
 Claude Code. OpenCode remains in the comparison, but its support is optional
 and must not block selection. This narrows the mandatory agent coverage; it
 does not select a candidate or replace the real-run validation required by D7.
+
+### D14. Prepare presentation 3 incrementally from supplied material
+
+2026-10-14 · Accepted
+
+Create `presentation3/` using the existing HTML presentation conventions,
+with a printable PDF and navigation ready for later slides. Prepare only the
+first slide now; the user will supply subsequent slides later.
+
+Slide 1 shows token usage for October 6–13 from the user-provided screenshot:
+13,396,361,355 total tokens across eight daily aggregates, or about 1.67 billion
+per day. Count the identical All and Codex rows only once. Treat the last token
+column as the total because it equals the sum of the three nonzero preceding
+token columns; the screenshot omits the headers, so do not assign breakdown
+labels. Preserve the transcribed totals and source limitations in
+`presentation3/data.json` and the deck's source notes.
+
+The user's context is roughly 5–7 sessions running nearly 24/7. Present it as
+an estimate, without implying measured concurrency or exact operating hours.
+Keep total tokens as the headline (D8); do not infer cost or inefficiency from
+the totals alone. Rebuild the PDF and verify one page per slide after updates.
+
+### D15. Follow the supplied AI Observer slide order
+
+2026-10-14 · Accepted
+
+The next three slides in `presentation3/` cover AI Observer. The user confirmed
+the order: slide 2 is the annotated All Tools dashboard, slide 3 is the supplied
+local Default Dashboard, and slide 4 is the earlier Metrics selector screenshot.
+
+Reuse the matching official dashboard image from presentation 2 for slide 2,
+including its five callouts. Distinguish its example data from the local view.
+Slides 3 and 4 summarize only visible aggregate values and metric labels from
+the supplied captures. The original image files for these two views are not
+available in the workspace; use labeled transcriptions until they are available.
+Do not reproduce internal host addresses or session-level content (D4, D11).
+
+Scope the Default Dashboard observations to the displayed Last 1 hour view:
+829,535 metric data points, 210,553 logs, zero traces/spans and a displayed
+0.00% error rate, with Codex CLI listed as an active service. Zero spans do not
+establish a meaningful error rate. Scope the metric selector to its visible
+Claude Code and Gemini CLI groups; the cropped menu does not establish complete
+agent support, available data or successful CPU collection. These observations
+do not change candidate ratings in `solutions/` or replace D7's evaluation.
+
+### D16. Preserve supplied original images beside presentation 3
+
+2026-10-14 · Accepted · Supersedes D15's use of text summaries as slide content
+
+The user requires the original supplied images to be saved in
+`presentation3/img/`. Preserve all four originals: token usage, the annotated
+All Tools dashboard, the local Default Dashboard and the Metrics selector.
+The existing official dashboard asset is not an archive of the user's annotated
+image. Generated images and text summaries are not replacements for originals.
+
+On slide 1, replace the right-hand daily bar chart with the user's original
+token-usage screenshot. Keep the headline and session context on the left.
+Keep the confirmed order of the four slides. The user explicitly authorizes
+using the supplied screenshots for this presentation; D11 does not prevent
+their requested inclusion.
+
+Implementation is pending access to the original image files. The attachments
+are visible in the conversation but have not been exposed as files through
+the available tools. Checks of the repository and available attachment
+locations found no originals. Do not claim they have been saved or insert
+broken image references. Once the files are available, embed them, rebuild
+the PDF and verify every page.

@@ -40,6 +40,10 @@ current shortlist are in [`solutions/`](solutions/README.md).
 - [Candidate tools presentation](presentation2-solutions/usage-visibility-candidates.pdf) —
   what each shortlisted tool shows, how our goals map onto it, and other
   options.
+- [Presentation 3](presentation3/index.html) — token usage across
+  roughly 5–7 sessions running nearly 24/7, followed by AI Observer dashboard
+  and metric views; further slides will follow.
+  [HTML deck and setup](presentation3/README.md).
 - [Solution comparison](solutions/README.md) — candidate tools against shared
   criteria.
 - [Requirements and decisions](docs/decisions.md) — what the solution must do
