@@ -20,8 +20,8 @@ but expensive in another still stands out.
 ### Must have
 
 - **Works without Subyard.** Runs in ordinary environments: a local
-  repository, a terminal session or a standard devcontainer running Codex,
-  Claude Code or OpenCode.
+  repository, a terminal session or a standard devcontainer. Codex and
+  Claude Code support is mandatory; OpenCode support is optional (D13).
 - **Tokens:** input, cached input, output and reasoning output per model,
   counted without double counting (cached input is part of input; reasoning
   output is part of output).
@@ -173,3 +173,12 @@ and fit to `presentation2-solutions/`, with source links. Record the initial
 MLflow ratings as documentation-based in `solutions/`; they do not replace
 the real-run validation required by D7. Rebuild the presentation PDF and check
 that every slide fits on one page.
+
+### D13. Require Codex and Claude Code support
+
+2026-10-12 · Accepted
+
+The user clarified that the selected solution must support both Codex and
+Claude Code. OpenCode remains in the comparison, but its support is optional
+and must not block selection. This narrows the mandatory agent coverage; it
+does not select a candidate or replace the real-run validation required by D7.
