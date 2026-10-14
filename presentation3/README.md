@@ -116,10 +116,12 @@ Slides 6–8 place compact titles to the left of enlarged, right-aligned
 screenshots, using the title area for image height. On narrow screens, titles
 and images stack vertically. Full originals remain visible without cropping.
 
+Slide 9: **Thank you.** Closing message: “LLMs are great tools. Use them wisely.”
+
 ## Add the next slide
 
-Insert a new `<section class="slide" id="slide-9" aria-labelledby="title-9">`
-inside `#deck`, with an `h1` or `h2` carrying `id="title-9"`. Continue unique
+Insert a new `<section class="slide" id="slide-10" aria-labelledby="title-10">`
+inside `#deck`, with an `h1` or `h2` carrying `id="title-10"`. Continue unique
 numbering for later slides. Navigation, progress indicators, the slide counter
 and print pagination discover all `.slide` sections automatically. Update the
 fallback counter in the HTML and this content list when adding slides.
@@ -147,7 +149,7 @@ for clipped text, chart labels and footnotes before delivering an update.
 
 The October 14 export succeeded using a temporary Playwright Chromium headless
 installation, with `preferCSSPageSize: true` and `printBackground: true`.
-[`usage-visibility.pdf`](usage-visibility.pdf) contains eight A4 landscape pages,
-one per slide. After the slide 3 fact check, all eight PDF pages were visually checked and
-all eight browser print layouts passed overflow checks. The five saved original screenshots were verified byte for byte
-against their attachments across these updates.
+[`usage-visibility.pdf`](usage-visibility.pdf) contains nine A4 landscape pages,
+one per slide. All nine browser print layouts pass overflow checks; the closing
+slide was visually checked. The five saved original screenshots were verified
+byte for byte against their attachments.

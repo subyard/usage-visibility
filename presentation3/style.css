@@ -217,3 +217,11 @@ body.overview .controls { position: sticky; bottom: 0; background: var(--bg); bo
   .selector-group ul { margin-top: 4mm; column-gap: 5mm; }
   .selector-group li { font-size: 9pt; padding-bottom: 2mm; }
 }
+
+.slide.closing-slide { justify-content: center; align-items: center; text-align: center; }
+.slide.closing-slide h2 { font-size: clamp(64px, 10vw, 150px); line-height: 1; }
+.closing-message { font-size: clamp(24px, 3vw, 38px); line-height: 1.5; }
+@media print {
+  .slide.closing-slide h2 { font-size: 80pt; }
+  .closing-message { font-size: 26pt; }
+}
