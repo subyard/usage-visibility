@@ -182,3 +182,56 @@ The user clarified that the selected solution must support both Codex and
 Claude Code. OpenCode remains in the comparison, but its support is optional
 and must not block selection. This narrows the mandatory agent coverage; it
 does not select a candidate or replace the real-run validation required by D7.
+
+### D14. Keep local collection independent of the analytics backend
+
+2026-10-24 · Accepted
+
+Implement a local collection layer in Subyard while leaving the analytics
+product undecided. It accepts native OTLP logs, metrics and traces and combines
+them with explicitly attributed process and broker-resource observations in
+SQLite. OpenLIT, ClickHouse, Redis and a separate SQL server are not required.
+The collector must also be runnable without Subyard. Compare the official OTLP
+receiver embedded in a small service with a minimal Collector using the same
+SQLite sink, capture policy and reproducible runtime measurements.
+
+An explicit agent execution ID is distinct from a native session ID, a process,
+a shared backend and a broker acquire correlation ID. Attribute resources only
+through evidenced, time-bounded relationships and generation-safe identities.
+Managed launches use available cgroup subtree counters before process start;
+unmanaged discovery reports partial coverage. Shared and unknown work remains
+shared or unknown. Actual CPU, memory and I/O are separate from reserved resource
+capacity and holding time. Inclusive parents, their children and alternate
+measurements of the same VM must not be charged twice.
+
+Retain complete supported OTLP structure within an explicit content policy,
+applied before any durable raw data or spool write. Default collection excludes
+prompt, response and tool bodies, credentials, command lines and environment
+capture. Preserve source and receive times, source versions, lifecycle events,
+counter boundaries, attribution evidence and gaps. A successful receive means a
+durable commit or recoverable durable spool. Export and replay preserve explicit
+record provenance; identical payloads alone are not duplicate identities.
+
+The initial deliverable is durable collection, read-only JSON/SQL inspection and
+versioned streaming export/replay. A full UI, agent-quality scores and precise
+monetary billing are outside this implementation. Correctness and overhead use
+reproducible disposable acceptance workloads; these do not replace D7's later
+human evaluation of analytics on ordinary work.
+
+### D15. Embed the official receiver for the initial local sink
+
+2026-10-24 · Accepted
+
+Use the official OTLP receiver inside the small local service rather than the
+minimal Collector service wrapper. Both tested variants use the same policy and
+SQLite sink. The embedded version avoids extra service/factory/configuration
+assembly and used less RSS in the three-trial disposable comparison. Keep the
+minimal Collector harness reproducible for future pipeline requirements.
+
+The [receiver](../solutions/local-otlp-receiver.md) and
+[Collector](../solutions/local-otel-collector.md) comparisons record versions,
+binary identities, conditions and measured CPU/RSS/write/DB-growth results.
+The shared host and observed CPU variance do not establish a universal speedup.
+Later correctness repairs and final installed collector/observer measurements
+remain distinguishable from that frozen packaging comparison. No analytics
+backend or user-facing efficiency verdict is selected by this decision.

@@ -1,7 +1,8 @@
 # Solution comparison
 
-This folder compares existing tools that could provide usage visibility for
-agent workflows, before anything is implemented. See
+This folder compares tools that could provide usage visibility for agent
+workflows. The analytics product is still undecided; the independent local
+collection layer follows [D14](../docs/decisions.md#d14-keep-local-collection-independent-of-the-analytics-backend). See
 [decisions D1](../docs/decisions.md#d1-evaluate-existing-tools-before-building-anything):
 we prefer configuring existing tools over building new ones.
 
@@ -22,6 +23,8 @@ Confirmed for comparison
 | [Langfuse](https://github.com/langfuse/langfuse) | Open-source LLM engineering platform with tracing and cost tracking | [langfuse.md](langfuse.md) |
 | [AgentSight](https://github.com/eunomia-bpf/agentsight) | eBPF-based system-level observability for AI agents: LLM traffic, processes, files, CPU and memory | [agentsight.md](agentsight.md) |
 | [MLflow](https://github.com/mlflow/mlflow) | Open-source ML and GenAI platform with coding-agent traces, token and cost analytics, and evaluation | [mlflow.md](mlflow.md) |
+| Local official OTLP receiver | Independent SQLite collection layer; later analytics remains separate | [local-otlp-receiver.md](local-otlp-receiver.md) |
+| Minimal Collector with SQLite | Alternative packaging around the same local collection sink | [local-otel-collector.md](local-otel-collector.md) |
 
 Possible additions, if the confirmed candidates leave gaps:
 
@@ -61,10 +64,14 @@ cannot be seen because the data is missing (❌).
 | [Langfuse](langfuse.md) | ? | ? | ? | ? | ? |
 | [AgentSight](agentsight.md) | ? | ? | ? | ? | ? |
 | [MLflow](mlflow.md) | ⚠️ | ⚠️ | ⚠️ | ✅ | ⚠️ |
+| [Local receiver](local-otlp-receiver.md) | ? | ? | ? | ? | ? |
+| [Minimal Collector](local-otel-collector.md) | ? | ? | ? | ? | ? |
 
 MLflow's ratings are based on documentation checked on 2026-10-12, not real
 runs. S4 covers long spans within a trace; waits between turns need additional
 instrumentation. Other candidates' trial ratings remain pending.
+The collection variants have protocol/compute acceptance and runtime comparison
+work; neither provides the analytics views needed for D7's human evaluation.
 
 ## Criteria
 
@@ -99,8 +106,15 @@ tools, for example one for model usage and one for compute.
 | [Langfuse](langfuse.md) | ? | ? | ? | ? | ? | ? | ? | ? | ? | ? | Not started |
 | [AgentSight](agentsight.md) | ? | ? | ? | ? | ? | ? | ? | ? | ? | ? | Not started |
 | [MLflow](mlflow.md) | ✅ | ✅ | ⚠️ | ⚠️ | ✅ | ⚠️ | ⚠️ | ⚠️ | ✅ | ✅ | Docs checked; not tried |
+| [Local receiver](local-otlp-receiver.md) | ⚠️ | ⚠️ | ⚠️ | ⚠️ | ❌ | ⚠️ | ⚠️ | ❌ | ⚠️ | ✅ | Collection selected; segmented physical checks passed |
+| [Minimal Collector](local-otel-collector.md) | ? | ⚠️ | ⚠️ | ⚠️ | ❌ | ? | ⚠️ | ❌ | ⚠️ | ✅ | Collection comparison only |
 
 ## Conclusion
 
 Not reached yet. When it is, record the choice as a decision in
 [`docs/decisions.md`](../docs/decisions.md) and summarize it here.
+
+For collection packaging only, the embedded official receiver was selected over
+the minimal Collector wrapper: less service assembly and lower observed RSS in
+the reproducible comparison. Both use the same policy and durable SQLite sink.
+This does not select the eventual analytics product.
