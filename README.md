@@ -35,23 +35,23 @@ current shortlist are in [`solutions/`](solutions/README.md).
 
 ## Where to look
 
-- [Intro presentation](presentation1-intro/usage-visibility.pdf) — the problem,
+- [Intro presentation](https://subyard.github.io/usage-visibility/presentation1-intro/) — the problem,
   with figures from a sample of real agent sessions.
-- [Candidate tools presentation](presentation2-solutions/usage-visibility-candidates.pdf) —
+- [Candidate tools presentation](https://subyard.github.io/usage-visibility/presentation2-solutions/) —
   what each shortlisted tool shows, how our goals map onto it, and other
   options.
-- [Presentation 3](presentation3/index.html) — token usage across
+- [Presentation 3](https://subyard.github.io/usage-visibility/presentation3/) — token usage across
   roughly 5–7 sessions running nearly 24/7, followed by AI Observer dashboard
   and metric views; further slides will follow.
   [HTML deck and setup](presentation3/README.md).
-- [Presentation 4: Where agents work](presentation4/index.html) — environment
+- [Presentation 4: Where agents work](https://subyard.github.io/usage-visibility/presentation4/) — environment
   requirements for agents, with Subyard as an implementation example.
   [PDF](presentation4/where-agents-work.pdf) ·
   [Speaker notes and sources](presentation4/notes.html) ·
   [Setup and attribution](presentation4/README.md).
-- [Presentation 5: Running coding agents, 24/7](presentation5/index.html) —
+- [Presentation 5: Running coding agents, 24/7](https://subyard.github.io/usage-visibility/presentation5/) —
   personal experience with isolation, tools, compute, resource brokers,
-  instructions and observability. English, 15 slides, 20–25 minutes.
+  instructions and observability. English, 16 slides, 20–25 minutes.
   [PDF](presentation5/running-coding-agents.pdf) ·
   [Speaker outline](presentation5/notes.html) ·
   [Research and evidence](presentation5/research.md).

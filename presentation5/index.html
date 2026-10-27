@@ -20,7 +20,7 @@
     <figure><a href="assets/token-usage-public.png" target="_blank" rel="noopener"><img class="usage-image" src="assets/token-usage-public.png" width="1543" height="1019" alt="Publication-safe daily token usage table from presentation 3 with an opaque black background and no spending column, showing an earlier October 6–13 sample totaling 13.4 billion tokens."></a></figure>
   </div>
   <div class="checkpoints"><div class="checkpoint-heading"><b>Human in the loop</b><span>At least twice per task</span></div><p>Human defines the task → Agent works → Human checks and accepts</p></div>
-  <footer class="footer"><span>MY WORKING SCALE · EFFECTIVENESS IS MY ASSESSMENT</span><a href="notes.html#slide-1" target="_blank" rel="noopener">Notes &amp; evidence ↗</a><span class="number">01 / 15</span></footer>
+  <footer class="footer"><span>MY WORKING SCALE · EFFECTIVENESS IS MY ASSESSMENT</span><a href="notes.html#slide-1" target="_blank" rel="noopener">Notes &amp; evidence ↗</a><span class="number">01 / 16</span></footer>
 </section>
 
 <section class="slide" data-title="The home directory problem" aria-labelledby="title-2">
@@ -28,7 +28,7 @@
   <div class="opening-copy"><span class="tag">An original Reddit post</span><h1 id="title-2">“Deleted my<br>entire home<br><span class="italic accent">directory!”</span></h1><p class="lede">Agents are not hostile.<br>Post-training teaches them to solve the task,<br>not to consider long-term consequences.</p><p class="tiny">u/LovesWorkin · r/ClaudeAI · December 7, 2025<br>The author reports losing their home directory.<br>The incident has not been independently verified.</p></div>
   <a href="https://www.reddit.com/r/ClaudeAI/comments/1pgxckk/claude_cli_deleted_my_entire_home_directory_wiped/" target="_blank" rel="noopener"><img class="opening-image" src="assets/reddit-home-directory.png" alt="Original terminal screenshot attached to the Reddit post. Among package cleanup commands, it shows a recursive deletion targeting tests, patches, plan, and the home directory via a trailing tilde-slash argument."></a>
   <p class="opening-caption">The author’s original terminal screenshot · <a href="https://www.reddit.com/r/ClaudeAI/comments/1pgxckk/claude_cli_deleted_my_entire_home_directory_wiped/" target="_blank" rel="noopener">read the post ↗</a></p>
-  <footer class="footer"><span>REQUIREMENTS FOR AGENT ENVIRONMENTS</span><a href="notes.html#slide-2" target="_blank" rel="noopener">Original source &amp; speaker notes ↗</a><span class="number">02 / 15</span></footer>
+  <footer class="footer"><span>REQUIREMENTS FOR AGENT ENVIRONMENTS</span><a href="notes.html#slide-2" target="_blank" rel="noopener">Original source &amp; speaker notes ↗</a><span class="number">02 / 16</span></footer>
 </section>
 
 <section class="slide" data-title="Container or VM?" aria-labelledby="title-3">
@@ -40,7 +40,7 @@
   </div>
   <div class="remote-strip"><strong>A remote host / VPS also works.</strong><span>Often the most convenient option when one is provided.</span></div>
   <div class="takeaway small">Harness controls are another layer. I also use them for workflow rules such as “ask before committing.”</div>
-  <footer class="footer"><span>CHECK WHAT THE EFFECTIVE PERMISSIONS ALLOW</span><a href="notes.html#slide-3" target="_blank" rel="noopener">Tradeoffs &amp; notes ↗</a><span class="number">03 / 15</span></footer>
+  <footer class="footer"><span>CHECK WHAT THE EFFECTIVE PERMISSIONS ALLOW</span><a href="notes.html#slide-3" target="_blank" rel="noopener">Tradeoffs &amp; notes ↗</a><span class="number">03 / 16</span></footer>
 </section>
 
 <section class="slide" data-title="A capable model still needs a usable environment" aria-labelledby="title-4">
@@ -52,7 +52,7 @@
 falling back to grep…</code></pre><h3>Install jq.</h3><p>Fix recurring environment gaps.</p></div>
     <div class="panel board"><div class="label">Testing firmware?</div><div class="board-drawing" aria-hidden="true"><span>AGENT</span><b>↔</b><strong>TEST<br>BOARD</strong></div><h3>Provide access to the board.</h3><p>And the SDK, flashing tools and test setup.</p></div>
   </div>
-  <footer class="footer"><span>TURN REPEATED WORKAROUNDS INTO ENVIRONMENT FIXES</span><a href="notes.html#slide-4" target="_blank" rel="noopener">Notes ↗</a><span class="number">04 / 15</span></footer>
+  <footer class="footer"><span>TURN REPEATED WORKAROUNDS INTO ENVIRONMENT FIXES</span><a href="notes.html#slide-4" target="_blank" rel="noopener">Notes ↗</a><span class="number">04 / 16</span></footer>
 </section>
 
 <section class="slide" data-title="Compute becomes the bottleneck" aria-labelledby="title-5">
@@ -64,7 +64,7 @@ falling back to grep…</code></pre><h3>Install jq.</h3><p>Fix recurring environ
   </div>
   <div class="capacity-budget"><div><b>CPU</b><span>Builds + tests</span></div><div><b>RAM</b><span>Workspaces + staging</span></div><div><b>Disk / I/O</b><span>Caches + artifacts</span></div><div><b>Time</b><span>Queues + resource holding</span></div></div>
   <div class="takeaway small">Personal operating observations, not sizing guarantees. Allocate heavy resources deliberately.</div>
-  <footer class="footer"><span>MEASURE THE WHOLE HOST · KEEP CAPACITY FOR PEAKS</span><a href="notes.html#slide-5" target="_blank" rel="noopener">Scope of the numbers ↗</a><span class="number">05 / 15</span></footer>
+  <footer class="footer"><span>MEASURE THE WHOLE HOST · KEEP CAPACITY FOR PEAKS</span><a href="notes.html#slide-5" target="_blank" rel="noopener">Scope of the numbers ↗</a><span class="number">05 / 16</span></footer>
 </section>
 
 <section class="slide dark" data-title="Put heavy resources behind a broker" aria-labelledby="title-6">
@@ -73,7 +73,7 @@ falling back to grep…</code></pre><h3>Install jq.</h3><p>Fix recurring environ
   <div class="broker-flow"><div><span class="label">Agent</span><strong>Request a resource</strong><small>When the task needs it</small></div><b aria-hidden="true">→</b><a href="https://github.com/subyard/subyard/blob/c4348a10768abe619a8dc9fd073cf87353116085/docs/reference/resource-leases.md" target="_blank" rel="noopener"><span class="label">Broker ↗</span><strong>Grant a lease</strong><small>Owner · capacity · deadline</small></a><b aria-hidden="true">→</b><div><span class="label">Temporary environment</span><strong>Use → release → clean</strong><small>Keep results in the workspace</small></div></div>
   <div class="grid2 broker-reasons"><div><span>01 / A defined baseline</span><h3>A known environment for each allocation.</h3><p>Changes belong to this lease.<br>The next allocation starts fresh.</p></div><div><span>02 / Capacity only when needed</span><h3>Acquire for the heavy step.</h3><p>Keep results in the workspace.<br>Release the resource when the step is done.</p></div></div>
   <div class="takeaway small">The broker provides the environment and controls admission to the shared capacity.</div>
-  <footer class="footer"><span>KEEP THE AGENT'S WORKSPACE · RECYCLE THE HEAVY RESOURCE</span><a href="notes.html#slide-6" target="_blank" rel="noopener">Lease contract &amp; notes ↗</a><span class="number">06 / 15</span></footer>
+  <footer class="footer"><span>KEEP THE AGENT'S WORKSPACE · RECYCLE THE HEAVY RESOURCE</span><a href="notes.html#slide-6" target="_blank" rel="noopener">Lease contract &amp; notes ↗</a><span class="number">06 / 16</span></footer>
 </section>
 
 <section class="slide" data-title="Cleanup must outlive the agent" aria-labelledby="title-7">
@@ -81,7 +81,7 @@ falling back to grep…</code></pre><h3>Install jq.</h3><p>Fix recurring environ
   <h2 id="title-7">Cleanup must outlive the agent.</h2><p class="lede">An agent can stop, crash or lose its connection. The allocation still has an owner.</p>
   <div class="cleanup-layout"><div class="panel lease-card"><a class="label broker-doc" href="https://github.com/subyard/subyard/blob/c4348a10768abe619a8dc9fd073cf87353116085/docs/test-vms.md#lifecycle-and-fencing" target="_blank" rel="noopener">Subyard resource broker ↗</a><h3>Track every allocation.</h3><dl><div><dt>Owner</dt><dd>Task / agent</dd></div><div><dt>Resource</dt><dd>VM / emulator / rig</dd></div><div><dt>Lifetime</dt><dd>Deadline + heartbeat</dd></div><div><dt>State</dt><dd>Active / cleaning / free</dd></div></dl></div><div class="cleanup-states"><div><span class="label">01 / Lease expires</span><h3>Revoke the right to use it.</h3><p>A deadline alone does not stop a running process.</p></div><div><span class="label">02 / Broker reclaims</span><h3>Fence access. Stop. Clean.</h3><p>Cleanup runs independently of the agent.</p></div><div class="verified"><span class="label">03 / Check the result</span><h3>Reuse only after cleanup succeeds.</h3><p>If cleanup fails, quarantine the slot.</p></div></div></div>
   <div class="takeaway small">Release handles the normal path. Expiry and independent cleanup handle abandonment.</div>
-  <footer class="footer"><span>EXPIRED IS NOT THE SAME AS CLEAN</span><a href="notes.html#slide-7" target="_blank" rel="noopener">Failure handling &amp; sources ↗</a><span class="number">07 / 15</span></footer>
+  <footer class="footer"><span>EXPIRED IS NOT THE SAME AS CLEAN</span><a href="notes.html#slide-7" target="_blank" rel="noopener">Failure handling &amp; sources ↗</a><span class="number">07 / 16</span></footer>
 </section>
 
 <section class="slide" data-title="Agents should know their environment" aria-labelledby="title-8">
@@ -92,47 +92,60 @@ falling back to grep…</code></pre><h3>Install jq.</h3><p>Fix recurring environ
     <div class="panel skill-panel"><span class="tag fill">Subyard / Android profile</span><h3>Expose a capability as a skill.</h3><div class="skill-steps"><span>Discover</span><b>→</b><span>Read</span><b>→</b><span>Use</span></div><a class="skill-example" href="https://github.com/subyard/subyard/blob/c4348a10768abe619a8dc9fd073cf87353116085/config/profiles/android/skills/subyard-android/SKILL.md" target="_blank" rel="noopener"><span class="label">Dynamically available skill ↗</span><strong>subyard-android</strong></a><a class="broker-link" href="https://github.com/subyard/subyard/blob/c4348a10768abe619a8dc9fd073cf87353116085/docs/android.md" target="_blank" rel="noopener">Android broker ↗</a><span class="skill-result">→ Leased emulator → Release</span></div>
   </div>
   <div class="takeaway small">Profiles provide capabilities. Skills explain how to use them. The broker checks availability.</div>
-  <footer class="footer"><span>DISCOVERY DOES NOT GRANT PERMISSION OR GUARANTEE READINESS</span><a href="notes.html#slide-8" target="_blank" rel="noopener">Implementation &amp; notes ↗</a><span class="number">08 / 15</span></footer>
+  <footer class="footer"><span>DISCOVERY DOES NOT GRANT PERMISSION OR GUARANTEE READINESS</span><a href="notes.html#slide-8" target="_blank" rel="noopener">Implementation &amp; notes ↗</a><span class="number">08 / 16</span></footer>
 </section>
 
-<section class="slide" data-title="Keep instructions small and useful" aria-labelledby="title-9">
-  <div class="eyebrow"><span class="mark" aria-hidden="true"></span> 09 / Context maintenance</div>
-  <h2 id="title-9">Agents are very chatty.</h2><p class="lede">In my projects, code, documentation and instructions keep growing.</p>
+<section class="slide" data-title="Skills are conditional instructions" aria-labelledby="title-9">
+  <div class="eyebrow"><span class="mark" aria-hidden="true"></span> 09 / Instructions on demand</div>
+  <h2 id="title-9">In a nutshell:<br><em>skills are conditional instructions.</em></h2>
+  <p class="lede">Keep the procedure available. Load it when the task needs it.</p>
+  <div class="grid2 skill-invocation">
+    <div class="panel"><span class="label">Manual invocation</span><h3>Ask for it explicitly.</h3><p>“Use the Android skill to run the tests.”</p></div>
+    <div class="panel"><span class="label">Model selection</span><h3>Let the model choose.</h3><p>The description explains when the skill is useful.<br>The model matches it to the task.</p></div>
+  </div>
+  <div class="skill-loading"><div><span class="label">Available for discovery</span><strong>Name + short description</strong></div><b aria-hidden="true">→</b><div><span class="label">Loaded when selected</span><strong>Full instructions</strong></div></div>
+  <div class="takeaway small">You do not need to put every procedure into every task.</div>
+  <footer class="footer"><span>DISCOVER → SELECT → READ → USE</span><a href="notes.html#slide-9" target="_blank" rel="noopener">Sources &amp; notes ↗</a><span class="number">09 / 16</span></footer>
+</section>
+
+<section class="slide" data-title="Keep instructions small and useful" aria-labelledby="title-10">
+  <div class="eyebrow"><span class="mark" aria-hidden="true"></span> 10 / Context maintenance</div>
+  <h2 id="title-10">Agents are very chatty.</h2><p class="lede">In my projects, code, documentation and instructions keep growing.</p>
   <div class="context-layout"><div class="context-noise" aria-label="Accumulating instructions and documentation"><div>Explain every step</div><div>Repeat the background</div><div>Add a plan for every change</div><div>Document every helper</div><div>Keep the old workaround</div></div><b class="context-arrow" aria-hidden="true">→</b><div class="context-signal"><span class="label">Keep the useful constraints</span><h3>What the agent cannot infer.<br>What repeatedly goes wrong.</h3><p>Load detailed procedures as skills<br>when the task needs them.</p></div></div>
   <div class="editing-rule"><strong>Review. Prune. Recheck.</strong><span>An instruction that helped last month can slow the agent down today.</span></div>
   <div class="takeaway small">Minimal means enough to guide the work. Revisit instructions as tools and models change.</div>
-  <footer class="footer"><span>MAINTAIN INSTRUCTIONS AS CAREFULLY AS CODE</span><a href="notes.html#slide-9" target="_blank" rel="noopener">Context research &amp; notes ↗</a><span class="number">09 / 15</span></footer>
+  <footer class="footer"><span>MAINTAIN INSTRUCTIONS AS CAREFULLY AS CODE</span><a href="notes.html#slide-10" target="_blank" rel="noopener">Context research &amp; notes ↗</a><span class="number">10 / 16</span></footer>
 </section>
 
-<section class="slide" data-title="Collect the data as a team" aria-labelledby="title-10">
-  <div class="eyebrow"><span class="mark" aria-hidden="true"></span> 10 / Observability</div>
-  <h2 id="title-10">Collect the data. Across the team.</h2><p class="lede">Start with the team sharing one codebase.</p>
+<section class="slide" data-title="Collect the data as a team" aria-labelledby="title-11">
+  <div class="eyebrow"><span class="mark" aria-hidden="true"></span> 11 / Observability</div>
+  <h2 id="title-11">Collect the data. Across the team.</h2><p class="lede">Start with the team sharing one codebase.</p>
   <div class="telemetry-flow"><div><span class="label">One codebase</span><strong>People + agents</strong><p>Tasks · sessions · steps</p></div><b aria-hidden="true">→</b><div class="collection"><span class="label">Correlated observations</span><strong>Tokens · compute · time</strong><p>Include staging and broker leases.</p></div><b aria-hidden="true">→</b><div><span class="label">A useful outcome</span><strong>What should change?</strong><p>Review evidence, then improve.</p></div></div>
   <div class="metric-questions"><p><b>Tokens</b>Where is model usage going?</p><p><b>Compute</b>Which builds or tests consume the host?</p><p><b>Time</b>Where are we waiting or holding a resource?</p></div>
   <a class="feature-link" href="https://github.com/subyard/usage-visibility/blob/master/presentation3/usage-visibility.pdf" target="_blank" rel="noopener">Usage Visibility — examples and tool views ↗</a>
   <div class="takeaway small">Start collecting before choosing the perfect dashboard. Keep collection coverage and gaps visible.</div>
-  <footer class="footer"><span>MEASURE RESOURCE USE ALONGSIDE THE RESULT</span><a href="notes.html#slide-10" target="_blank" rel="noopener">Sources &amp; collection notes ↗</a><span class="number">10 / 15</span></footer>
+  <footer class="footer"><span>MEASURE RESOURCE USE ALONGSIDE THE RESULT</span><a href="notes.html#slide-11" target="_blank" rel="noopener">Sources &amp; collection notes ↗</a><span class="number">11 / 16</span></footer>
 </section>
 
-<section class="slide" data-title="Ask the agent how to improve" aria-labelledby="title-11">
-  <div class="eyebrow"><span class="mark" aria-hidden="true"></span> 11 / Use the evidence</div>
-  <h2 id="title-11">Ask the agent how to improve.</h2><p class="lede">Let it review recent work. Validate the recommendations.</p>
+<section class="slide" data-title="Ask the agent how to improve" aria-labelledby="title-12">
+  <div class="eyebrow"><span class="mark" aria-hidden="true"></span> 12 / Use the evidence</div>
+  <h2 id="title-12">Ask the agent how to improve.</h2><p class="lede">Let it review recent work. Validate the recommendations.</p>
   <div class="review-layout"><div><div class="review-request"><span class="label">Example request</span><p>Review recent agent work. Where did we repeat checks, wait unnecessarily or hold resources longer than needed?</p></div><div class="review-prompt"><span class="label">Questions worth asking</span><p>What did we repeat?<br>What were we waiting for?<br>What blocked the task early?<br>Which resource stayed allocated?</p></div></div><div class="review-recommendations"><div><h3>Reduce coordination chatter.</h3><p>Report completion or a meaningful change.</p></div><div><h3>Rerun affected checks.</h3><p>Reuse evidence when code and environment are unchanged.</p></div><div><h3>Validate prerequisites early.</h3><p>Check tools and fixtures before expensive setup.</p></div><div><h3>Release resources promptly.</h3><p>Keep a lease only while the check needs it.</p></div></div></div>
   <div class="takeaway small">Reported findings are leads to investigate. Coordination messages alone do not prove waste.</div>
-  <footer class="footer"><span>REVIEW → VERIFY → CHANGE ONE THING → MEASURE AGAIN</span><a href="notes.html#slide-11" target="_blank" rel="noopener">Anonymized example &amp; notes ↗</a><span class="number">11 / 15</span></footer>
+  <footer class="footer"><span>REVIEW → VERIFY → CHANGE ONE THING → MEASURE AGAIN</span><a href="notes.html#slide-12" target="_blank" rel="noopener">Anonymized example &amp; notes ↗</a><span class="number">12 / 16</span></footer>
 </section>
 
-<section class="slide" data-title="Subyard: my reference implementation" aria-labelledby="title-12">
-  <div class="eyebrow"><span class="mark" aria-hidden="true"></span> 12 / One implementation</div>
-  <h2 id="title-12">Subyard. <em>My answer to these problems.</em></h2><p class="lede">Isolated workspaces, reusable setup and shared resources across hosts.</p>
+<section class="slide" data-title="Subyard: my reference implementation" aria-labelledby="title-13">
+  <div class="eyebrow"><span class="mark" aria-hidden="true"></span> 13 / One implementation</div>
+  <h2 id="title-13">Subyard. <em>My answer to these problems.</em></h2><p class="lede">Isolated workspaces, reusable setup and shared resources across hosts.</p>
   <figure class="architecture"><a href="assets/subyard-agent-workspace.webp" target="_blank" rel="noopener"><img src="assets/subyard-agent-workspace.webp" width="1916" height="821" alt="Original Subyard architecture diagram from presentation 3: isolated local and remote agent workspaces, shared staging, SSH management, Git-synchronized settings and encrypted staging credentials."></a><figcaption>Original Subyard README diagram · <a href="https://github.com/subyard/subyard" target="_blank" rel="noopener">github.com/subyard/subyard ↗</a></figcaption></figure>
   <div class="takeaway small">Use it as a reference; implement the same patterns with VMs and containers.</div>
-  <footer class="footer"><span>THE REQUIREMENTS APPLY INDEPENDENTLY OF SUBYARD</span><a href="notes.html#slide-12" target="_blank" rel="noopener">Attribution &amp; notes ↗</a><span class="number">12 / 15</span></footer>
+  <footer class="footer"><span>THE REQUIREMENTS APPLY INDEPENDENTLY OF SUBYARD</span><a href="notes.html#slide-13" target="_blank" rel="noopener">Attribution &amp; notes ↗</a><span class="number">13 / 16</span></footer>
 </section>
 
-<section class="slide" data-title="Choose capabilities per workspace" aria-labelledby="title-13">
-  <div class="eyebrow"><span class="mark" aria-hidden="true"></span> 13 / Optional capabilities</div>
-  <h2 id="title-13">Choose capabilities per workspace.</h2><p class="lede">Shared working rules. Only the tools and access each workspace needs.</p>
+<section class="slide" data-title="Choose capabilities per workspace" aria-labelledby="title-14">
+  <div class="eyebrow"><span class="mark" aria-hidden="true"></span> 14 / Optional capabilities</div>
+  <h2 id="title-14">Choose capabilities per workspace.</h2><p class="lede">Shared working rules. Only the tools and access each workspace needs.</p>
   <table class="capability-matrix"><caption>Illustrative selections using real Subyard integrations and profiles.</caption><colgroup><col class="capability-name"><col><col><col></colgroup><thead><tr><th scope="col">Capability</th><th scope="col">Dev</th><th scope="col">Android</th><th scope="col">Assistant</th></tr></thead><tbody>
     <tr><th scope="row">Codex <small>agent integration</small></th><td><span class="choice on">ON</span></td><td><span class="choice on">ON</span></td><td><span class="choice on">ON</span></td></tr>
     <tr><th scope="row">Orca <small>interface profile</small></th><td><span class="choice on">ON</span></td><td><span class="choice on">ON</span></td><td><span class="choice off">OFF</span></td></tr>
@@ -142,25 +155,25 @@ falling back to grep…</code></pre><h3>Install jq.</h3><p>Fix recurring environ
     <tr><th scope="row">GitHub broker <small>profile + access workflow</small></th><td><span class="choice on">ON</span></td><td><span class="choice on">ON</span></td><td><span class="choice off">OFF</span></td></tr>
   </tbody></table>
   <div class="takeaway small">A selected profile still needs setup and authorization. Workspace access stays scoped to the work.</div>
-  <footer class="footer"><span>EXAMPLE CONFIGURATION · NOT A REPORT OF LIVE WORKSPACES</span><a href="notes.html#slide-13" target="_blank" rel="noopener">Profile sources &amp; notes ↗</a><span class="number">13 / 15</span></footer>
+  <footer class="footer"><span>EXAMPLE CONFIGURATION · NOT A REPORT OF LIVE WORKSPACES</span><a href="notes.html#slide-14" target="_blank" rel="noopener">Profile sources &amp; notes ↗</a><span class="number">14 / 16</span></footer>
 </section>
 
-<section class="slide dark" data-title="You are responsible" aria-labelledby="title-14">
-  <div class="eyebrow"><span class="mark" aria-hidden="true"></span> 14 / Responsibility</div>
-  <h1 id="title-14" class="responsibility-title">LLMs are <em>not people.</em></h1><p class="responsibility-copy">Smart in some areas.<br>Very wrong in others.</p><p class="responsibility-punch">They mess up. <strong>You are responsible.</strong></p>
+<section class="slide dark" data-title="You are responsible" aria-labelledby="title-15">
+  <div class="eyebrow"><span class="mark" aria-hidden="true"></span> 15 / Responsibility</div>
+  <h1 id="title-15" class="responsibility-title">LLMs are <em>not people.</em></h1><p class="responsibility-copy">Smart in some areas.<br>Very wrong in others.</p><p class="responsibility-punch">They mess up. <strong>You are responsible.</strong></p>
   <div class="takeaway">Think twice about what you expose.<br>Make the effective access match the boundary you intended.</div>
-  <footer class="footer"><span>DEFINE THE TASK · BOUND THE ACCESS · VERIFY THE RESULT</span><a href="notes.html#slide-14" target="_blank" rel="noopener">Speaker notes ↗</a><span class="number">14 / 15</span></footer>
+  <footer class="footer"><span>DEFINE THE TASK · BOUND THE ACCESS · VERIFY THE RESULT</span><a href="notes.html#slide-15" target="_blank" rel="noopener">Speaker notes ↗</a><span class="number">15 / 16</span></footer>
 </section>
 
-<section class="slide dark" data-title="Thank you" aria-labelledby="title-15">
-  <div class="eyebrow"><span class="mark" aria-hidden="true"></span> 15 / Running coding agents, 24/7</div>
-  <div class="closing-layout"><div><h1 id="title-15">Thank <em>you.</em></h1><p class="lede">I am available for questions.</p><a class="closing-url" href="https://subyard.github.io/usage-visibility/presentation5/" target="_blank" rel="noopener">subyard.github.io/<br>usage-visibility/presentation5/ ↗</a><p class="small">Slides, speaker notes and source research.</p></div><a class="qr-card" href="https://subyard.github.io/usage-visibility/presentation5/" target="_blank" rel="noopener"><img src="assets/presentation-qr.svg" width="440" height="440" alt="QR code linking to https://subyard.github.io/usage-visibility/presentation5/"><span>Open this presentation ↗</span></a></div>
-  <footer class="footer"><span>DMITRY · SOFTWARE DEVELOPMENT</span><a href="notes.html#slide-15" target="_blank" rel="noopener">Notes &amp; source index ↗</a><span class="number">15 / 15</span></footer>
+<section class="slide dark" data-title="Thank you" aria-labelledby="title-16">
+  <div class="eyebrow"><span class="mark" aria-hidden="true"></span> 16 / Running coding agents, 24/7</div>
+  <div class="closing-layout"><div><h1 id="title-16">Thank <em>you.</em></h1><p class="lede">I am available for questions.</p><a class="closing-url" href="https://subyard.github.io/usage-visibility/presentation5/" target="_blank" rel="noopener">subyard.github.io/<br>usage-visibility/presentation5/ ↗</a><p class="small">Slides, speaker notes and source research.</p></div><a class="qr-card" href="https://subyard.github.io/usage-visibility/presentation5/" target="_blank" rel="noopener"><img src="assets/presentation-qr.svg" width="440" height="440" alt="QR code linking to https://subyard.github.io/usage-visibility/presentation5/"><span>Open this presentation ↗</span></a></div>
+  <footer class="footer"><span>DMITRY · SOFTWARE DEVELOPMENT</span><a href="notes.html#slide-16" target="_blank" rel="noopener">Notes &amp; source index ↗</a><span class="number">16 / 16</span></footer>
 </section>
 
 </div></main>
 <div id="progress" aria-hidden="true"></div>
-<nav id="controls" aria-label="Presentation controls"><button id="previous" aria-label="Previous slide">←</button><span id="counter" aria-live="polite">1 / 15</span><button id="next" aria-label="Next slide">→</button><span id="slide-title">My operating scale</span><span class="help">← → navigate · F fullscreen · N notes</span><button id="fullscreen">Fullscreen</button><a href="running-coding-agents.pdf" target="_blank" rel="noopener">PDF</a><a id="notes" href="notes.html#slide-1" target="_blank" rel="noopener">Notes</a></nav>
+<nav id="controls" aria-label="Presentation controls"><button id="previous" aria-label="Previous slide">←</button><span id="counter" aria-live="polite">1 / 16</span><button id="next" aria-label="Next slide">→</button><span id="slide-title">My operating scale</span><span class="help">← → navigate · F fullscreen · N notes</span><button id="fullscreen">Fullscreen</button><a href="running-coding-agents.pdf" target="_blank" rel="noopener">PDF</a><a id="notes" href="notes.html#slide-1" target="_blank" rel="noopener">Notes</a></nav>
 <noscript><style>#viewport{display:block;position:static;overflow:visible}#deck{height:auto}.slide{display:block;position:relative}#controls,#progress{display:none}</style></noscript>
 </body>
 </html>

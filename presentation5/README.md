@@ -1,6 +1,6 @@
 # Presentation 5: Running coding agents, 24/7
 
-English, 15 slides, 16:9, 20–25 minutes. A personal account of running coding
+English, 16 slides, 16:9, 20–25 minutes. A personal account of running coding
 agents continuously: isolation, complete toolchains, compute limits, brokered
 resources, discoverable skills, minimal useful instructions and observability.
 Subyard is a reference implementation.
@@ -11,10 +11,10 @@ Subyard is a reference implementation.
   explanation, timing and sources for every slide.
 - [Read the research and evidence map](research.md).
 
-The original broker topic is split into allocation and failure cleanup, so
-the final deck has 15 slides. Slide 1 reuses the publication-safe token-table
-raster from presentation 3; slide 11 uses an anonymized native HTML workflow
-review; slide 12 reuses the original architecture diagram from presentation 3.
+The 16-slide deck separates broker allocation from failure cleanup and
+explains skills as instructions loaded on demand. Slide 1 reuses the publication-safe token-table
+raster from presentation 3; slide 12 uses an anonymized native HTML workflow
+review; slide 13 reuses the original architecture diagram from presentation 3.
 Slide 2 reuses the original terminal image from presentation 4.
 Source attribution and numerical qualifications remain in
 the speaker notes and research file.
@@ -66,19 +66,19 @@ with sync_playwright() as p:
     browser.close()
 ```
 
-The export must contain exactly 15 pages, each 1200 × 675 points. Check every
+The export must contain exactly 16 pages, each 1200 × 675 points. Check every
 slide for clipping, overlapping text, broken assets and footer collisions;
 verify navigation, note anchors, PDF links and QR decoding. The October 27
 export used temporary Playwright Chromium tooling because system Chromium
 was unavailable. Tooling is for export and verification only, not a deck
 runtime dependency.
 
-Verified October 27, 2026: 15 PDF pages with one slide each; no slide overflow
-or footer collisions; keyboard/hash navigation and all 15 note anchors; local
+Verified October 27, 2026: 16 PDF pages with one slide each; no slide overflow
+or footer collisions; keyboard/hash navigation and all 16 note anchors; local
 asset loading; public PDF link targets; QR decoding from
 both HTML and the printed PDF. Chromium rounds the page height to 675.12 points.
 The nine existing repository tests and JavaScript syntax check passed.
-The publication-sanitized export was rebuilt and all 15 pages visually reviewed.
+The publication-sanitized export was rebuilt and all 16 pages visually reviewed.
 The token raster's dates and 72 nonzero numeric cells were checked with OCR,
 with one split cell reassembled; zero cells and model labels were checked
 visually. All eight headline daily totals match `presentation3/data.json`.

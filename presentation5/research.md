@@ -37,7 +37,7 @@ The broker topic deserves two slides within the 20–25 minute budget. A normal
 allocation and a failure cleanup path have different triggers and outcomes.
 Combining both with three benefits would obscure the key distinction: a lease
 deadline is not proof that a resource has been cleaned. The final deck therefore
-has 15 slides, with original outline items 7–14 shifted by one.
+has 16 slides, including a separate explanation of skills as instructions on demand.
 
 ## Source map
 
@@ -51,12 +51,13 @@ has 15 slides, with original outline items 7–14 shifted by one.
 | 6 | Original Subyard slide 6; current VM/Android broker documentation | Defined environments and allocation only while needed |
 | 7 | Original Subyard slide 7; current lease contract | Independent cleanup, fencing, verification and quarantine |
 | 8 | Original Subyard slide 10 right panel; current Android skill | Discover → read → use, with a clickable broker link |
-| 9 | Presenter's experience; Anthropic context-engineering research | Prune accumulated guidance; load details when needed |
-| 10 | Existing Usage Visibility work; OTel GenAI agent conventions | Collect team evidence and connect resource use to outcomes |
-| 11 | Presentation 3 slide 10, anonymized native HTML summary | Ask an agent to review its workflow; validate its report |
-| 12 | Presentation 3 slide 2, original architecture diagram | Subyard as the presenter's reference implementation |
-| 13 | Original Subyard slide 5; current configuration/profile docs | Optional capabilities, with an illustrative matrix |
-| 14–15 | Presenter's closing brief and publication choice | Responsibility, questions and a shareable address |
+| 9 | Presenter's conditional-instructions framing; official OpenAI Skills documentation | Explicit invocation or description-based selection, then load instructions |
+| 10 | Presenter's experience; Anthropic context-engineering research | Prune accumulated guidance; load details when needed |
+| 11 | Existing Usage Visibility work; OTel GenAI agent conventions | Collect team evidence and connect resource use to outcomes |
+| 12 | Presentation 3 slide 10, anonymized native HTML summary | Ask an agent to review its workflow; validate its report |
+| 13 | Presentation 3 slide 2, original architecture diagram | Subyard as the presenter's reference implementation |
+| 14 | Original Subyard slide 5; current configuration/profile docs | Optional capabilities, with an illustrative matrix |
+| 15–16 | Presenter's closing brief and publication choice | Responsibility, questions and a shareable address |
 
 The requested published Subyard deck could not be fetched by the web reader.
 Its exact HTML and notes were read through the GitHub connector from
@@ -162,6 +163,17 @@ plus skills to the user and repository. It does not show filesystem paths or
 assert that all harnesses discover the same files or implement the same
 instruction precedence rules. The user-level example is supported by the
 [official AGENTS.md guidance](https://learn.chatgpt.com/docs/agent-configuration/agents-md).
+
+### Skills are instructions loaded on demand
+
+[Official OpenAI documentation: Skills](https://developers.openai.com/plugins/concepts/skills)
+describes metadata-first discovery: the name and description are visible before
+the full instructions. A direct user invocation or a matching task can select
+the skill and cause its instructions to be loaded. The new slide uses the
+presenter's conditional-instructions framing for this behavior. Skills can also package
+references, scripts and assets; invocation syntax and discovery depend on the
+harness. The slide is a conceptual explanation, not a requirement for a new
+runtime feature in this repository.
 
 ### Minimal context means sufficient context
 
