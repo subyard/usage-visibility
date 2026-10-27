@@ -8,8 +8,8 @@ The opening problem leads into the container/VM comparison on slide 2, shared ca
 - [Download the PDF](where-agents-work.pdf).
 - [Speaker notes and source attribution](notes.html).
 
-Imported from `docs/presentations/subyard/` in the sibling `Subyard-4` workspace,
-at Subyard commit `efea2726727cac493d3c91c255ce45d4452a4025`. The slides, styles,
+Imported from `docs/presentations/subyard/` in the Subyard repository
+at commit `efea2726727cac493d3c91c255ce45d4452a4025`. The slides, styles,
 navigation, speaker notes, and original image are preserved unchanged.
 
 Open `index.html` directly in a modern browser. Everything needed to present is local; there are no remote scripts, fonts, analytics, build steps, or runtime dependencies. Keep the directory together when sharing it.
