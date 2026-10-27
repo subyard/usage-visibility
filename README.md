@@ -44,6 +44,11 @@ current shortlist are in [`solutions/`](solutions/README.md).
   roughly 5–7 sessions running nearly 24/7, followed by AI Observer dashboard
   and metric views; further slides will follow.
   [HTML deck and setup](presentation3/README.md).
+- [Presentation 4: Where agents work](presentation4/index.html) — environment
+  requirements for agents, with Subyard as an implementation example.
+  [PDF](presentation4/where-agents-work.pdf) ·
+  [Speaker notes and sources](presentation4/notes.html) ·
+  [Setup and attribution](presentation4/README.md).
 - [Solution comparison](solutions/README.md) — candidate tools against shared
   criteria.
 - [Requirements and decisions](docs/decisions.md) — what the solution must do
