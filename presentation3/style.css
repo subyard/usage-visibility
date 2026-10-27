@@ -114,8 +114,14 @@ body.overview .controls { position: sticky; bottom: 0; background: var(--bg); bo
 
 .slide-header { display: grid; gap: 6px; flex-shrink: 0; }
 .slide-header h1, .slide-header h2 { font-size: 30px; line-height: 1.12; letter-spacing: -.04em; }
-.worker-review-images { display: grid; gap: 10px; width: 100%; margin-inline: auto; }
-.worker-review-images img { display: block; width: 100%; height: auto; border-radius: 6px; }
+.worker-review { display:grid; grid-template-columns:.85fr 1.35fr; gap:30px; width:100%; align-items:stretch; }
+.review-request { padding:32px; border:1px solid var(--line); border-radius:12px; background:#202828; }
+.review-label { display:block; font-size:16px; text-transform:uppercase; letter-spacing:.12em; color:var(--lime); }
+.review-request p { font-size:30px; line-height:1.5; margin-top:22px; }
+.review-recommendations { display:grid; grid-template-columns:1fr 1fr; gap:20px; }
+.review-recommendations>div { border:1px solid var(--line); border-radius:12px; padding:27px; }
+.review-recommendations h3 { font-size:27px; line-height:1.2; color:var(--lime); }
+.review-recommendations p { font-size:22px; line-height:1.4; margin-top:18px; color:var(--muted); }
 .closing-slide .slide-body { align-items: center; text-align: center; gap: 24px; }
 .closing-title { font-size: 72px; line-height: 1; }
 .closing-message { font-size: 32px; line-height: 1.5; }
@@ -163,7 +169,6 @@ body.overview .controls { position: sticky; bottom: 0; background: var(--bg); bo
   .callout-number { width: 28px; height: 28px; font-size: 14px; }
   .callouts strong { font-size: 22px; margin-bottom: 6px; }
   .callouts p { font-size: 18px; }
-  .worker-review-images { width: 790px; gap: 10px; }
   .closing-title { font-size: 120px; }
   .closing-message { font-size: 44px; }
 }
@@ -173,7 +178,10 @@ body.overview .controls { position: sticky; bottom: 0; background: var(--bg); bo
   .slide { margin-inline: auto; zoom: min(calc(100vw / var(--slide-width)), calc((100svh - var(--chrome-height)) / var(--slide-height))); }
 }
 @media screen and (max-width: 900px) {
-  .usage-layout, .subyard-layout, .interface-layout { grid-template-columns: 1fr; gap: 20px; }
+  .usage-layout, .subyard-layout, .interface-layout, .worker-review, .review-recommendations { grid-template-columns: 1fr; gap: 20px; }
+  .review-request p { font-size:22px; }
+  .review-recommendations h3 { font-size:23px; }
+  .review-recommendations p { font-size:18px; }
   .harness-table-wrap { overflow-x: auto; }
   .harness-table { min-width: 850px; }
   .harness-table th, .harness-table td { padding: 12px 8px; }

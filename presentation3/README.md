@@ -4,13 +4,14 @@ An HTML presentation prepared one slide at a time as content is supplied.
 Open [`index.html`](index.html) in a browser. Use its PDF action to print or save
 all slides, or run the export command below to create `usage-visibility.pdf`.
 
-## Requested original images — four saved, one pending
+## Image sources and publication edits
 
-The original token-usage screenshot is saved unchanged in
-[`img/token-usage-original.png`](img/token-usage-original.png) and replaces the
-right-hand chart on slide 1. It includes October 5–13; the headline and average
-still count October 6–13 only, excluding October 5. Slide 1 uses narrow margins
-and gives most of the width to the screenshot, with compact figures on the left.
+Slide 1 uses a publication-safe raster recreated from the supplied token table
+in [`img/token-usage-public.png`](img/token-usage-public.png). It has a solid
+black background, retains the dates, model names and daily token totals, and
+omits the financial column. It includes October 5–13; the headline and average
+still count October 6–13 only, excluding October 5. The raster is an edited
+derivative rather than the original screenshot.
 
 The original Default Dashboard screenshot is saved unchanged in
 [`img/ai-observer-default-dashboard-original.png`](img/ai-observer-default-dashboard-original.png)
@@ -22,7 +23,8 @@ and is the main content of slide 6.
 
 The original MLflow trace screenshot is saved unchanged in
 [`img/mlflow-trace-original.jpg`](img/mlflow-trace-original.jpg) and opens the
-MLflow section on slide 7.
+MLflow section on slide 7. Its trace identifiers and instructions are retained
+as the explicit publication exception in D17.
 
 The remaining original image file is still pending:
 
@@ -85,7 +87,9 @@ and process CPU/RAM collection.
 
 Slide 4: **AI Observer All Tools dashboard.** Reuses the matching official image
 from presentation 2, with the five numbered callouts from the user's supplied
-slide. The image is example data, not a result from the local instance.
+slide. The shared publication asset is an anonymized interface illustration
+with the browser label **Demo dashboard**. It is edited example data, not an
+unchanged screenshot or a fresh measurement from the local instance.
 
 Slide 5: **AI Observer Default Dashboard.** The user-supplied Last 1 hour view
 lists Codex CLI as an active service, 830,397 metric points, 210,782 logs, zero
@@ -107,34 +111,37 @@ selected LLM call's attributes on the right. The image includes the supplied
 browser chrome and trace details. No live instance was accessed or candidate
 ratings changed.
 
-Slide 8: **OpenLIT LLM dashboard.** Opens the OpenLIT section with the supplied
-v2.1.0 dashboard screenshot, preserved unchanged as
-`img/openlit-llm-dashboard-original.png`. The selected 24H view displays 7.11M
+Slide 8: **OpenLIT LLM dashboard.** Opens the OpenLIT section with an anonymized
+interface illustration based on the supplied v2.1.0 dashboard, saved as
+`img/openlit-llm-dashboard-public.png`, with the account **John Doe**.
+The selected 24H view displays 7.11M
 requests, 0.6487 seconds average duration, zero average tokens per request,
-$0 costs and zero detection counters. These are captured UI values; collection
-and evaluation coverage and the underlying measurements were not verified.
+$0 costs and zero detection counters. These are source UI values shown for
+interface context, not fresh measurements. Collection and evaluation coverage
+and the underlying measurements were not verified.
 
 Slide 9: **OpenLIT Custom evaluations.** The supplied OpenLIT v2.1.1
 screenshot shows the evaluation type fields and judge prompt, plus guidance on
-judge outputs and trace-based Rule Engine conditions. Saved unchanged as
-`img/openlit-custom-evaluation-original.png`. This is a setup view, not a
-completed evaluation or a verified live integration.
+judge outputs and trace-based Rule Engine conditions. The publication copy in
+`img/openlit-custom-evaluation-public.png` uses the generic account **John Doe**
+and organization **Example Organization**. This is an edited setup view, not a
+completed evaluation or a verified live integration. Like the other edited UI
+images, it is an anonymized interface illustration rather than an unchanged
+screenshot.
 
 All slides use the same compact header with a fixed slide number/topic position.
 Content slides also share title sizing and alignment. A flexible body centers
 each image or content group between the header and footer. The closing title
 is part of its centered message. Screenshots retain their original proportions
-without cropping; click an image to open its full-resolution original.
+without cropping; click an image to open the full-resolution displayed asset.
 
-Slide 10: **Ask the worker agent how to improve.** The two supplied screenshots
-show a request to examine recent sessions and the agent's recommendations:
-reduce coordination chatter, rerun affected checks, validate prerequisites
-early, and repair VM boot/deadline handling. Originals are preserved unchanged
-as `img/worker-agent-review-prompt-original.png` and
-`img/worker-agent-review-response-original.png`, stacked in reading order and
-linked to their full-size files. Counts are reported by the captured agent,
-not independently verified; the response explicitly says waiting/coordination
-is not all waste and exact wasted VM-hours are not established.
+Slide 10: **Ask the worker agent how to improve.** An anonymized native HTML
+prompt asks for a workflow review. Four generic recommendations cover less
+coordination chatter, selective reruns, early prerequisite checks and releasing
+resources when finished. The original review screenshots, exact session counts
+and internal incident details are omitted from the publication copy. The
+recommendations are hypotheses to validate; necessary waiting and coordination
+are not automatically waste, and no exact wasted VM-hours are established.
 
 Slide 11: **Thank you.** Closing message: “LLMs are great tools. Use them wisely.”
 
@@ -154,7 +161,7 @@ defined once in CSS. On desktop windows wider than 900px, slides share a
 1600×900 (16:9) composition with the PDF and scale to the available viewport
 below the toolbar and above navigation. The complete slide remains visible without vertical scrolling.
 At narrower widths, content reflows and can scroll vertically; the comparison
-table has its own horizontal scrolling area. Image originals remain uncropped.
+table has its own horizontal scrolling area. Displayed image assets remain uncropped.
 
 ## Rebuild and verify the PDF
 
@@ -183,7 +190,18 @@ The screen composition was checked on all 11 slides at 1920×1080, 1440×900,
 1366×768 and 1024×768: slide content and navigation fit the viewport, and
 content stays inside its body area. At 900×700, 390×844 and 320×640 there is no
 document-wide horizontal overflow. Header positions match across slides.
-Overview switching and opening an original image in a new tab were verified.
+Overview switching and opening an image in a new tab were verified.
 
-The OpenLIT dashboard original was previously verified byte for byte against
-its attachment, as were the two worker-review originals.
+The token table, shared AI Observer dashboard and both OpenLIT images are
+publication derivatives; the worker review is native HTML. These are not
+byte-identical copies of the supplied originals. Slide 7 deliberately retains
+its original MLflow trace.
+
+The publication-sanitized PDF was rebuilt on October 27, 2026 with headless
+Chromium: eleven 16:9 pages, one per slide, all visually reviewed. Print overflow,
+image loading, local links and navigation checks passed. The token raster's
+dates and 72 nonzero numeric cells were OCR-checked against the supplied table
+(one split OCR cell was reassembled); zeros and model labels were checked
+visually, and all eight headline daily totals match `data.json`. Presentation
+3 slide 7's HTML and original image remain byte-identical to their pre-cleanup
+versions. Git history was not changed.

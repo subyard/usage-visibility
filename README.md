@@ -49,6 +49,12 @@ current shortlist are in [`solutions/`](solutions/README.md).
   [PDF](presentation4/where-agents-work.pdf) ·
   [Speaker notes and sources](presentation4/notes.html) ·
   [Setup and attribution](presentation4/README.md).
+- [Presentation 5: Running coding agents, 24/7](presentation5/index.html) —
+  personal experience with isolation, tools, compute, resource brokers,
+  instructions and observability. English, 15 slides, 20–25 minutes.
+  [PDF](presentation5/running-coding-agents.pdf) ·
+  [Speaker outline](presentation5/notes.html) ·
+  [Research and evidence](presentation5/research.md).
 - [Solution comparison](solutions/README.md) — candidate tools against shared
   criteria.
 - [Requirements and decisions](docs/decisions.md) — what the solution must do

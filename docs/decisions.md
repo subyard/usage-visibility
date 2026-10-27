@@ -94,10 +94,8 @@ The presentation uses an allowlisted aggregate export (`data.json`). The
 detailed audit with session identifiers stays in `.local/usage-evidence/`,
 which is ignored by Git.
 
-An earlier commit (`b74171d`) published two detailed session entries: session
-IDs, log file names, model names, an agent path and a test command. A review
-on 2026-10-08 found no keys, tokens or other secrets in the history, so it is
-kept unchanged.
+The later publication and history policy in D17 supersedes the earlier
+decision to retain exposed historical session evidence.
 
 ### D5. The intro data is a fixed example
 
