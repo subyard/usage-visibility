@@ -13,13 +13,13 @@
 <main id="viewport" aria-label="Running coding agents, 24/7 presentation"><div id="deck">
 
 <section class="slide active dark" data-title="My operating scale" aria-labelledby="title-1">
-  <div class="eyebrow"><span class="mark" aria-hidden="true"></span> 01 / Dmitry / Software development / Personal experience</div>
+  <div class="eyebrow"><span class="mark" aria-hidden="true"></span> 01 / Software development / Personal experience</div>
   <h1 id="title-1">Running coding agents, <em>24/7.</em></h1>
   <div class="intro-layout">
-    <div class="intro-copy"><div class="hero-number">1–2B<span>tokens a day <small>(98% cached input)</small></span></div><p class="lede">About <strong>4 sessions</strong>, running nonstop.<br>Roughly half run <strong>longer than a day</strong>.</p><p class="small">Every new scale of automation<br>brings a new set of problems.</p></div>
+    <div class="intro-copy"><div class="hero-number">1–2B <span>tokens a day</span><small>(98% cached input)</small></div><p class="lede">About <strong>4 sessions</strong>, running nonstop.<br>Roughly half run <strong>longer than a day</strong>.</p><p class="small">Every new scale of automation<br>brings a new set of problems.</p></div>
     <figure><a href="assets/token-usage-public.png" target="_blank" rel="noopener"><img class="usage-image" src="assets/token-usage-public.png" width="1543" height="1019" alt="Publication-safe daily token usage table from presentation 3 with an opaque black background and no spending column, showing an earlier October 6–13 sample totaling 13.4 billion tokens."></a></figure>
   </div>
-  <div class="checkpoints"><span><b>Human</b> defines the task</span><span aria-hidden="true">→</span><span>Agent works</span><span aria-hidden="true">→</span><span><b>Human</b> checks and accepts</span><small>At least twice per task</small></div>
+  <div class="checkpoints"><div class="checkpoint-heading"><b>Human in the loop</b><span>At least twice per task</span></div><p>Human defines the task → Agent works → Human checks and accepts</p></div>
   <footer class="footer"><span>MY WORKING SCALE · EFFECTIVENESS IS MY ASSESSMENT</span><a href="notes.html#slide-1" target="_blank" rel="noopener">Notes &amp; evidence ↗</a><span class="number">01 / 15</span></footer>
 </section>
 
@@ -36,23 +36,22 @@
   <h2 id="title-3">Container or VM?</h2>
   <div class="grid2 compare">
     <div class="panel"><div class="label">GNU/Linux host</div><h3>Devcontainer</h3><div class="vendor-containers"><a href="https://github.com/anthropics/claude-code/blob/main/.devcontainer/devcontainer.json" target="_blank" rel="noopener">Anthropic devcontainer ↗</a><a href="https://github.com/openai/codex-universal" target="_blank" rel="noopener">OpenAI base image ↗</a></div><div class="stack"><div class="stack-row"><span>Agent + tools</span><span>Other containers</span></div><div class="kernel">Shared host kernel</div><div>Host hardware</div></div><p>Lightweight and repeatable.<br>Scope mounts, credentials and privileges.</p></div>
-    <div class="panel"><div class="label">Windows host</div><h3>Linux VM</h3><div class="stack"><div>Agent + tools</div><div class="kernel">Separate guest kernel</div><div>Hypervisor + host</div></div><p>A dedicated guest environment.<br>Budget for its OS, memory and disk.</p></div>
+    <div class="panel"><div class="label">Windows host</div><h3>Virtual Machine</h3><div class="vm-preference">Preferred: WSL2</div><div class="stack"><div>Agent + tools</div><div class="kernel">Separate guest kernel</div><div>Hypervisor + host</div></div><p>A dedicated guest environment.<br>Budget for its OS, memory and disk.</p></div>
   </div>
   <div class="remote-strip"><strong>A remote host / VPS also works.</strong><span>Often the most convenient option when one is provided.</span></div>
   <div class="takeaway small">Harness controls are another layer. I also use them for workflow rules such as “ask before committing.”</div>
   <footer class="footer"><span>CHECK WHAT THE EFFECTIVE PERMISSIONS ALLOW</span><a href="notes.html#slide-3" target="_blank" rel="noopener">Tradeoffs &amp; notes ↗</a><span class="number">03 / 15</span></footer>
 </section>
 
-<section class="slide" data-title="Give agents the tools to finish" aria-labelledby="title-4">
+<section class="slide" data-title="A capable model still needs a usable environment" aria-labelledby="title-4">
   <div class="eyebrow"><span class="mark" aria-hidden="true"></span> 04 / A complete working environment</div>
-  <h2 id="title-4">Give agents the tools to finish.</h2><p class="lede">They should be able to build, run tests and reproduce the failure.</p>
+  <h2 id="title-4">A capable model still needs a usable environment.</h2><p class="lede">They should be able to build, run tests and reproduce the failure.</p>
   <div class="tool-path"><span>Edit</span><b aria-hidden="true">→</b><span>Build</span><b aria-hidden="true">→</b><span>Test</span><b aria-hidden="true">→</b><span>Reproduce on staging</span></div>
   <div class="grid2 tools">
     <div class="panel terminal"><div class="label">Missing a basic utility?</div><pre><code>jq: command not found
 falling back to grep…</code></pre><h3>Install jq.</h3><p>Fix recurring environment gaps.</p></div>
     <div class="panel board"><div class="label">Testing firmware?</div><div class="board-drawing" aria-hidden="true"><span>AGENT</span><b>↔</b><strong>TEST<br>BOARD</strong></div><h3>Provide access to the board.</h3><p>And the SDK, flashing tools and test setup.</p></div>
   </div>
-  <div class="takeaway">A capable model still needs a usable environment.</div>
   <footer class="footer"><span>TURN REPEATED WORKAROUNDS INTO ENVIRONMENT FIXES</span><a href="notes.html#slide-4" target="_blank" rel="noopener">Notes ↗</a><span class="number">04 / 15</span></footer>
 </section>
 
