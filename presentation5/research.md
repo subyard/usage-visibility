@@ -52,7 +52,7 @@ has 16 slides, including a separate explanation of skills as instructions on dem
 | 7 | Original Subyard slide 7; current lease contract | Independent cleanup, fencing, verification and quarantine |
 | 8 | Original Subyard slide 10 right panel; current Android skill | Discover → read → use, with a clickable broker link |
 | 9 | Presenter's conditional-instructions framing; official OpenAI Skills documentation | Explicit invocation or description-based selection, then load instructions |
-| 10 | Presenter's experience; Anthropic context-engineering research | Prune accumulated guidance; load details when needed |
+| 10 | Presenter's experience; Anthropic context-engineering research | Humans prune accumulated text; keep instructions minimal, open-ended and directional |
 | 11 | Existing Usage Visibility work; OTel GenAI agent conventions | Collect team evidence and connect resource use to outcomes |
 | 12 | Presentation 3 slide 10, anonymized native HTML summary | Ask an agent to review its workflow; validate its report |
 | 13 | Presentation 3 slide 2, original architecture diagram | Subyard as the presenter's reference implementation |
@@ -180,9 +180,13 @@ runtime feature in this repository.
 [Anthropic's effective context engineering research](https://www.anthropic.com/research/effective-context-engineering-for-ai-agents)
 supports high-signal context, clear tool contracts and loading details when
 needed. It explicitly distinguishes sufficient context from simply short
-context. The talk treats recurring verbosity as the presenter's observation;
-it does not turn it into a measured claim about all models or recommend deleting
-necessary constraints.
+context. The talk treats verbosity and retention of existing text under uncertain
+importance as the presenter's observation and causal framing. The source does
+not establish that explanation for every model. Human judgment determines what
+still matters and what can be removed; necessary constraints remain useful.
+The presenter favors minimal, open-ended instructions that set a direction and
+leave the model to infer ordinary steps. This is operating guidance, not a
+measured claim that models need no task-specific detail.
 
 ### Instrumentation still determines coverage
 
